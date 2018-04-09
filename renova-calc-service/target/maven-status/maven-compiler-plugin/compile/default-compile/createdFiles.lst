@@ -1,0 +1,15 @@
+br/gov/anp/renovacalc/dao/GenericDAO.class
+br/gov/anp/renovacalc/models/Rota.class
+br/gov/anp/renovacalc/dao/RotaVersaoSituacaoDAO.class
+br/gov/anp/renovacalc/exception/ArgumentoInvalidoException.class
+br/gov/anp/renovacalc/models/IIdentificavel.class
+br/gov/anp/renovacalc/models/RotaVersao.class
+br/gov/anp/renovacalc/dao/RotaVersaoDAO.class
+br/gov/anp/renovacalc/helpers/HibernateAwareObjectMapper.class
+br/gov/anp/renovacalc/service/RotaService.class
+br/gov/anp/renovacalc/dao/RotaDAO.class
+br/gov/anp/renovacalc/models/RotaSessao.class
+br/gov/anp/renovacalc/models/RotaVersaoSituacao.class
+br/gov/anp/renovacalc/dao/RotaSessaoDAO.class
+br/gov/anp/renovacalc/exception/RecursoNaoEncontradoException.class
+br/gov/anp/renovacalc/controller/RotaController.class
