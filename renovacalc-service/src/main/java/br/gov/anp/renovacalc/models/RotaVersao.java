@@ -12,19 +12,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@NamedQueries({
-    @NamedQuery(
-            name = RotaVersao.QUERY_ENCONTRAR_POR_ROTA_ID,
-            query = "SELECT v from RotaVersao v where rota.id = :rotaId"
-    ),
-    @NamedQuery(
-            name = RotaVersao.QUERY_ENCONTRAR_POR_ROTA_E_SITUACAO,
-            query = "SELECT v FROM RotaVersao v WHERE rota.id = :rotaId AND situacao.id = :situacaoId"
-    )
-})
 @Entity
 @Table(name = "ROTA_VERSAO")
-public class RotaVersao implements IIdentificavel {
+public class RotaVersao {
 
     private long id;
 
@@ -36,8 +26,6 @@ public class RotaVersao implements IIdentificavel {
 
     private Set<RotaSessao> sessoes = new HashSet<RotaSessao>();
 
-    public static final String QUERY_ENCONTRAR_POR_ROTA_ID = "query.encontrar.por.rota.id";
-    public static final String QUERY_ENCONTRAR_POR_ROTA_E_SITUACAO = "query.encontrar.por.rota.e.situacao";
 
     private RotaVersao() {
     }

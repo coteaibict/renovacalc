@@ -24,7 +24,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "ROTA_SESSAO")
-public class RotaSessao implements IIdentificavel {
+public class RotaSessao {
     private long id;
 
     private String descricao;

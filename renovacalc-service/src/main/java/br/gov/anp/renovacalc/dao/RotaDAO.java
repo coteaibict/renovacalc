@@ -16,28 +16,29 @@ package br.gov.anp.renovacalc.dao;
 import br.gov.anp.renovacalc.models.Rota;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * Interface que define o acesso de dados para Rota, incluindo CRUD básico
+ * A classe concreta é implementada automaticamente pela framework Spring
+ */
 @Repository
-public class RotaDAO extends GenericDAO<Rota> {
+public interface RotaDAO extends CrudRepository<Rota, Long> {
 
-    public RotaDAO() {
-        super(Rota.class);
-    }
 
     /**
      * Método que retorna todas as rotas cujo nome começam com o
      * determinado prefixo
-     * @param prefixo
+     * @param nome
      * @return
      */
-    @SuppressWarnings("unchecked")
-    public List<Rota> encontrarPorNome(String prefixo) {
-        Query query = em.unwrap(Session.class).getNamedQuery(Rota.QUERY_ENCONTRAR_POR_PADRAO_NOME);
-        query.setString("padrao", prefixo + "%");
-        return (List<Rota>) query.list();
-    }
+    List<Rota> findByNomeLike(String nome);
+
 
 }

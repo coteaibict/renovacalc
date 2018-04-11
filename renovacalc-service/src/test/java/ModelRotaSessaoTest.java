@@ -40,11 +40,12 @@ public class ModelRotaSessaoTest {
         em.persist(situacaoParam);
 
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
-        RotaSessao sessao1 = new RotaSessao(versaoParam, "sessao2", 2);
+        RotaSessao sessaoParam = new RotaSessao(versaoParam, "sessao2", 2);
+        AtributoTipoDado tipoParam = new AtributoTipoDado(1, "numerico");
         RotaAtributo atr = new RotaAtributo("atributo1", "blabla",
-                "m", "ATR1", 10, 0, "1+1" );
-        sessao1.adicionarAtributo(atr, "0");
-        versaoParam.adicionarSessao(sessao1);
+                "m", "ATR1", 10, 0, "1+1", tipoParam);
+        sessaoParam.adicionarAtributo(atr, "0");
+        versaoParam.adicionarSessao(sessaoParam);
 
         em.persist(versaoParam);
 

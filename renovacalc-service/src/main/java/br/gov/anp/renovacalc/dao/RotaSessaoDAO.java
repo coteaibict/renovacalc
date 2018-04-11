@@ -14,11 +14,13 @@
 package br.gov.anp.renovacalc.dao;
 
 import br.gov.anp.renovacalc.models.RotaSessao;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Interface que define o acesso de dados para RotaSessao, incluindo CRUD básico
+ * A classe concreta é implementada automaticamente pela framework Spring
+ */
 @Repository
-public class RotaSessaoDAO extends GenericDAO<RotaSessao> {
-    public RotaSessaoDAO() {
-        super(RotaSessao.class);
-    }
+public interface RotaSessaoDAO extends CrudRepository<RotaSessao, Long> {
 }

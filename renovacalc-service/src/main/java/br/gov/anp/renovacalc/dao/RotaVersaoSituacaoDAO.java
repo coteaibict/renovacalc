@@ -14,12 +14,13 @@
 package br.gov.anp.renovacalc.dao;
 
 import br.gov.anp.renovacalc.models.RotaVersaoSituacao;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Interface que define o acesso de dados para RotaVersaoSituacao, incluindo CRUD básico
+ * A classe concreta é implementada automaticamente pela framework Spring
+ */
 @Repository
-public class RotaVersaoSituacaoDAO extends GenericDAO<RotaVersaoSituacao> {
-    public RotaVersaoSituacaoDAO() {
-        super(RotaVersaoSituacao.class);
-    }
-
+public interface RotaVersaoSituacaoDAO extends CrudRepository<RotaVersaoSituacao, Long> {
 }

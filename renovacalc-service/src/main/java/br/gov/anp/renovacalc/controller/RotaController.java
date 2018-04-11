@@ -15,8 +15,6 @@
 
 package br.gov.anp.renovacalc.controller;
 
-import br.gov.anp.renovacalc.dao.RotaSessaoDAO;
-import br.gov.anp.renovacalc.dao.RotaVersaoSituacaoDAO;
 import br.gov.anp.renovacalc.exception.ArgumentoInvalidoException;
 import br.gov.anp.renovacalc.exception.RecursoNaoEncontradoException;
 import br.gov.anp.renovacalc.models.Rota;
@@ -28,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,9 +46,9 @@ public class RotaController {
         rotaService.setup();
     }
 
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
-    public void del() {
-        rotaService.del();
+    @RequestMapping(value = "/tst", method = RequestMethod.GET)
+    public RotaVersao del() {
+        return rotaService.tst();
     }
 
     /**
@@ -151,18 +148,18 @@ public class RotaController {
     }
 
     /**
-     * Método controlador para retornar todas as rotas cujo nome iniciam com prefixo
+     * Método controlador para retornar todas as rotas cujo nome contém :nome
      * Associado ao método GET em /rotas/search
-     * @param prefixo
-     * @return Lista de rotas cujo nome começam com o prefixo
+     * @param nome
+     * @return Lista de rotas cujo nome contém :nome
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Rota> encontrarPorPrefixo(@RequestParam(value = "prefixo", required = true) String prefixo) {
-        logger.trace("Entrando em encontrarPorPrefixo()");
+    public List<Rota> encontrarPorNome(@RequestParam(value = "nome", required = true) String nome) {
+        logger.trace("Entrando em encontrarPorNome()");
 
-        List<Rota> lp = rotaService.encontrarPorNome(prefixo);
+        List<Rota> lp = rotaService.encontrarPorNome(nome);
 
-        logger.trace("Saindo de encontrarPorPrefixo()");
+        logger.trace("Saindo de encontrarPorNome()");
         return lp;
     }
 

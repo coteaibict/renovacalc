@@ -13,12 +13,14 @@ package br.gov.anp.renovacalc.models;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ROTA_ATRIBUTO")
-public class RotaAtributo implements IIdentificavel {
+public class RotaAtributo {
 
     private long id;
 
@@ -36,12 +38,12 @@ public class RotaAtributo implements IIdentificavel {
 
     private String formula;
 
-    //private AtributoTipoDado tipo;
+    private AtributoTipoDado tipo;
 
     public RotaAtributo() { }
 
     public RotaAtributo(String nome, String descricao, String unidadeMedida, String tag, int tamanho,
-            int precisao, String formula) {
+            int precisao, String formula, AtributoTipoDado tipo) {
         this.nome = nome;
         this.descricao = descricao;
         this.unidadeMedida = unidadeMedida;
@@ -49,6 +51,7 @@ public class RotaAtributo implements IIdentificavel {
         this.tamanho = tamanho;
         this.precisao = precisao;
         this.formula = formula;
+        this.tipo = tipo;
     }
 
     @Id
@@ -85,10 +88,11 @@ public class RotaAtributo implements IIdentificavel {
     public String getFormula() { return formula; }
     public void setFormula(String formula) { this.formula = formula; }
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @Fetch(FetchMode.JOIN)
-//    @JoinColumn(name = "COD_TIPO_DADO", nullable = false)
-//    public AtributoTipoDado getTipo() { return tipo; }
-//    public void setTipo(AtributoTipoDado tipo) { this.tipo = tipo; }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "COD_TIPO_DADO", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    public AtributoTipoDado getTipo() { return tipo; }
+    public void setTipo(AtributoTipoDado tipo) { this.tipo = tipo; }
 
 }

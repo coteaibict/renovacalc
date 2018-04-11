@@ -16,16 +16,18 @@ package br.gov.anp.renovacalc.dao;
 import br.gov.anp.renovacalc.models.RotaVersao;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Interface que define o acesso de dados para RotaVersao, incluindo CRUD básico
+ * A classe concreta é implementada automaticamente pela framework Spring
+ */
 @Repository
-public class RotaVersaoDAO extends GenericDAO<RotaVersao> {
+public interface RotaVersaoDAO extends CrudRepository<RotaVersao, Long> {
 
-    public RotaVersaoDAO() {
-       super(RotaVersao.class);
-    }
 
     /**
      * Método para retornar todas as versões de uma determinada rota
@@ -36,13 +38,7 @@ public class RotaVersaoDAO extends GenericDAO<RotaVersao> {
      * @return Lista com as versões da rota com ID rotaId e situacao
      * correspondente a situacaoId
      */
-    @SuppressWarnings("unchecked")
-    public List<RotaVersao> encontrarVersoesPorSituacaoERotaID(long rotaId, long situacaoId) {
-        Query query = em.unwrap(Session.class).getNamedQuery(RotaVersao.QUERY_ENCONTRAR_POR_ROTA_E_SITUACAO);
-        query.setLong("rotaId", rotaId);
-        query.setLong("situacaoId", situacaoId);
-        return (List<RotaVersao>) query.list();
-    }
+    List<RotaVersao> findByRotaIdAndSituacaoId(long rotaId, long situacaoId);
 
     /**
      * Método para retornar todas as versões de uma determinada rota.
@@ -50,11 +46,6 @@ public class RotaVersaoDAO extends GenericDAO<RotaVersao> {
      * @param rotaId
      * @return Lista com as versões da rota com ID rotaId
      */
-    @SuppressWarnings("unchecked")
-    public List<RotaVersao> encontrarPorRotaID(long rotaId) {
-        Query query = em.unwrap(Session.class).getNamedQuery(RotaVersao.QUERY_ENCONTRAR_POR_ROTA_ID);
-        query.setLong("rotaId", rotaId);
-        return (List<RotaVersao>) query.list();
-    }
+    List<RotaVersao> findByRotaId(long rotaId);
 }
 

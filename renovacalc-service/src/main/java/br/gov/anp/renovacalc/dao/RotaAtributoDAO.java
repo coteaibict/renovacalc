@@ -12,12 +12,9 @@
 package br.gov.anp.renovacalc.dao;
 
 import br.gov.anp.renovacalc.models.RotaAtributo;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RotaAtributoDAO extends GenericDAO<RotaAtributo> {
-
-    public RotaAtributoDAO() {
-        super(RotaAtributo.class);
-    }
+public interface RotaAtributoDAO extends CrudRepository<RotaAtributo, Long> {
 }

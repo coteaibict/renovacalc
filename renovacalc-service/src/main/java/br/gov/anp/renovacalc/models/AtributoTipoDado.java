@@ -18,11 +18,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ATRIBUTO_TIPO_DADO")
-public class AtributoTipoDado implements IIdentificavel {
+public class AtributoTipoDado {
 
     private long id;
 
     private String descricao;
+
+    public AtributoTipoDado() {
+    }
+
+    public AtributoTipoDado(long id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 
     @Id
     @Column(name = "COD_TIPO_DADO")

@@ -46,43 +46,34 @@ public class RotaService {
 
     public void setup() {
         Rota rota = salvar(new Rota(0, "etanol"));
-        RotaVersaoSituacao situacao = situacaoDAO.salvar(new RotaVersaoSituacao(1, "atual"));
+        RotaVersaoSituacao situacao = situacaoDAO.save(new RotaVersaoSituacao(1, "atual"));
         RotaVersao versao = new RotaVersao(rota, situacao, 1);
         RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2);
         RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1);
+        AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
         sessao1.adicionarAtributo(new RotaAtributo("atributo1", "blabla",
-                "m", "ATR1", 10, 0, "1+1" ), "0");
+                "m", "ATR1", 10, 0, "1+1", tipo), "0");
         sessao2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
-                "m", "ATR2", 10, 0, "1+1" ), "0");
+                "m", "ATR2", 10, 0, "1+1", tipo), "0");
         versao.adicionarSessao(sessao1);
         versao.adicionarSessao(sessao2);
-        rotaVersaoDAO.salvar(versao);
+        rotaVersaoDAO.save(versao);
     }
 
-    public void del() {
-        RotaAtributo atr = atributoDAO.encontrarTodas().get(0);
-        atributoDAO.remover(atr);
+    public RotaVersao tst() {
+        RotaVersaoSituacao situacao = situacaoDAO.findAll().iterator().next();
+        Rota rota = rotaDAO.findAll().iterator().next();
+
+        return rotaVersaoDAO.findByRotaIdAndSituacaoId(rota.getId(), situacao.getId()).get(0);
     }
 
     /**
-     * Abstração de serviço para salvar uma rota nova
+     * Abstração de serviço para salvar uma rota
      * @param rota
      * @return Rota salva com ID gerado pelo DB
      */
     public Rota salvar(Rota rota) {
-        rota = rotaDAO.salvar(rota);
-        return rota;
-    }
-
-    /**
-     * Abstração de serviço para atualizar uma rota
-     * @param rota
-     * @throws RecursoNaoEncontradoException : quando rota já possui
-     * um ID que nao tem correspondente no banco
-     * @return Rota atualizada
-     */
-    public Rota atualizar(Rota rota) throws RecursoNaoEncontradoException {
-        rota = rotaDAO.atualizar(rota);
+        rota = rotaDAO.save(rota);
         return rota;
     }
 
@@ -92,7 +83,7 @@ public class RotaService {
      * @return Objeto RotaVersão com ID gerado pelo DB
      */
     public RotaVersao salvarVersao(RotaVersao versao) {
-        return rotaVersaoDAO.salvar(versao);
+        return rotaVersaoDAO.save(versao);
     }
 
     /**
@@ -101,7 +92,7 @@ public class RotaService {
      * @return A rota encontrada caso exista, NULL caso não exista
      */
     public Rota encontrarPorID(long id) {
-        return rotaDAO.encontrarPorID(id);
+        return rotaDAO.findOne(id);
     }
 
     /**
@@ -111,7 +102,7 @@ public class RotaService {
      * @return Lista com as versões (RotaVersao)
      */
     public List<RotaVersao> encontrarVersoesPorRotaID(long rotaId) {
-        return rotaVersaoDAO.encontrarPorRotaID(rotaId);
+        return rotaVersaoDAO.findByRotaId(rotaId);
     }
 
     /**
@@ -121,7 +112,7 @@ public class RotaService {
      * @return Lista de rotas recuperadas
      */
     public List<Rota> encontrarPorNome(String prefixo) {
-        return rotaDAO.encontrarPorNome(prefixo);
+        return rotaDAO.findByNomeLike(prefixo);
     }
 
     // Getters/Setters
@@ -143,6 +134,6 @@ public class RotaService {
     }
 
     public RotaVersaoSituacao encontrarSituacaoPorId(long id) {
-        return situacaoDAO.encontrarPorID(id);
+        return situacaoDAO.findOne(id);
     }
 }

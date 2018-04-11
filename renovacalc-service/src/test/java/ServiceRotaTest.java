@@ -61,7 +61,7 @@ public class ServiceRotaTest {
     public void deveSalvarRota() {
         Rota rotaParam = new Rota(0, "etanol");
         Rota rotaExpected = new Rota(1, "etanol");
-        when(rotaDAO.salvar(rotaParam)).thenReturn(rotaExpected);
+        when(rotaDAO.save(rotaParam)).thenReturn(rotaExpected);
 
         Rota returned = rotaService.salvar(rotaParam);
         Assert.assertEquals(rotaExpected, returned);
@@ -73,7 +73,7 @@ public class ServiceRotaTest {
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         RotaVersao rotaVersaoExpected = new RotaVersao(rotaParam, situacaoParam, 1);
 
-        when(rotaVersaoDAO.salvar(new RotaVersao(rotaParam, situacaoParam, 1))).thenReturn(rotaVersaoExpected);
+        when(rotaVersaoDAO.save(new RotaVersao(rotaParam, situacaoParam, 1))).thenReturn(rotaVersaoExpected);
 
         RotaVersao returned = rotaService.salvarVersao(new RotaVersao(rotaParam, situacaoParam, 1));
         Assert.assertEquals(rotaVersaoExpected, returned);
@@ -82,7 +82,7 @@ public class ServiceRotaTest {
     @Test
     public void deveEncontrarRotaPorID() {
         Rota rotaExpected = new Rota(1, "etanol");
-        when(rotaDAO.encontrarPorID(1)).thenReturn(rotaExpected);
+        when(rotaDAO.findOne((long) 1)).thenReturn(rotaExpected);
 
         Rota returned = rotaService.encontrarPorID(1);
         Assert.assertEquals(rotaExpected, returned);
@@ -96,7 +96,7 @@ public class ServiceRotaTest {
                 .asList(new RotaVersao(1, rota, situacao, 1), new RotaVersao(2, rota, situacao, 2),
                         new RotaVersao(3, rota, situacao, 3));
 
-        when(rotaVersaoDAO.encontrarPorRotaID(1)).thenReturn(versaoListExpected);
+        when(rotaVersaoDAO.findByRotaId((long) 1)).thenReturn(versaoListExpected);
 
         List<RotaVersao> returned = rotaService.encontrarVersoesPorRotaID(1);
 
@@ -106,7 +106,7 @@ public class ServiceRotaTest {
     @Test
     public void deveEncontrarRotaPorNome() {
         List<Rota> rotaExpectedList = Arrays.asList(new Rota(1, "etanol"));
-        when(rotaDAO.encontrarPorNome("et")).thenReturn(rotaExpectedList);
+        when(rotaDAO.findByNomeLike("et")).thenReturn(rotaExpectedList);
 
         List<Rota> returned = rotaService.encontrarPorNome("et");
         Assert.assertEquals(rotaExpectedList, returned);
