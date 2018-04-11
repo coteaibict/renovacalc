@@ -37,7 +37,8 @@ public class RotaAtributoItem {
 
     @Id
     @Column(name = "SEQ_ROTA_ATRIBUTO_ITEM")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceAtributoItem")
+    @SequenceGenerator(name = "sequenceAtributoItem", sequenceName = "SICO_ATRIBUTO_ITEM", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

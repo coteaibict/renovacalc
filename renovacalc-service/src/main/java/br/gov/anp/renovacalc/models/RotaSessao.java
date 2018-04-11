@@ -45,7 +45,8 @@ public class RotaSessao {
 
     @Id
     @Column(name = "SEQ_ROTA_SESSAO")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceSessao")
+    @SequenceGenerator(name = "sequenceSessao", sequenceName = "SICO_SESSAO", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

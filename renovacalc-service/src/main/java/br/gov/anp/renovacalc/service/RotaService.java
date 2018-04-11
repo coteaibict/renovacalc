@@ -116,12 +116,12 @@ public class RotaService {
 
     /**
      * Abstração de serviço que retorna todas as rotas cujo nome
-     * começam com o prefixo enviado
-     * @param prefixo
+     * contém :nome
+     * @param nome
      * @return Lista de rotas recuperadas
      */
-    public List<Rota> encontrarPorNome(String prefixo) {
-        return rotaDAO.findByNomeLike(prefixo);
+    public List<Rota> encontrarPorNome(String nome) {
+        return rotaDAO.findByNomeLike(nome);
     }
 
     // Getters/Setters
