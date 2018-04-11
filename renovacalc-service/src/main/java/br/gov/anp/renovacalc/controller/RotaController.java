@@ -47,8 +47,8 @@ public class RotaController {
     }
 
     @RequestMapping(value = "/tst", method = RequestMethod.GET)
-    public RotaVersao del() {
-        return rotaService.tst();
+    public void del() {
+        rotaService.tst();
     }
 
     /**

@@ -46,13 +46,23 @@ public class RotaService {
 
     public void setup() {
         Rota rota = salvar(new Rota(0, "etanol"));
+
         RotaVersaoSituacao situacao = situacaoDAO.save(new RotaVersaoSituacao(1, "atual"));
+
         RotaVersao versao = new RotaVersao(rota, situacao, 1);
+
         RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2);
         RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1);
+
         AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
-        sessao1.adicionarAtributo(new RotaAtributo("atributo1", "blabla",
-                "m", "ATR1", 10, 0, "1+1", tipo), "0");
+        AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
+
+        RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
+                "", "ATR1", 0, 0, "", tipo2);
+
+        atributo.adicionarItem(new RotaAtributoItem(0, "item1", atributo));
+        sessao1.adicionarAtributo(atributo,"item1");
+
         sessao2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
                 "m", "ATR2", 10, 0, "1+1", tipo), "0");
         versao.adicionarSessao(sessao1);
@@ -60,11 +70,10 @@ public class RotaService {
         rotaVersaoDAO.save(versao);
     }
 
-    public RotaVersao tst() {
-        RotaVersaoSituacao situacao = situacaoDAO.findAll().iterator().next();
-        Rota rota = rotaDAO.findAll().iterator().next();
-
-        return rotaVersaoDAO.findByRotaIdAndSituacaoId(rota.getId(), situacao.getId()).get(0);
+    public void tst() {
+        for (RotaAtributo atributo : atributoDAO.findAll()) {
+           atributoDAO.delete(atributo);
+        }
     }
 
     /**

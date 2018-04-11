@@ -11,6 +11,7 @@ br/gov/anp/renovacalc/helpers/HibernateAwareObjectMapper.class
 br/gov/anp/renovacalc/dao/RotaDAO.class
 br/gov/anp/renovacalc/service/RotaService.class
 br/gov/anp/renovacalc/models/RotaSessao.class
+br/gov/anp/renovacalc/models/RotaAtributoItem.class
 br/gov/anp/renovacalc/models/RotaVersaoSituacao.class
 br/gov/anp/renovacalc/models/keys/SessaoAtributoKey.class
 br/gov/anp/renovacalc/dao/RotaSessaoDAO.class

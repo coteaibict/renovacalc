@@ -17,6 +17,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ROTA_ATRIBUTO")
@@ -39,6 +41,8 @@ public class RotaAtributo {
     private String formula;
 
     private AtributoTipoDado tipo;
+
+    private Set<RotaAtributoItem> items = new HashSet<>();
 
     public RotaAtributo() { }
 
@@ -95,4 +99,18 @@ public class RotaAtributo {
     public AtributoTipoDado getTipo() { return tipo; }
     public void setTipo(AtributoTipoDado tipo) { this.tipo = tipo; }
 
+    @OneToMany(mappedBy = "atributo", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
+    public Set<RotaAtributoItem> getItems() { return items; }
+    public void setItems(Set<RotaAtributoItem> items) { this.items = items; }
+
+
+    /**
+     * Método para adicionar um item diretamente a um atributo
+     * @param item
+     */
+    public void adicionarItem(RotaAtributoItem item) {
+        item.setAtributo(this);
+        items.add(item);
+    }
 }

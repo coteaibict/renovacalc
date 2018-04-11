@@ -72,6 +72,10 @@ public class RotaVersao {
     public void setSessoes(Set<RotaSessao> sessoes) { this.sessoes = sessoes; }
 
 
+    /**
+     * Método para adicionar uma sessao diretamente a uma versão
+     * @param sessao
+     */
     public void adicionarSessao(RotaSessao sessao) {
         sessao.setRotaVersao(this);
         sessoes.add(sessao);

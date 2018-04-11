@@ -14,6 +14,7 @@
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/dao/RotaDAO.java
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/dao/RotaAtributoDAO.java
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/dao/AtributoTipoDadoDAO.java
+/home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/models/RotaAtributoItem.java
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/models/RotaSessao.java
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/models/RotaSessaoAtributo.java
 /home/amaral/code/outros/ibict/renovaCalc/renovacalc-service/src/main/java/br/gov/anp/renovacalc/models/Rota.java
