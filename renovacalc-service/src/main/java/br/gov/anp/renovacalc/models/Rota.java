@@ -17,12 +17,6 @@ package br.gov.anp.renovacalc.models;
 import javax.persistence.*;
 import java.util.Objects;
 
-@NamedQueries({
-        @NamedQuery(
-                name = Rota.QUERY_ENCONTRAR_POR_PADRAO_NOME,
-                query = "SELECT r from Rota r where r.nome LIKE :padrao"
-        ),
-})
 @Entity
 @Table(name = "ROTA")
 public class Rota {
@@ -30,8 +24,6 @@ public class Rota {
     private long id;
 
     private String nome;
-
-    public static final String QUERY_ENCONTRAR_POR_PADRAO_NOME = "query.encontrar.por.padrao.nome";
 
     public Rota() { }
 

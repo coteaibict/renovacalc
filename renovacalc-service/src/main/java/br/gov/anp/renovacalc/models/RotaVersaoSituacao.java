@@ -27,8 +27,7 @@ public class RotaVersaoSituacao {
 
     private String descricao;
 
-    public RotaVersaoSituacao() {
-    }
+    public RotaVersaoSituacao() { }
 
     public RotaVersaoSituacao(long id, String desc) {
         this.id = id;

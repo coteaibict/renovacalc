@@ -35,6 +35,7 @@ public class RotaAtributoItem {
     }
 
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Id
     @Column(name = "SEQ_ROTA_ATRIBUTO_ITEM")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceAtributoItem")
