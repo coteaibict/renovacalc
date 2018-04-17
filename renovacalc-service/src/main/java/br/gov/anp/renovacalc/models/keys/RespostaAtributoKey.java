@@ -12,13 +12,14 @@
 package br.gov.anp.renovacalc.models.keys;
 
 import javax.persistence.Column;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Classe que guarda as chaves estrangeiras da tabela RespostaAtributo.
  * Usada como chave composta de RotaRespostaAtributo
  */
-public class RespostaAtributoKey {
+public class RespostaAtributoKey implements Serializable {
     private long repostaId;
 
     private long atributoId;
