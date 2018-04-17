@@ -66,7 +66,6 @@ public class RotaSessao {
     public void setRotaVersao(RotaVersao rotaVersao) { this.rotaVersao = rotaVersao; }
 
     @OneToMany(mappedBy = "sessao", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
-    @OrderBy("NUM_ORDEM")
     public Set<RotaSessaoAtributo> getAtributos() { return atributos; }
     public void setAtributos(Set<RotaSessaoAtributo> atributos) { this.atributos = atributos; }
 
