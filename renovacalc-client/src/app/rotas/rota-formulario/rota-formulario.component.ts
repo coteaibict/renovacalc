@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { RotaVersao } from '../rota-versao.model'
+import { Rota } from '../rota.model'
 import { RotaService } from '../rota.service'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs/Observable'
 
 @Component({
     selector: 'app-rota-formulario',
@@ -9,12 +12,16 @@ import { RotaService } from '../rota.service'
 })
 export class RotaFormularioComponent implements OnInit {
 
+    rota: Rota;
     versao: RotaVersao;
 
-    constructor(private rotaService: RotaService) { }
+    private rotasUrl = 'api/rotas';
+
+    constructor(private rotaService: RotaService, private http: HttpClient) { }
 
     ngOnInit() {
-        this.versao = this.rotaService.getVersaoAtual();
+        this.rota = new Rota(1, "dummy");
+        this.rotaService.getVersaoAtual(this.rota).subscribe(versao => this.versao = versao);
     }
 
 }

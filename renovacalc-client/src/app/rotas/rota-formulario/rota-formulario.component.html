@@ -1,9 +1,8 @@
-<div>
-    <div *ngFor="let sessao of versao.sessoes">
+<div *ngIf="versao">
+    <div *ngFor="let sessao of versao.sessoes"> {{ sessao.descricao }} <br/>
         <div  *ngFor="let a of sessao.atributos">  
             <label> {{a.atributo.nome}}
-                teste
-                <!-- <input type="text" value="{{a.valorPadrao}}" id="atributo-{{a.atributo.id}}"/> -->
+                <input type="text" value="{{a.valorPadrao}}" id="atributo-{{a.atributo.id}}"/><br/>
             </label>
         </div>
     </div>

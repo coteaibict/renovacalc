@@ -14,7 +14,6 @@
 package br.gov.anp.renovacalc.service;
 
 import br.gov.anp.renovacalc.dao.*;
-import br.gov.anp.renovacalc.exception.RecursoNaoEncontradoException;
 import br.gov.anp.renovacalc.models.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +121,17 @@ public class RotaService {
      */
     public List<Rota> encontrarPorNome(String nome) {
         return rotaDAO.findByNomeLike(nome);
+    }
+
+    public RotaVersao recuperarVersaoAtualDeRota(long rotaID) {
+         return rotaVersaoDAO.versaoAtualPorRota(1);
+//        List<RotaVersao> versoes =
+//        if (versoes.isEmpty()) {
+//            //throw exception
+//            return null;
+//        } else {
+//            return versoes.get(0);
+//        }
     }
 
     // Getters/Setters

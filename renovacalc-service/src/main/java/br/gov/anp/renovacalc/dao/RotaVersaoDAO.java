@@ -14,10 +14,11 @@
 package br.gov.anp.renovacalc.dao;
 
 import br.gov.anp.renovacalc.models.RotaVersao;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -28,6 +29,15 @@ import java.util.List;
 @Repository
 public interface RotaVersaoDAO extends CrudRepository<RotaVersao, Long> {
 
+    /**
+     * Método para retornar a versão atual da rota.
+     * Assume que a situação cadastrada como atual possui código 1
+     * e que apenas uma versão é atual
+     * @param rotaId
+     * @return A versão atual da rota
+     */
+    @Query("SELECT v FROM RotaVersao v WHERE v.situacao.id = 1 and v.rota.id = :id")
+    RotaVersao versaoAtualPorRota(@Param("id") long rotaId);
 
     /**
      * Método para retornar todas as versões de uma determinada rota

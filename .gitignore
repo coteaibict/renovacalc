@@ -1,2 +1,4 @@
 .idea
 .settings
+renovacalc-service/target
+renovacalc-client/dist

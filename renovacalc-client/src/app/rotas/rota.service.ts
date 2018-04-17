@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import { RotaVersao } from './rota-versao.model'
+import { Rota } from './rota.model'
 import { RotaSessao } from './rota-sessao.model'
-import { RotaSessaoAtributo } from './rota-sessao-atributo.model'
 import { RotaAtributo } from './rota-atributo.model'
+import { RotaSessaoAtributo } from './rota-sessao-atributo.model'
+import { Observable } from 'rxjs/Observable'
+import { of } from 'rxjs/observable/of';
+import { tap, map } from 'rxjs/operators';
 
 @Injectable()
 export class RotaService {
 
-    constructor() { }
+    private rotasUrl = 'http://localhost:8080/renovaCalc/api/rotas';
 
-    getVersaoAtual() : RotaVersao {
-        let sessoes = [new RotaSessao(1, "sessao 1", 1, null, [new RotaSessaoAtributo("0", 1, true, true, true, false, null, 
-                            new RotaAtributo(1, "dado1", "asdf", "m", "ATR1", 1, 1, "", {id: 1, descricao: "real"},  []) )]), 
-                       new RotaSessao(2, "sessao 2", 2, null, [new RotaSessaoAtributo("0", 1, true, true, true, false, null, 
-                            new RotaAtributo(2, "dado2", "asdf", "m", "ATR2", 1, 1, "", {id: 2, descricao: "real"}, []))])]
-        return new RotaVersao(1, 1, null, null, sessoes);
+
+    constructor(private http: HttpClient) { }
+
+    getVersaoAtual(rota : Rota) : Observable<RotaVersao> {
+        return this.http.get<RotaVersao[]>(this.rotasUrl + "/" + rota.id).pipe( 
+            map( versoes => versoes[0] ),
+            tap ( versao => console.log(versao))
+        );
     }
 
 

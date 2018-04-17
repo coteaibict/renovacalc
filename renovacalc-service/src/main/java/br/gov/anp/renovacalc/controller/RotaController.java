@@ -32,9 +32,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin("*")
 @ComponentScan("br.gov.anp.renovacalc")
 @RestController
-@RequestMapping("/rotas")
+@RequestMapping("/api/rotas")
 public class RotaController {
     @Autowired
     private RotaService rotaService;
@@ -74,6 +75,11 @@ public class RotaController {
         logger.info("Objeto Rota de id " + rota.getId() + " persistido");
 
         logger.trace("Saindo de adicionarRota()");
+    }
+
+    @RequestMapping(value = "/{rotaID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public RotaVersao recuperarVersaoAtualDeRota(@PathVariable("rotaID") long rotaID) {
+        return rotaService.recuperarVersaoAtualDeRota(rotaID);
     }
 
     /**
