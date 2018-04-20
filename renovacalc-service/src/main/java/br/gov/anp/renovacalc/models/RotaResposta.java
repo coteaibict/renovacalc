@@ -11,9 +11,14 @@
 
 package br.gov.anp.renovacalc.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -49,6 +54,10 @@ public class RotaResposta {
 
     private Timestamp dataEnvio;
 
+    private RotaUsina usina;
+
+    private RotaVersao versao;
+
     private Set<RotaRespostaAtributo> respostas = new HashSet<>();
 
 
@@ -56,7 +65,7 @@ public class RotaResposta {
 
     public RotaResposta(String nomeUsina, String endereco, String enderecoNumero, String enderecoComplemento,
             String enderecoBairro, String enderecoCEP, String nomeContato, String telefoneContato, String emailContato,
-            boolean ativo, Timestamp dataEnvio) {
+            boolean ativo, Timestamp dataEnvio, RotaUsina usina, RotaVersao versao) {
         this.nomeUsina = nomeUsina;
         this.endereco = endereco;
         this.enderecoNumero = enderecoNumero;
@@ -68,7 +77,21 @@ public class RotaResposta {
         this.emailContato = emailContato;
         this.ativo = ativo;
         this.dataEnvio = dataEnvio;
+        this.usina = usina;
+        this.versao = versao;
     }
+
+
+    /**
+     * Método para adicionar um novo item de resposta, correspondendo ao preenchimento de um atributo
+     * @param respostaAtributo item a ser adicionado
+     */
+    public void adicionarRespostaAtributo(RotaRespostaAtributo respostaAtributo) {
+        respostaAtributo.setResposta(this);
+        respostas.add(respostaAtributo);
+    }
+
+    // Getters/Setters
 
     @Id
     @Column(name = "SEQ_ROTA_RESPOSTA")
@@ -121,7 +144,51 @@ public class RotaResposta {
     public Timestamp getDataEnvio() { return dataEnvio; }
     public void setDataEnvio(Timestamp dataEnvio) { this.dataEnvio = dataEnvio; }
 
+    // TODO: Trocar nullable para false quando autenticação for feita
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "SEQ_ROTA_USINA", nullable = true)
+    public RotaUsina getUsina() { return usina; }
+    public void setUsina(RotaUsina usina) { this.usina = usina; }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.EAGER)
+@Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "SEQ_ROTA_VERSAO", nullable = false)
+    public RotaVersao getVersao() { return versao; }
+    public void setVersao(RotaVersao versao) { this.versao = versao; }
+
     @OneToMany(mappedBy = "resposta", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
     public Set<RotaRespostaAtributo> getRespostas() { return respostas; }
     public void setRespostas(Set<RotaRespostaAtributo> respostas) { this.respostas = respostas; }
+
+    // Equals/Hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        RotaResposta that = (RotaResposta) o;
+        return getId() == that.getId() && isAtivo() == that.isAtivo() && Objects
+                .equals(getNomeUsina(), that.getNomeUsina()) && Objects.equals(getEndereco(), that.getEndereco())
+                && Objects.equals(getEnderecoNumero(), that.getEnderecoNumero()) && Objects
+                .equals(getEnderecoComplemento(), that.getEnderecoComplemento()) && Objects
+                .equals(getEnderecoBairro(), that.getEnderecoBairro()) && Objects
+                .equals(getEnderecoCEP(), that.getEnderecoCEP()) && Objects
+                .equals(getNomeContato(), that.getNomeContato()) && Objects
+                .equals(getTelefoneContato(), that.getTelefoneContato()) && Objects
+                .equals(getEmailContato(), that.getEmailContato()) && Objects
+                .equals(getDataEnvio(), that.getDataEnvio()) &&
+                ((RotaResposta) o).getUsina().getId() == that.getUsina().getId() &&
+                ((RotaResposta) o).getVersao().getId() == that.getVersao().getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNomeUsina(), getEndereco(), getEnderecoNumero(), getEnderecoComplemento(),
+                getEnderecoBairro(), getEnderecoCEP(), getNomeContato(), getTelefoneContato(), getEmailContato(),
+                isAtivo(), getDataEnvio(), getUsina().getId(), getVersao().getId());
+    }
 }

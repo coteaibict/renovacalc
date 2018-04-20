@@ -44,11 +44,11 @@ public interface RotaVersaoDAO extends CrudRepository<RotaVersao, Long> {
      * para uma dada situacao
      * Caso a rota ou situacao não exista, retorna apenas a lista vazia.
      * @param rotaId
-     * @param situacaoId
+     * @param situacaoCodigo
      * @return Lista com as versões da rota com ID rotaId e situacao
-     * correspondente a situacaoId
+     * correspondente a situacaoCodigo
      */
-    List<RotaVersao> findByRotaIdAndSituacaoId(long rotaId, long situacaoId);
+    List<RotaVersao> findByRotaIdAndSituacaoCodigo(long rotaId, long situacaoCodigo);
 
     /**
      * Método para retornar todas as versões de uma determinada rota.

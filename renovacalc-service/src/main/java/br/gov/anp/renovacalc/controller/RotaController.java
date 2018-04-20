@@ -138,7 +138,7 @@ public class RotaController {
             throw new RecursoNaoEncontradoException("ROTA_NAO_ENCONTRADA");
         }
 
-        RotaVersaoSituacao situacao = rotaService.encontrarSituacaoPorId(versao.getSituacao().getId());
+        RotaVersaoSituacao situacao = rotaService.encontrarSituacaoPorId(versao.getSituacao().getCodigo());
         if (situacao == null) {
             throw new RecursoNaoEncontradoException("ROTA_NAO_ENCONTRADA");
         }

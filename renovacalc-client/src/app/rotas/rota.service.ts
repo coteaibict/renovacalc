@@ -13,7 +13,7 @@ import { tap, map } from 'rxjs/operators';
 @Injectable()
 export class RotaService {
 
-    private rotasUrl = 'http://localhost:8080/renovaCalc/api/rotas';
+    private rotasUrl = '/api/rotas';
 
 
     constructor(private http: HttpClient) { }

@@ -61,7 +61,7 @@ public class RotaVersao {
     public Rota getRota() { return rota; }
     public void setRota(Rota rota) { this.rota = rota; }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "COD_ROTA_VERSAO_SITUACAO", nullable = false)
     public RotaVersaoSituacao getSituacao() { return situacao; }
@@ -91,12 +91,12 @@ public class RotaVersao {
         RotaVersao versao = (RotaVersao) o;
         return  getNumVersao() == versao.getNumVersao() &&
                 getRota().getId() == versao.getRota().getId() &&
-                getSituacao().getId() == versao.getSituacao().getId();
+                getSituacao().getCodigo() == versao.getSituacao().getCodigo();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNumVersao(), getRota().getId(), getSituacao().getId());
+        return Objects.hash(getNumVersao(), getRota().getId(), getSituacao().getCodigo());
     }
 }
 

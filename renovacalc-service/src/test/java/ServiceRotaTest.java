@@ -28,6 +28,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,8 +60,9 @@ public class ServiceRotaTest {
 
     @Test
     public void deveSalvarRota() {
-        Rota rotaParam = new Rota(0, "etanol");
-        Rota rotaExpected = new Rota(1, "etanol");
+        Rota rotaParam = new Rota("etanol");
+        Rota rotaExpected = new Rota("etanol");
+        rotaExpected.setId(1);
         when(rotaDAO.save(rotaParam)).thenReturn(rotaExpected);
 
         Rota returned = rotaService.salvar(rotaParam);
@@ -69,9 +71,11 @@ public class ServiceRotaTest {
 
     @Test
     public void deveSalvarVersaoDeRota() throws RecursoNaoEncontradoException {
-        Rota rotaParam = new Rota(1, "etanol");
+        Rota rotaParam = new Rota("etanol");
+        rotaParam.setId(1);
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         RotaVersao rotaVersaoExpected = new RotaVersao(rotaParam, situacaoParam, 1);
+        rotaVersaoExpected.setId(1);
 
         when(rotaVersaoDAO.save(new RotaVersao(rotaParam, situacaoParam, 1))).thenReturn(rotaVersaoExpected);
 
@@ -81,7 +85,8 @@ public class ServiceRotaTest {
 
     @Test
     public void deveEncontrarRotaPorID() {
-        Rota rotaExpected = new Rota(1, "etanol");
+        Rota rotaExpected = new Rota("etanol");
+        rotaExpected.setId(1);
         when(rotaDAO.findOne((long) 1)).thenReturn(rotaExpected);
 
         Rota returned = rotaService.encontrarPorID(1);
@@ -90,11 +95,24 @@ public class ServiceRotaTest {
 
     @Test
     public void deveEncontrarVersoesDeRotaPorIDDaRota() {
-        Rota rota = new Rota(1, "etanol");
-        RotaVersaoSituacao situacao = new RotaVersaoSituacao(1, "atual");
-        List<RotaVersao> versaoListExpected = Arrays
-                .asList(new RotaVersao(1, rota, situacao, 1), new RotaVersao(2, rota, situacao, 2),
-                        new RotaVersao(3, rota, situacao, 3));
+        Rota rota = new Rota("etanol");
+        rota.setId(1);
+        RotaVersaoSituacao situacao = new RotaVersaoSituacao("atual");
+        situacao.setCodigo(1);
+
+        List<RotaVersao> versaoListExpected = new ArrayList<>();
+
+        RotaVersao rota_tmp = new RotaVersao(rota, situacao, 1);
+        rota_tmp.setId(1);
+        versaoListExpected.add(rota_tmp);
+
+        rota_tmp = new RotaVersao(rota, situacao, 2);
+        rota_tmp.setId(2);
+        versaoListExpected.add(rota_tmp);
+
+        rota_tmp = new RotaVersao(rota, situacao, 3);
+        rota_tmp.setId(3);
+        versaoListExpected.add(rota_tmp);
 
         when(rotaVersaoDAO.findByRotaId((long) 1)).thenReturn(versaoListExpected);
 
@@ -105,7 +123,9 @@ public class ServiceRotaTest {
 
     @Test
     public void deveEncontrarRotaPorNome() {
-        List<Rota> rotaExpectedList = Arrays.asList(new Rota(1, "etanol"));
+        Rota rota = new Rota("etanol");
+        rota.setId(1);
+        List<Rota> rotaExpectedList = Arrays.asList(rota);
         when(rotaDAO.findByNomeLike("et")).thenReturn(rotaExpectedList);
 
         List<Rota> returned = rotaService.encontrarPorNome("et");

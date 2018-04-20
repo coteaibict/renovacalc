@@ -68,7 +68,7 @@ public class RotaRespostaAtributo {
     public String getValor() { return valor; }
     public void setValor(String valor) { this.valor = valor; }
 
-    @Column(name = "IND_AVALIACAO_FIRMA_INSPETORA")
+    @Column(name = "IND_AV_FIRMA_INSPETORA")
     public boolean isAvaliacaoFirmaInspetora() { return avaliacaoFirmaInspetora; }
     public void setAvaliacaoFirmaInspetora(boolean avaliacaoFirmaInspetora) { this.avaliacaoFirmaInspetora = avaliacaoFirmaInspetora; }
 
@@ -76,7 +76,7 @@ public class RotaRespostaAtributo {
     public boolean isAvaliacaoANP() { return avaliacaoANP; }
     public void setAvaliacaoANP(boolean avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
 
-    @Column(name = "DSC_OBSERVACAO_NAO_CONFORMIDADE")
+    @Column(name = "DSC_OBS_NAO_CONFORMIDADE")
     public String getObservacaoNaoConformidade() { return observacaoNaoConformidade; }
     public void setObservacaoNaoConformidade(String observacaoNaoConformidade) { this.observacaoNaoConformidade = observacaoNaoConformidade; }
 

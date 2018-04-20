@@ -37,7 +37,7 @@ public class ModelRotaVersaoTest {
     @Test
     @Transactional
     public void deveAdicionarSessoes() {
-        Rota rotaParam = new Rota(0, "etanol");
+        Rota rotaParam = new Rota("etanol");
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(0, "atual");

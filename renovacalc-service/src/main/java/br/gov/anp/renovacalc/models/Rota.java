@@ -27,11 +27,6 @@ public class Rota {
 
     public Rota() { }
 
-    public Rota(long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-
     public Rota(String nome) {
         this.nome = nome;
     }

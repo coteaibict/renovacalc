@@ -33,15 +33,15 @@ public class ModelRotaSessaoTest {
     @Test
     @Transactional
     public void deveAdicionarSessoes() {
-        Rota rotaParam = new Rota(0, "etanol");
+        Rota rotaParam = new Rota("etanol");
         em.persist(rotaParam);
 
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(0, "atual");
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         em.persist(situacaoParam);
 
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
         RotaSessao sessaoParam = new RotaSessao(versaoParam, "sessao2", 2);
-        AtributoTipoDado tipoParam = new AtributoTipoDado(1, "numerico");
+        AtributoTipoDado tipoParam = new AtributoTipoDado("numerico");
         RotaAtributo atr = new RotaAtributo("atributo1", "blabla",
                 "m", "ATR1", 10, 0, "1+1", tipoParam);
         sessaoParam.adicionarAtributo(atr, "0");

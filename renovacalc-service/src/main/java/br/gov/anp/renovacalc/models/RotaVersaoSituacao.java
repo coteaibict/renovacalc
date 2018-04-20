@@ -23,14 +23,18 @@ import java.util.Objects;
 @Table(name = "ROTA_VERSAO_SITUACAO")
 public class RotaVersaoSituacao {
 
-    private long id;
+    private long codigo;
 
     private String descricao;
 
     public RotaVersaoSituacao() { }
 
-    public RotaVersaoSituacao(long id, String desc) {
-        this.id = id;
+    public RotaVersaoSituacao(long codigo, String desc) {
+        this.codigo = codigo;
+        this.descricao = desc;
+    }
+
+    public RotaVersaoSituacao(String desc) {
         this.descricao = desc;
     }
 
@@ -38,11 +42,11 @@ public class RotaVersaoSituacao {
 
     @Id
     @Column(name = "COD_ROTA_VERSAO_SITUACAO")
-    public long getId() {
-        return id;
+    public long getCodigo() {
+        return codigo;
     }
-    public void setId(long id) {
-        this.id = id;
+    public void setCodigo(long codigo) {
+        this.codigo = codigo;
     }
 
     @Column(name = "DESC_ROTA_VERSAO_SITUACAO")

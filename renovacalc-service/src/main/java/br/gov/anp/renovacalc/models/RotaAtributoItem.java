@@ -28,8 +28,7 @@ public class RotaAtributoItem {
 
     public RotaAtributoItem() { }
 
-    public RotaAtributoItem(long id, String descricao, RotaAtributo atributo) {
-        this.id = id;
+    public RotaAtributoItem(String descricao, RotaAtributo atributo) {
         this.descricao = descricao;
         this.atributo = atributo;
     }
