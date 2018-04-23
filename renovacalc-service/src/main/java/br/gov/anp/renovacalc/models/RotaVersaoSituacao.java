@@ -34,9 +34,6 @@ public class RotaVersaoSituacao {
         this.descricao = desc;
     }
 
-    public RotaVersaoSituacao(String desc) {
-        this.descricao = desc;
-    }
 
     // Getters/Setters
 

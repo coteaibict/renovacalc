@@ -40,7 +40,7 @@ public class ModelRotaVersaoTest {
         Rota rotaParam = new Rota("etanol");
         em.persist(rotaParam);
 
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(0, "atual");
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         em.persist(situacaoParam);
 
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);

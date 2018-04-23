@@ -53,8 +53,8 @@ public class RotaService {
         RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2);
         RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1);
 
-        AtributoTipoDado tipo = new AtributoTipoDado("numerico");
-        AtributoTipoDado tipo2 = new AtributoTipoDado("selecionavel");
+        AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
+        AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
 
         RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
                 "", "ATR1", 0, 0, "", tipo2);

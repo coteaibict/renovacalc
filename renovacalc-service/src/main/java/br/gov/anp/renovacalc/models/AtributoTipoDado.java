@@ -27,7 +27,8 @@ public class AtributoTipoDado {
     public AtributoTipoDado() {
     }
 
-    public AtributoTipoDado(String descricao) {
+    public AtributoTipoDado(long codigo, String descricao) {
+        this.id = codigo;
         this.descricao = descricao;
     }
 

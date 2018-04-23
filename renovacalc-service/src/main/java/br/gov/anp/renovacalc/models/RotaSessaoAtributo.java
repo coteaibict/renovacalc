@@ -14,12 +14,12 @@ package br.gov.anp.renovacalc.models;
 
 import br.gov.anp.renovacalc.models.keys.SessaoAtributoKey;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Classe que faz a relação ManyToMany entre RotaSessao e RotaAtributo.
@@ -79,18 +79,22 @@ public class RotaSessaoAtributo {
     public void setOrdem(int ordem) { this.ordem = ordem; }
 
     @Column(name = "IND_OBRIGATORIO")
+    @Type(type="true_false")
     public boolean isObrigatorio() { return obrigatorio; }
     public void setObrigatorio(boolean obrigatorio) { this.obrigatorio = obrigatorio; }
 
     @Column(name = "IND_VISIVEL")
+    @Type(type="true_false")
     public boolean isVisivel() { return visivel; }
     public void setVisivel(boolean visivel) { this.visivel = visivel; }
 
     @Column(name = "IND_EDITAVEL")
+    @Type(type="true_false")
     public boolean isEditavel() { return editavel; }
     public void setEditavel(boolean editavel) { this.editavel = editavel; }
 
     @Column(name = "IND_AVALIADO")
+    @Type(type="true_false")
     public boolean isAvaliado() { return avaliado; }
     public void setAvaliado(boolean avaliado) { this.avaliado = avaliado; }
 

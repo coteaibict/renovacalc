@@ -42,12 +42,12 @@ public class RespostaService {
     public void setup () {
         Rota rotaParam = new Rota("etanol");
         rotaDAO.save(rotaParam);
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao("atual");
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
         rotaVersaoDAO.save(versaoParam);
 
-        AtributoTipoDado tipo = new AtributoTipoDado("numerico");
-        AtributoTipoDado tipo2 = new AtributoTipoDado("selecionavel");
+        AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
+        AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
 
         RotaAtributo atributoParam = new RotaAtributo("atributo1", "blabla",
                 "", "ATR1", 0, 0, "", tipo);

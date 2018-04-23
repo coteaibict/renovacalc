@@ -97,8 +97,7 @@ public class ServiceRotaTest {
     public void deveEncontrarVersoesDeRotaPorIDDaRota() {
         Rota rota = new Rota("etanol");
         rota.setId(1);
-        RotaVersaoSituacao situacao = new RotaVersaoSituacao("atual");
-        situacao.setCodigo(1);
+        RotaVersaoSituacao situacao = new RotaVersaoSituacao(1, "atual");
 
         List<RotaVersao> versaoListExpected = new ArrayList<>();
 

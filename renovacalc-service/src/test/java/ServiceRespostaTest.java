@@ -50,7 +50,7 @@ public class ServiceRespostaTest {
     public void deveSalvarResposta() {
         Rota rotaParam = new Rota("etanol");
         rotaParam.setId(1);
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao("atual");
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
         situacaoParam.setCodigo(1);
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
         versaoParam.setId(1);
