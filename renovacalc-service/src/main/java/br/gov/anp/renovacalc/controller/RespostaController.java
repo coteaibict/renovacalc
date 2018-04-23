@@ -37,8 +37,8 @@ public class RespostaController {
     }
 
     @RequestMapping(value = "/recuperar", method = RequestMethod.POST)
-    public RotaResposta recuperarAtivaPorRotaEUsina(@RequestParam("rotaID") long rotaID, @RequestParam("usinaID") long usinaID) {
-        return respostaService.recuperarAtivoPorRotaIDEUsinaID(rotaID, usinaID);
+    public RotaResposta recuperarRespostaAtivaPorUsina(@RequestParam("usinaID") long usinaID) {
+        return respostaService.recuperarRespostaAtivaPorUsinaID(usinaID);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)

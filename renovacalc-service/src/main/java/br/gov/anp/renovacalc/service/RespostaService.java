@@ -54,7 +54,7 @@ public class RespostaService {
 
         atributoDAO.save(atributoParam);
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00");
+        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", rotaParam);
         usinaDAO.save(usinaParam);
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
 
@@ -81,13 +81,12 @@ public class RespostaService {
 
     /**
      * Abstração de serviço para retornar a resposta atual
-     * enviada pela usina  com :usinaID para a rota com :rotaID
-     * @param rotaID
+     * enviada pela usina  com :usinaID
      * @param usinaID
-     * @return RotaResposta atual de :usinaID em :rotaID
+     * @return RotaResposta atual de :usinaID
      */
-    public RotaResposta recuperarAtivoPorRotaIDEUsinaID(long rotaID, long usinaID) {
-        return rotaRespostaDAO.recuperarAtivoPorUsinaIdERotaId(rotaID, usinaID);
+    public RotaResposta recuperarRespostaAtivaPorUsinaID(long usinaID) {
+        return rotaRespostaDAO.recuperarRespostaAtivaPorUsinaID(usinaID);
     }
 
     public RotaRespostaDAO getRotaRespostaDAO() { return rotaRespostaDAO; }

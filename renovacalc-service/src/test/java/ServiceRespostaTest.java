@@ -55,7 +55,7 @@ public class ServiceRespostaTest {
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
         versaoParam.setId(1);
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00");
+        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", rotaParam);
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
 
         RotaResposta respostaParam = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoParam);
@@ -76,15 +76,15 @@ public class ServiceRespostaTest {
         RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
         versaoParam.setId(1);
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00");
+        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", rotaParam);
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
 
         RotaResposta respostaExpected = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoParam);
         respostaExpected.setId(1);
 
-        when(rotaRespostaDAO.recuperarAtivoPorUsinaIdERotaId(rotaParam.getId(), usinaParam.getId())).thenReturn(respostaExpected);
+        when(rotaRespostaDAO.recuperarRespostaAtivaPorUsinaID(usinaParam.getId())).thenReturn(respostaExpected);
 
-        RotaResposta returned = respostaService.recuperarAtivoPorRotaIDEUsinaID(rotaParam.getId(), usinaParam.getId());
+        RotaResposta returned = respostaService.recuperarRespostaAtivaPorUsinaID(usinaParam.getId());
         Assert.assertEquals(respostaExpected, returned);
     }
 }

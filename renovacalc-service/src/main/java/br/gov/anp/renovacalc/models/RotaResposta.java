@@ -151,9 +151,9 @@ public class RotaResposta {
     public RotaUsina getUsina() { return usina; }
     public void setUsina(RotaUsina usina) { this.usina = usina; }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
-@Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "SEQ_ROTA_VERSAO", nullable = false)
     public RotaVersao getVersao() { return versao; }
     public void setVersao(RotaVersao versao) { this.versao = versao; }

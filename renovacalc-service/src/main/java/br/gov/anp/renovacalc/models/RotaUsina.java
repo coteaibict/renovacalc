@@ -11,6 +11,9 @@
 
 package br.gov.anp.renovacalc.models;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -24,10 +27,13 @@ public class RotaUsina {
     private long id;
     private String cnpj;
 
+    private Rota rota;
+
     public RotaUsina() { }
 
-    public RotaUsina(String cnpj) {
+    public RotaUsina(String cnpj, Rota rota) {
         this.cnpj = cnpj;
+        this.rota = rota;
     }
 
     @Id
@@ -40,6 +46,12 @@ public class RotaUsina {
     @Column(name = "NUM_CNPJ_USINA")
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "SEQ_ROTA", nullable = false)
+    public Rota getRota() { return rota; }
+    public void setRota(Rota rota) { this.rota = rota; }
 
     @Override
     public boolean equals(Object o) {

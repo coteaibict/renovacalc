@@ -19,16 +19,14 @@ import org.springframework.data.repository.query.Param;
 public interface RotaRespostaDAO extends CrudRepository<RotaResposta, Long> {
 
     /**
-     * Método que retorna a submissao atual de uma usina em uma rota
-     * Assume que existe apenas uma RotaResposta atual no banco
-     * @param rotaID
+     * Método que retorna a submissao atual de uma usina
+     * Assume que existe apenas uma RotaResposta atual no banco para esta usina
      * @param usinaID
-     * @return RotaResposta atual para usina e rota especificadas
+     * @return RotaResposta atual para usina especificada
      */
     @Query("SELECT r FROM RotaResposta r "
             + "WHERE r.ativo = true "
-                + "AND r.versao.rota.id = :rotaID "
                 + "AND r.usina.id = :usinaID")
-    RotaResposta recuperarAtivoPorUsinaIdERotaId(@Param("rotaID") long rotaID, @Param("usinaID") long usinaID);
+    RotaResposta recuperarRespostaAtivaPorUsinaID(@Param("usinaID") long usinaID);
 
 }

@@ -27,7 +27,7 @@ public class RotaVersao {
     private Set<RotaSessao> sessoes = new HashSet<RotaSessao>();
 
 
-    private RotaVersao() {
+    public RotaVersao() {
     }
 
     public RotaVersao(Rota rota, RotaVersaoSituacao situacao, int numVersao) {
