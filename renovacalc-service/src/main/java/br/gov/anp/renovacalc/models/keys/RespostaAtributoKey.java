@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * Classe que guarda as chaves estrangeiras da tabela RespostaAtributo.
- * Usada como chave composta de RotaRespostaAtributo
+ * Usada como chave composta de RotaAtributoResposta
  */
 public class RespostaAtributoKey implements Serializable {
     private long respostaId;

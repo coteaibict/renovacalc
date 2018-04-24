@@ -37,15 +37,32 @@ public class ModelRotaVersaoTest {
     @Test
     @Transactional
     public void deveAdicionarSessoes() {
-        Rota rotaParam = new Rota("etanol");
+        Rota rotaParam = new Rota();
+        rotaParam.setNome("etanol");
         em.persist(rotaParam);
 
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
+        situacaoParam.setCodigo(1);
+        situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
-        RotaVersao versaoParam = new RotaVersao(rotaParam, situacaoParam, 1);
-        RotaSessao sessao1 = new RotaSessao(versaoParam, "sessao2", 2);
-        RotaSessao sessao2 = new RotaSessao(versaoParam, "sessao1", 1);
+        RotaVersao versaoParam = new RotaVersao();
+        versaoParam.setRota(rotaParam);
+        versaoParam.setSituacao(situacaoParam);
+        versaoParam.setNumVersao(1);
+
+
+        RotaSessao sessao1 = new RotaSessao();
+        sessao1.setRotaVersao(versaoParam);
+        sessao1.setDescricao("sessao2");
+        sessao1.setOrdem(2);
+        sessao1.setResultado(false);
+
+        RotaSessao sessao2 = new RotaSessao();
+        sessao2.setRotaVersao(versaoParam);
+        sessao2.setDescricao("sessao1");
+        sessao2.setOrdem(1);
+        sessao2.setResultado(false);
 
         versaoParam.adicionarSessao(sessao1);
         versaoParam.adicionarSessao(sessao2);

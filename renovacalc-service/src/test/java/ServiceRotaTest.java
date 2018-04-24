@@ -60,8 +60,10 @@ public class ServiceRotaTest {
 
     @Test
     public void deveSalvarRota() {
-        Rota rotaParam = new Rota("etanol");
-        Rota rotaExpected = new Rota("etanol");
+        Rota rotaParam = new Rota();
+        rotaParam.setNome("etanol");
+        Rota rotaExpected = new Rota();
+        rotaExpected.setNome("etanol");
         rotaExpected.setId(1);
         when(rotaDAO.save(rotaParam)).thenReturn(rotaExpected);
 
@@ -71,21 +73,35 @@ public class ServiceRotaTest {
 
     @Test
     public void deveSalvarVersaoDeRota() throws RecursoNaoEncontradoException {
-        Rota rotaParam = new Rota("etanol");
+        Rota rotaParam = new Rota();
+        rotaParam.setNome("etanol");
         rotaParam.setId(1);
-        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao(1, "atual");
-        RotaVersao rotaVersaoExpected = new RotaVersao(rotaParam, situacaoParam, 1);
+
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
+        situacaoParam.setCodigo(1);
+        situacaoParam.setDescricao("atual");
+
+        RotaVersao rotaVersaoExpected = new RotaVersao();
+        rotaVersaoExpected.setRota(rotaParam);
+        rotaVersaoExpected.setSituacao(situacaoParam);
+        rotaVersaoExpected.setNumVersao(1);
         rotaVersaoExpected.setId(1);
 
-        when(rotaVersaoDAO.save(new RotaVersao(rotaParam, situacaoParam, 1))).thenReturn(rotaVersaoExpected);
+        RotaVersao rotaVersaoParam = new RotaVersao();
+        rotaVersaoParam.setRota(rotaParam);
+        rotaVersaoParam.setSituacao(situacaoParam);
+        rotaVersaoParam.setNumVersao(1);
 
-        RotaVersao returned = rotaService.salvarVersao(new RotaVersao(rotaParam, situacaoParam, 1));
+        when(rotaVersaoDAO.save(rotaVersaoParam)).thenReturn(rotaVersaoExpected);
+
+        RotaVersao returned = rotaService.salvarVersao(rotaVersaoParam);
         Assert.assertEquals(rotaVersaoExpected, returned);
     }
 
     @Test
     public void deveEncontrarRotaPorID() {
-        Rota rotaExpected = new Rota("etanol");
+        Rota rotaExpected = new Rota();
+        rotaExpected.setNome("etanol");
         rotaExpected.setId(1);
         when(rotaDAO.findOne((long) 1)).thenReturn(rotaExpected);
 
@@ -95,21 +111,34 @@ public class ServiceRotaTest {
 
     @Test
     public void deveEncontrarVersoesDeRotaPorIDDaRota() {
-        Rota rota = new Rota("etanol");
+        Rota rota = new Rota();
+        rota.setNome("etanol");
         rota.setId(1);
-        RotaVersaoSituacao situacao = new RotaVersaoSituacao(1, "atual");
+
+        RotaVersaoSituacao situacao = new RotaVersaoSituacao();
+        situacao.setCodigo(1);
+        situacao.setDescricao("atual");
 
         List<RotaVersao> versaoListExpected = new ArrayList<>();
 
-        RotaVersao rota_tmp = new RotaVersao(rota, situacao, 1);
+        RotaVersao rota_tmp = new RotaVersao();
+        rota_tmp.setRota(rota);
+        rota_tmp.setSituacao(situacao);
+        rota_tmp.setNumVersao(1);
         rota_tmp.setId(1);
         versaoListExpected.add(rota_tmp);
 
         rota_tmp = new RotaVersao(rota, situacao, 2);
+        rota_tmp.setRota(rota);
+        rota_tmp.setSituacao(situacao);
+        rota_tmp.setNumVersao(2);
         rota_tmp.setId(2);
         versaoListExpected.add(rota_tmp);
 
         rota_tmp = new RotaVersao(rota, situacao, 3);
+        rota_tmp.setRota(rota);
+        rota_tmp.setSituacao(situacao);
+        rota_tmp.setNumVersao(3);
         rota_tmp.setId(3);
         versaoListExpected.add(rota_tmp);
 
@@ -122,8 +151,10 @@ public class ServiceRotaTest {
 
     @Test
     public void deveEncontrarRotaPorNome() {
-        Rota rota = new Rota("etanol");
+        Rota rota = new Rota();
+        rota.setNome("etanol");
         rota.setId(1);
+
         List<Rota> rotaExpectedList = Arrays.asList(rota);
         when(rotaDAO.findByNomeLike("et")).thenReturn(rotaExpectedList);
 

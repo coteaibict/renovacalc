@@ -44,18 +44,37 @@ public class ControllerRespostaIT {
     public void deveSalvarResposta() {
         RotaVersao versaoParam = auxiliarCarregarRotaVersao();
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", versaoParam.getRota());
+        RotaUsina usinaParam = new RotaUsina();
+        usinaParam.setCnpj("00.000.000/0000-00");
+        usinaParam.setRota(versaoParam.getRota());
         em.persist(usinaParam);
 
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
-        RotaVersao versaoRef = new RotaVersao();
-        versaoRef.setId((long) 1);
-        RotaResposta respostaParam = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoRef);
+
+        RotaResposta respostaParam = new RotaResposta();
+        respostaParam.setNomeUsina("usina1");
+        respostaParam.setEndereco("endereco");
+        respostaParam.setEnderecoNumero("1");
+        respostaParam.setEnderecoComplemento("complemento");
+        respostaParam.setEnderecoBairro("bairro");
+        respostaParam.setEnderecoCEP("70000000");
+        respostaParam.setNomeContato("nome");
+        respostaParam.setTelefoneContato("900000000");
+        respostaParam.setEmailContato("email@email.com");
+        respostaParam.setAtivo(true);
+        respostaParam.setDataEnvio(timeParam);
+        respostaParam.setUsina(usinaParam);
+        respostaParam.setVersao(versaoParam);
 
         RotaAtributo atributoParam = versaoParam.getSessoes().iterator().next()
-                                    .getAtributos().iterator().next().getAtributo();
+                .getAtributos().iterator().next().getAtributo();
 
-        RotaRespostaAtributo item = new RotaRespostaAtributo("0", false, false, "", respostaParam, atributoParam);
+        RotaAtributoResposta item = new RotaAtributoResposta();
+        item.setValor("0");
+        item.setAvaliacaoANP(false);
+        item.setObservacaoNaoConformidade("");
+        item.setResposta(respostaParam);
+        item.setAtributo(atributoParam);
 
         respostaParam.adicionarRespostaAtributo(item);
 
@@ -69,6 +88,7 @@ public class ControllerRespostaIT {
         Assert.assertNotNull(returned);
         Assert.assertEquals("usina1", returned.getNomeUsina());
         Assert.assertEquals("0", returned.getRespostas().iterator().next().getValor());
+        Assert.assertEquals("nome", returned.getNomeContato());
 
 
     }
@@ -78,22 +98,41 @@ public class ControllerRespostaIT {
     public void naoDeveSalvarRespostaComIDNaoNulo() throws ArgumentoInvalidoException {
         RotaVersao versaoParam = auxiliarCarregarRotaVersao();
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", versaoParam.getRota());
+        RotaUsina usinaParam = new RotaUsina();
+        usinaParam.setCnpj("00.000.000/0000-00");
+        usinaParam.setRota(versaoParam.getRota());
         em.persist(usinaParam);
 
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
-        RotaVersao versaoRef = new RotaVersao();
-        versaoRef.setId((long) 1);
 
-        RotaResposta respostaParam = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoRef);
+        RotaResposta respostaParam = new RotaResposta();
+        respostaParam.setNomeUsina("usina1");
+        respostaParam.setEndereco("endereco");
+        respostaParam.setEnderecoNumero("1");
+        respostaParam.setEnderecoComplemento("complemento");
+        respostaParam.setEnderecoBairro("bairro");
+        respostaParam.setEnderecoCEP("70000000");
+        respostaParam.setNomeContato("nome");
+        respostaParam.setTelefoneContato("900000000");
+        respostaParam.setEmailContato("email@email.com");
+        respostaParam.setAtivo(true);
+        respostaParam.setDataEnvio(timeParam);
+        respostaParam.setUsina(usinaParam);
+        respostaParam.setVersao(versaoParam);
 
         // ID nao nulo
         respostaParam.setId(1);
 
+
         RotaAtributo atributoParam = versaoParam.getSessoes().iterator().next()
                                     .getAtributos().iterator().next().getAtributo();
 
-        RotaRespostaAtributo item = new RotaRespostaAtributo("0", false, false, "", respostaParam, atributoParam);
+        RotaAtributoResposta item = new RotaAtributoResposta();
+        item.setValor("0");
+        item.setAvaliacaoANP(false);
+        item.setObservacaoNaoConformidade("");
+        item.setResposta(respostaParam);
+        item.setAtributo(atributoParam);
 
         respostaParam.adicionarRespostaAtributo(item);
 
@@ -104,22 +143,41 @@ public class ControllerRespostaIT {
     @Test
     @Transactional
     public void deveRecuperarRespostaAtivaPorUsina() {
-
         RotaVersao versaoParam = auxiliarCarregarRotaVersao();
 
-        RotaUsina usinaParam = new RotaUsina("00.000.000/0000-00", versaoParam.getRota());
+        RotaUsina usinaParam = new RotaUsina();
+        usinaParam.setCnpj("00.000.000/0000-00");
+        usinaParam.setRota(versaoParam.getRota());
         em.persist(usinaParam);
 
         Timestamp timeParam = new Timestamp(System.currentTimeMillis());
-        RotaResposta respostaParam = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoParam);
+
+        RotaResposta respostaParam = new RotaResposta();
+        respostaParam.setNomeUsina("usina1");
+        respostaParam.setEndereco("endereco");
+        respostaParam.setEnderecoNumero("1");
+        respostaParam.setEnderecoComplemento("complemento");
+        respostaParam.setEnderecoBairro("bairro");
+        respostaParam.setEnderecoCEP("70000000");
+        respostaParam.setNomeContato("nome");
+        respostaParam.setTelefoneContato("900000000");
+        respostaParam.setEmailContato("email@email.com");
+        respostaParam.setAtivo(true);
+        respostaParam.setDataEnvio(timeParam);
+        respostaParam.setUsina(usinaParam);
+        respostaParam.setVersao(versaoParam);
 
         RotaAtributo atributoParam = versaoParam.getSessoes().iterator().next()
                 .getAtributos().iterator().next().getAtributo();
 
-        RotaRespostaAtributo item = new RotaRespostaAtributo("0", false, false, "", respostaParam, atributoParam);
+        RotaAtributoResposta item = new RotaAtributoResposta();
+        item.setValor("0");
+        item.setAvaliacaoANP(false);
+        item.setObservacaoNaoConformidade("");
+        item.setResposta(respostaParam);
+        item.setAtributo(atributoParam);
 
         respostaParam.adicionarRespostaAtributo(item);
-
         em.persist(respostaParam);
 
         RotaResposta returned = respostaController.recuperarRespostaAtivaPorUsina(usinaParam.getId());
@@ -131,29 +189,55 @@ public class ControllerRespostaIT {
     // Métodos auxiliares
 
     public RotaVersao auxiliarCarregarRotaVersao() {
+        Rota rotaParam = new Rota();
+        rotaParam.setNome("etanol");
+        em.persist(rotaParam);
 
-        Rota rota = new Rota("etanol");
-        em.persist(rota);
+        RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
+        situacaoParam.setCodigo(1);
+        situacaoParam.setDescricao("atual");
+        em.persist(situacaoParam);
 
-        RotaVersaoSituacao situacao = new RotaVersaoSituacao(1, "atual");
-        em.persist(situacao);
+        RotaVersao versaoParam = new RotaVersao();
+        versaoParam.setRota(rotaParam);
+        versaoParam.setSituacao(situacaoParam);
+        versaoParam.setNumVersao(1);
 
-        RotaVersao versao = new RotaVersao(rota, situacao, 1);
 
-        RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2);
+        RotaSessao sessaoParam = new RotaSessao();
+        sessaoParam.setRotaVersao(versaoParam);
+        sessaoParam.setDescricao("sessao2");
+        sessaoParam.setOrdem(2);
+        sessaoParam.setResultado(false);
 
-        AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
-        AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
 
-        RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
-                "", "ATR1", 0, 0, "", tipo2);
+        AtributoTipoDado tipoParam = new AtributoTipoDado();
+        tipoParam.setCodigo(2);
+        tipoParam.setDescricao("selectionavel");
 
-        atributo.adicionarItem(new RotaAtributoItem("item1", atributo));
-        sessao1.adicionarAtributo(atributo,"item1");
+        RotaAtributo atributoParam = new RotaAtributo();
+        atributoParam.setNome("atributo1");
+        atributoParam.setDescricao("blabla");
+        atributoParam.setUnidadeMedida("");
+        atributoParam.setTag("ATR1");
+        atributoParam.setTamanho(0);
+        atributoParam.setPrecisao(0);
+        atributoParam.setFormula("");
+        atributoParam.setPeso(0);
+        atributoParam.setPrincipal(false);
+        atributoParam.setTipo(tipoParam);
 
-        versao.adicionarSessao(sessao1);
-        em.persist(versao);
 
-        return versao;
+        RotaAtributoItem itemParam = new RotaAtributoItem();
+        itemParam.setDescricao("item1");
+        itemParam.setAtributo(atributoParam);
+
+
+        sessaoParam.adicionarAtributo(atributoParam ,"item1");
+
+        versaoParam.adicionarSessao(sessaoParam);
+        em.persist(versaoParam);
+
+        return versaoParam;
     }
 }

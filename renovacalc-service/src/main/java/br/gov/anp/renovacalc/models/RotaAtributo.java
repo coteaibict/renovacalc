@@ -40,14 +40,25 @@ public class RotaAtributo {
 
     private String formula;
 
+    /**
+     * Campo utilizado para identificar a importancia do atributo,
+     * em caso de este ser um atributo-resposta a ser exibido
+     */
+    private int peso;
+
+    /**
+     * Campo utilizado para informar se este é um atributo-resposta principal
+     */
+    private boolean principal;
+
     private AtributoTipoDado tipo;
 
     private Set<RotaAtributoItem> items = new HashSet<>();
 
     public RotaAtributo() { }
 
-    public RotaAtributo(String nome, String descricao, String unidadeMedida, String tag, int tamanho,
-            int precisao, String formula, AtributoTipoDado tipo) {
+    public RotaAtributo(String nome, String descricao, String unidadeMedida, String tag, int tamanho, int precisao,
+            String formula, int peso, boolean principal, AtributoTipoDado tipo) {
         this.nome = nome;
         this.descricao = descricao;
         this.unidadeMedida = unidadeMedida;
@@ -55,6 +66,8 @@ public class RotaAtributo {
         this.tamanho = tamanho;
         this.precisao = precisao;
         this.formula = formula;
+        this.peso = peso;
+        this.principal = principal;
         this.tipo = tipo;
     }
 
@@ -92,6 +105,14 @@ public class RotaAtributo {
     @Column(name = "DSC_FORMULA")
     public String getFormula() { return formula; }
     public void setFormula(String formula) { this.formula = formula; }
+
+    @Column(name = "VAL_PESO_ATRIBUTO")
+    public int getPeso() { return peso; }
+    public void setPeso(int peso) { this.peso = peso; }
+
+    @Column(name = "IND_PRINCIPAL")
+    public boolean isPrincipal() { return principal; }
+    public void setPrincipal(boolean principal) { this.principal = principal; }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
     @Fetch(FetchMode.JOIN)

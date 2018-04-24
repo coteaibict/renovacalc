@@ -24,14 +24,12 @@ import javax.persistence.*;
  * Classe que faz a relação ManyToMany entre RotaResposta e RotaAtributo.
  */
 @Entity
-@Table(name = "ROTA_RESPOSTA_ATRIBUTO")
-public class RotaRespostaAtributo {
+@Table(name = "ROTA_ATRIBUTO_RESPOSTA")
+public class RotaAtributoResposta {
 
     public RespostaAtributoKey id;
 
     public String valor;
-
-    public boolean avaliacaoFirmaInspetora;
 
     public boolean avaliacaoANP;
 
@@ -42,15 +40,14 @@ public class RotaRespostaAtributo {
     public RotaAtributo atributo;
 
 
-    public RotaRespostaAtributo() {
+    public RotaAtributoResposta() {
         // Hibernate não inicializa este campo, causando NullPointerException
         this.id = new RespostaAtributoKey();
     }
 
-    public RotaRespostaAtributo(String valor, boolean avaliacaoFirmaInspetora, boolean avaliacaoANP,
+    public RotaAtributoResposta(String valor, boolean avaliacaoANP,
             String observacaoNaoConformidade, RotaResposta resposta, RotaAtributo atributo) {
         this.valor = valor;
-        this.avaliacaoFirmaInspetora = avaliacaoFirmaInspetora;
         this.avaliacaoANP = avaliacaoANP;
         this.observacaoNaoConformidade = observacaoNaoConformidade;
         this.resposta = resposta;
@@ -67,10 +64,6 @@ public class RotaRespostaAtributo {
     @Column(name = "DSC_RESPOSTA")
     public String getValor() { return valor; }
     public void setValor(String valor) { this.valor = valor; }
-
-    @Column(name = "IND_AV_FIRMA_INSPETORA")
-    public boolean isAvaliacaoFirmaInspetora() { return avaliacaoFirmaInspetora; }
-    public void setAvaliacaoFirmaInspetora(boolean avaliacaoFirmaInspetora) { this.avaliacaoFirmaInspetora = avaliacaoFirmaInspetora; }
 
     @Column(name = "IND_AVALIACAO_ANP")
     public boolean isAvaliacaoANP() { return avaliacaoANP; }

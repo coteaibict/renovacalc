@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "ATRIBUTO_TIPO_DADO")
 public class AtributoTipoDado {
 
-    private long id;
+    private long codigo;
 
     private String descricao;
 
@@ -28,14 +28,14 @@ public class AtributoTipoDado {
     }
 
     public AtributoTipoDado(long codigo, String descricao) {
-        this.id = codigo;
+        this.codigo = codigo;
         this.descricao = descricao;
     }
 
     @Id
     @Column(name = "COD_TIPO_DADO")
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    public long getCodigo() { return codigo; }
+    public void setCodigo(long codigo) { this.codigo = codigo; }
 
     @Column(name = "DSC_TIPO_DADO")
     public String getDescricao() { return descricao; }

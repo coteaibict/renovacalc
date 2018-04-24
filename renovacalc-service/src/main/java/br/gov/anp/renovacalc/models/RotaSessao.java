@@ -31,16 +31,27 @@ public class RotaSessao {
 
     private int ordem;
 
+    /**
+     * Indica se esta sessao possui apenas atributos-resultado
+     */
+    private boolean resultado;
+
     private RotaVersao rotaVersao;
 
     private Set<RotaSessaoAtributo> atributos = new HashSet<RotaSessaoAtributo>();
 
+    private RotaSessao superior;
+
+    private Set<RotaSessao> sessoesFilhas = new HashSet<>();
+
     public RotaSessao() { }
 
-    public RotaSessao(RotaVersao versao, String descricao, int ordem) {
+    public RotaSessao(RotaVersao versao, String descricao, int ordem, boolean resultado) {
         this.rotaVersao = versao;
         this.descricao = descricao;
         this.ordem = ordem;
+        this.resultado = resultado;
+        this.superior = null;
     }
 
     @Id
@@ -58,6 +69,10 @@ public class RotaSessao {
     public int getOrdem() { return ordem; }
     public void setOrdem(int ordem) { this.ordem = ordem; }
 
+    @Column(name = "IND_RESULTADO")
+    public boolean isResultado() { return resultado; }
+    public void setResultado(boolean resultado) { this.resultado = resultado; }
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
@@ -68,6 +83,18 @@ public class RotaSessao {
     @OneToMany(mappedBy = "sessao", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
     public Set<RotaSessaoAtributo> getAtributos() { return atributos; }
     public void setAtributos(Set<RotaSessaoAtributo> atributos) { this.atributos = atributos; }
+
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "SEQ_ROTA_SESSAO_SUPERIOR", nullable = true)
+    public RotaSessao getSuperior() { return superior; }
+    public void setSuperior(RotaSessao superior) { this.superior = superior; }
+
+    @OneToMany(mappedBy = "superior", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
+    public Set<RotaSessao> getSessoesFilhas() { return sessoesFilhas; }
+    public void setSessoesFilhas(Set<RotaSessao> sessoesFilhas) { this.sessoesFilhas = sessoesFilhas; }
 
     /**
      * Método para adicionar um atributo diretamente a uma sessao, lidando com a tabela

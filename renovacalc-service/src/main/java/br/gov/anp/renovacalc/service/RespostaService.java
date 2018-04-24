@@ -50,7 +50,7 @@ public class RespostaService {
         AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
 
         RotaAtributo atributoParam = new RotaAtributo("atributo1", "blabla",
-                "", "ATR1", 0, 0, "", tipo);
+                "", "ATR1", 0, 0, "", 0, false, tipo);
 
         atributoDAO.save(atributoParam);
 
@@ -60,7 +60,7 @@ public class RespostaService {
 
         RotaResposta respostaParam = new RotaResposta("usina1", "endereco", "1", "complemento", "bairro", "70000000", "nome", "900000000", "email@email.com", true, timeParam, usinaParam, versaoParam);
 
-        RotaRespostaAtributo item = new RotaRespostaAtributo("0", false, false, "", respostaParam, atributoParam);
+        RotaAtributoResposta item = new RotaAtributoResposta("0", false, "", respostaParam, atributoParam);
 
         respostaParam.adicionarRespostaAtributo(item);
 

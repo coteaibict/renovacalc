@@ -11,7 +11,6 @@
 
 package br.gov.anp.renovacalc.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -24,7 +23,7 @@ import java.util.Set;
 /**
  * Classe que simboliza a submissao de um produtor.
  * Possui todos os dados referente à usina correspondente ao envio.
- * Os valores de cada item da simulacao estao na classe RotaRespostaAtributo.
+ * Os valores de cada item da simulacao estao na classe RotaAtributoResposta.
  */
 @Entity
 @Table(name = "ROTA_RESPOSTA")
@@ -52,13 +51,17 @@ public class RotaResposta {
 
     private boolean ativo;
 
+    private boolean avaliacaoANP;
+
+    private String observacaoNaoConformidade;
+
     private Timestamp dataEnvio;
 
     private RotaUsina usina;
 
     private RotaVersao versao;
 
-    private Set<RotaRespostaAtributo> respostas = new HashSet<>();
+    private Set<RotaAtributoResposta> respostas = new HashSet<>();
 
 
     public RotaResposta() { }
@@ -86,7 +89,7 @@ public class RotaResposta {
      * Método para adicionar um novo item de resposta, correspondendo ao preenchimento de um atributo
      * @param respostaAtributo item a ser adicionado
      */
-    public void adicionarRespostaAtributo(RotaRespostaAtributo respostaAtributo) {
+    public void adicionarRespostaAtributo(RotaAtributoResposta respostaAtributo) {
         respostaAtributo.setResposta(this);
         respostas.add(respostaAtributo);
     }
@@ -140,6 +143,14 @@ public class RotaResposta {
     public boolean isAtivo() { return ativo; }
     public void setAtivo(boolean ativo) { this.ativo = ativo; }
 
+    @Column(name = "IND_AVALIACAO_ANP")
+    public boolean isAvaliacaoANP() { return avaliacaoANP; }
+    public void setAvaliacaoANP(boolean avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
+
+    @Column(name = "DSC_OBSERVACAO_NAO_CONFORMIDADE")
+    public String getObservacaoNaoConformidade() { return observacaoNaoConformidade; }
+    public void setObservacaoNaoConformidade(String observacaoNaoConformidade) { this.observacaoNaoConformidade = observacaoNaoConformidade; }
+
     @Column(name = "DHA_ENVIO")
     public Timestamp getDataEnvio() { return dataEnvio; }
     public void setDataEnvio(Timestamp dataEnvio) { this.dataEnvio = dataEnvio; }
@@ -159,8 +170,8 @@ public class RotaResposta {
     public void setVersao(RotaVersao versao) { this.versao = versao; }
 
     @OneToMany(mappedBy = "resposta", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
-    public Set<RotaRespostaAtributo> getRespostas() { return respostas; }
-    public void setRespostas(Set<RotaRespostaAtributo> respostas) { this.respostas = respostas; }
+    public Set<RotaAtributoResposta> getRespostas() { return respostas; }
+    public void setRespostas(Set<RotaAtributoResposta> respostas) { this.respostas = respostas; }
 
     // Equals/Hashcode
 

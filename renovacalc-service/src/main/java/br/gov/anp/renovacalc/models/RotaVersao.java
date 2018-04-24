@@ -2,12 +2,12 @@ package br.gov.anp.renovacalc.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -69,6 +69,7 @@ public class RotaVersao {
 
     @OneToMany(mappedBy = "rotaVersao", fetch = FetchType.EAGER, cascade = { CascadeType.ALL }, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
+    @Where(clause = "seq_rota_sessao_superior IS NULL")
     public Set<RotaSessao> getSessoes() { return sessoes; }
     public void setSessoes(Set<RotaSessao> sessoes) { this.sessoes = sessoes; }
 

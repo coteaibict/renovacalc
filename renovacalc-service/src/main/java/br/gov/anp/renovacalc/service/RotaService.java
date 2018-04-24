@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -41,6 +42,9 @@ public class RotaService {
     @Autowired
     private RotaAtributoDAO atributoDAO;
 
+    @Autowired
+    private EntityManager em;
+
     private Logger logger = Logger.getLogger(RotaService.class);
 
     public void setup() {
@@ -50,29 +54,29 @@ public class RotaService {
 
         RotaVersao versao = new RotaVersao(rota, situacao, 1);
 
-        RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2);
-        RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1);
+        RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2, false);
+        RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1, false);
+        RotaSessao sessaoFilha = new RotaSessao(versao, "filha", 1, false);
+        sessaoFilha.setSuperior(sessao1);
+        sessao1.getSessoesFilhas().add(sessaoFilha);
 
         AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
         AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
 
         RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
-                "", "ATR1", 0, 0, "", tipo2);
+                "", "ATR1", 0, 0, "", 0, false, tipo2);
 
         atributo.adicionarItem(new RotaAtributoItem("item1", atributo));
         sessao1.adicionarAtributo(atributo,"item1");
 
         sessao2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
-                "m", "ATR2", 10, 0, "1+1", tipo), "0");
+                "m", "ATR2", 10, 0, "1+1", 0, false, tipo), "0");
         versao.adicionarSessao(sessao1);
         versao.adicionarSessao(sessao2);
         rotaVersaoDAO.save(versao);
     }
 
     public void tst() {
-        for (RotaAtributo atributo : atributoDAO.findAll()) {
-           atributoDAO.delete(atributo);
-        }
     }
 
     /**
@@ -125,13 +129,6 @@ public class RotaService {
 
     public RotaVersao recuperarVersaoAtualDeRota(long rotaID) {
          return rotaVersaoDAO.versaoAtualPorRota(1);
-//        List<RotaVersao> versoes =
-//        if (versoes.isEmpty()) {
-//            //throw exception
-//            return null;
-//        } else {
-//            return versoes.get(0);
-//        }
     }
 
     // Getters/Setters

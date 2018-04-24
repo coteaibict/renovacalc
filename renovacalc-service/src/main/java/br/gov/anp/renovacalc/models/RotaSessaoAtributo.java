@@ -84,7 +84,6 @@ public class RotaSessaoAtributo {
     public void setObrigatorio(boolean obrigatorio) { this.obrigatorio = obrigatorio; }
 
     @Column(name = "IND_VISIVEL")
-    @Type(type="true_false")
     public boolean isVisivel() { return visivel; }
     public void setVisivel(boolean visivel) { this.visivel = visivel; }
 
