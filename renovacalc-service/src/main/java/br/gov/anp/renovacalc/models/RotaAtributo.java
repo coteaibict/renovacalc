@@ -18,6 +18,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -114,7 +115,7 @@ public class RotaAtributo {
     public boolean isPrincipal() { return principal; }
     public void setPrincipal(boolean principal) { this.principal = principal; }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
+    @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "COD_TIPO_DADO", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -134,5 +135,28 @@ public class RotaAtributo {
     public void adicionarItem(RotaAtributoItem item) {
         item.setAtributo(this);
         items.add(item);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        RotaAtributo atributo = (RotaAtributo) o;
+        return getId() == atributo.getId() && getTamanho() == atributo.getTamanho() && getPrecisao() == atributo
+                .getPrecisao() && getPeso() == atributo.getPeso() && isPrincipal() == atributo.isPrincipal() && Objects
+                .equals(getNome(), atributo.getNome()) && Objects.equals(getDescricao(), atributo.getDescricao())
+                && Objects.equals(getUnidadeMedida(), atributo.getUnidadeMedida()) && Objects
+                .equals(getTag(), atributo.getTag()) && Objects.equals(getFormula(), atributo.getFormula())
+                && getTipo().getCodigo() == atributo.getTipo().getCodigo();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects
+                .hash(getId(), getNome(), getDescricao(), getUnidadeMedida(), getTag(), getTamanho(), getPrecisao(),
+                        getFormula(), getPeso(), isPrincipal(), getTipo().getCodigo());
     }
 }

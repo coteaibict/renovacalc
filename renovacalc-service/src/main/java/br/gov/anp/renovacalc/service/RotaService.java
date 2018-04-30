@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -61,7 +62,9 @@ public class RotaService {
         sessao1.getSessoesFilhas().add(sessaoFilha);
 
         AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
+        em.persist(tipo);
         AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
+        em.persist(tipo2);
 
         RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
                 "", "ATR1", 0, 0, "", 0, false, tipo2);
@@ -130,6 +133,8 @@ public class RotaService {
     public RotaVersao recuperarVersaoAtualDeRota(long rotaID) {
          return rotaVersaoDAO.versaoAtualPorRota(1);
     }
+
+
 
     // Getters/Setters
 

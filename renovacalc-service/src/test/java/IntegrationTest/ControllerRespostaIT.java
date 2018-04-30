@@ -84,11 +84,11 @@ public class ControllerRespostaIT {
             Assert.fail();
         }
 
-        RotaResposta returned = em.find(RotaResposta.class, (long) 1);
-        Assert.assertNotNull(returned);
-        Assert.assertEquals("usina1", returned.getNomeUsina());
-        Assert.assertEquals("0", returned.getRespostas().iterator().next().getValor());
-        Assert.assertEquals("nome", returned.getNomeContato());
+        RotaResposta retornado = em.find(RotaResposta.class, (long) 1);
+        Assert.assertNotNull(retornado);
+        Assert.assertEquals("usina1", retornado.getNomeUsina());
+        Assert.assertEquals("0", retornado.getRespostas().iterator().next().getValor());
+        Assert.assertEquals("nome", retornado.getNomeContato());
 
 
     }
@@ -180,8 +180,8 @@ public class ControllerRespostaIT {
         respostaParam.adicionarRespostaAtributo(item);
         em.persist(respostaParam);
 
-        RotaResposta returned = respostaController.recuperarRespostaAtivaPorUsina(usinaParam.getId());
-        Assert.assertEquals(respostaParam, returned);
+        RotaResposta retornado = respostaController.recuperarRespostaAtivaPorUsina(usinaParam.getId());
+        Assert.assertEquals(respostaParam, retornado);
     }
 
 
@@ -214,6 +214,7 @@ public class ControllerRespostaIT {
         AtributoTipoDado tipoParam = new AtributoTipoDado();
         tipoParam.setCodigo(2);
         tipoParam.setDescricao("selectionavel");
+        em.persist(tipoParam);
 
         RotaAtributo atributoParam = new RotaAtributo();
         atributoParam.setNome("atributo1");

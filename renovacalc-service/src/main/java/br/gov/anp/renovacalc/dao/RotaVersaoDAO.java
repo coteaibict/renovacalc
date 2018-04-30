@@ -14,11 +14,10 @@
 package br.gov.anp.renovacalc.dao;
 
 import br.gov.anp.renovacalc.models.RotaVersao;
-import org.hibernate.Session;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -57,5 +56,6 @@ public interface RotaVersaoDAO extends CrudRepository<RotaVersao, Long> {
      * @return Lista com as versões da rota com ID rotaId
      */
     List<RotaVersao> findByRotaId(long rotaId);
+
 }
 

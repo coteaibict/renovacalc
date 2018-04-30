@@ -24,6 +24,10 @@ public class RotaVersao {
 
     private RotaVersaoSituacao situacao;
 
+    /**
+     * Conjunto com as sessões-raiz da RotaVersão,
+     * isto é, sessões que não são filhas de outra sessão
+     */
     private Set<RotaSessao> sessoes = new HashSet<RotaSessao>();
 
 
@@ -61,7 +65,8 @@ public class RotaVersao {
     public Rota getRota() { return rota; }
     public void setRota(Rota rota) { this.rota = rota; }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
+    // TODO: Remover Cascade
+    @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "COD_ROTA_VERSAO_SITUACAO", nullable = false)
     public RotaVersaoSituacao getSituacao() { return situacao; }

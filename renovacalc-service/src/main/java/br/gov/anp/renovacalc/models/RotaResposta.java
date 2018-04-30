@@ -17,6 +17,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -93,6 +94,7 @@ public class RotaResposta {
         respostaAtributo.setResposta(this);
         respostas.add(respostaAtributo);
     }
+
 
     // Getters/Setters
 

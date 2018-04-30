@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -87,6 +89,25 @@ public class RespostaService {
      */
     public RotaResposta recuperarRespostaAtivaPorUsinaID(long usinaID) {
         return rotaRespostaDAO.recuperarRespostaAtivaPorUsinaID(usinaID);
+    }
+
+
+    /**
+     * Método que retorna apenas os atributos que são input de uma RotaRespposta,
+     * isto é, atributos que não são calculados, com seus valores dados
+     * @return
+     */
+    public Set<RotaAtributoResposta> recuperarEntradas(RotaResposta resposta) {
+        Set<RotaAtributoResposta> filtrado = new HashSet<>();
+
+        for (RotaAtributoResposta atual : resposta.getRespostas()) {
+            if ((atual.getAtributo().getFormula() == null) ||
+                    ((atual.getAtributo().getFormula() != null) &&
+                            atual.getAtributo().getFormula().isEmpty())) {
+                filtrado.add(atual);
+            }
+        }
+        return filtrado;
     }
 
     public RotaRespostaDAO getRotaRespostaDAO() { return rotaRespostaDAO; }

@@ -18,6 +18,7 @@ package br.gov.anp.renovacalc.controller;
 import br.gov.anp.renovacalc.exception.ArgumentoInvalidoException;
 import br.gov.anp.renovacalc.exception.RecursoNaoEncontradoException;
 import br.gov.anp.renovacalc.models.Rota;
+import br.gov.anp.renovacalc.models.RotaAtributo;
 import br.gov.anp.renovacalc.models.RotaVersao;
 import br.gov.anp.renovacalc.models.RotaVersaoSituacao;
 import br.gov.anp.renovacalc.service.RotaService;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin("*")
 @ComponentScan("br.gov.anp.renovacalc")
@@ -48,9 +50,7 @@ public class RotaController {
     }
 
     @RequestMapping(value = "/tst", method = RequestMethod.GET)
-    public void del() {
-        rotaService.tst();
-    }
+    public void tst() { }
 
     /**
      * Método controlador que é chamado para adicionar uma nova rota.

@@ -67,8 +67,8 @@ public class ServiceRotaTest {
         rotaExpected.setId(1);
         when(rotaDAO.save(rotaParam)).thenReturn(rotaExpected);
 
-        Rota returned = rotaService.salvar(rotaParam);
-        Assert.assertEquals(rotaExpected, returned);
+        Rota retornado = rotaService.salvar(rotaParam);
+        Assert.assertEquals(rotaExpected, retornado);
     }
 
     @Test
@@ -94,8 +94,8 @@ public class ServiceRotaTest {
 
         when(rotaVersaoDAO.save(rotaVersaoParam)).thenReturn(rotaVersaoExpected);
 
-        RotaVersao returned = rotaService.salvarVersao(rotaVersaoParam);
-        Assert.assertEquals(rotaVersaoExpected, returned);
+        RotaVersao retornado = rotaService.salvarVersao(rotaVersaoParam);
+        Assert.assertEquals(rotaVersaoExpected, retornado);
     }
 
     @Test
@@ -105,8 +105,8 @@ public class ServiceRotaTest {
         rotaExpected.setId(1);
         when(rotaDAO.findOne((long) 1)).thenReturn(rotaExpected);
 
-        Rota returned = rotaService.encontrarPorID(1);
-        Assert.assertEquals(rotaExpected, returned);
+        Rota retornado = rotaService.encontrarPorID(1);
+        Assert.assertEquals(rotaExpected, retornado);
     }
 
     @Test
@@ -144,9 +144,9 @@ public class ServiceRotaTest {
 
         when(rotaVersaoDAO.findByRotaId((long) 1)).thenReturn(versaoListExpected);
 
-        List<RotaVersao> returned = rotaService.encontrarVersoesPorRotaID(1);
+        List<RotaVersao> retornado = rotaService.encontrarVersoesPorRotaID(1);
 
-        Assert.assertEquals(versaoListExpected, returned);
+        Assert.assertEquals(versaoListExpected, retornado);
     }
 
     @Test
@@ -158,7 +158,7 @@ public class ServiceRotaTest {
         List<Rota> rotaExpectedList = Arrays.asList(rota);
         when(rotaDAO.findByNomeLike("et")).thenReturn(rotaExpectedList);
 
-        List<Rota> returned = rotaService.encontrarPorNome("et");
-        Assert.assertEquals(rotaExpectedList, returned);
+        List<Rota> retornado = rotaService.encontrarPorNome("et");
+        Assert.assertEquals(rotaExpectedList, retornado);
     }
 }
