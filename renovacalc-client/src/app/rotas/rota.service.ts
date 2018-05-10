@@ -18,11 +18,13 @@ export class RotaService {
 
     constructor(private http: HttpClient) { }
 
-    getVersaoAtual(rota : Rota) : Observable<RotaVersao> {
-        return this.http.get<RotaVersao[]>(this.rotasUrl + "/" + rota.id).pipe( 
-            map( versoes => versoes[0] ),
-            tap ( versao => console.log(versao))
-        );
+    recuperarRotas() : Observable<Rota[]> {
+        return this.http.get<Rota[]>(this.rotasUrl);
+    }
+
+
+    recuperarVersaoAtual(rotaID : number) : Observable<RotaVersao> {
+        return this.http.get<RotaVersao>(this.rotasUrl + "/" + rotaID);
     }
 
 

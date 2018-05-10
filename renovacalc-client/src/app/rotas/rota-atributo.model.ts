@@ -12,6 +12,8 @@ export class RotaAtributo {
         public tamanho: number,
         public precisao: number,
         public formula: string,
+        public peso: number,
+        public principal: boolean,
         public tipo: AtributoTipo,
         public items: AtributoItem[]
     ) { }

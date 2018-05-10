@@ -157,4 +157,8 @@ public class RotaService {
     public RotaVersaoSituacao encontrarSituacaoPorId(long id) {
         return situacaoDAO.findOne(id);
     }
+
+    public Iterable<Rota> recuperarRotas() {
+        return rotaDAO.findAll();
+    }
 }

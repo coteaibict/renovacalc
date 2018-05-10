@@ -1,0 +1,10 @@
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom-width: 2px;
+    border-bottom-color: lightgray;
+    border-bottom-style: solid;
+    margin-bottom: 20px;
+    font-size: 12px;
+    background-color: #D5E9FA;
+}

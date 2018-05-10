@@ -1,0 +1,45 @@
+.container-fluid {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.container-fluid > h1 {
+    padding-bottom: 43px;
+}
+
+div {
+    color: #4C9FD8;
+}
+
+/* .d-inline-block { */
+/*     min-width: 100%; */
+/* } */
+
+/* button { */
+/*     /1* min-width: 50%; *1/ */
+/*     text-align: left; */
+/*     padding-left: 20px; */
+/* } */
+
+.padding-v1 {
+    padding-top: 70px;
+    padding-bottom: 60px;
+}
+
+.padding-v2 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.b1 {
+    background-color: #FAFCF4;
+}
+
+.b2 {
+    background-color: #CADB84;
+}
+
+.b3 {
+    background-color: #E5E5E5;
+}
+

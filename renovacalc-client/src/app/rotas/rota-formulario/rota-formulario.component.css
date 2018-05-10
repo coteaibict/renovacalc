@@ -1,0 +1,86 @@
+.main .container {
+    padding-left: 12%;
+    padding-right: 12%;
+}
+
+.subsessao {
+    margin-top: 5px;
+}
+
+.subsessao > hr {
+    background: inherit;
+}
+
+.subsessao > .container > .row > [class*=col] {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.subsessao > .container > .row .text-left {
+    padding-left: 50px;
+    color: red;
+}
+
+.resultados {
+    background-color: #F4F8ED;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+.resultados > h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #7E7E7D;
+}
+
+/* Sessões raiz */
+.nav-link {
+    color: #7E7E7D;
+    padding: 5px;
+}
+
+.nav-tabs {
+    margin-bottom: 10px;
+}
+
+.nav-tabs .nav-link:hover {
+    border: 1px solid transparent;
+}
+
+/* Sessão raiz selecionada */
+.nav-tabs .nav-link.active, .nav-tabs .nav-link.active:hover {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 5px solid #96AE30;
+    color: #96AE30;
+    background-color: inherit;
+}
+
+
+h1 {
+    font-size: 20px;
+}
+
+h2 {
+    color: #96AE30;
+    font-weight: 500;
+    font-size: 16px;
+    padding-left: 5px;
+}
+
+input {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    width: 100%;
+    text-align: center;
+}
+
+hr {
+    width: 100%;
+    background: #96AE30;
+}

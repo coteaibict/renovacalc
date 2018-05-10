@@ -53,6 +53,16 @@ public class RotaController {
     public void tst() { }
 
     /**
+     * Método controlador que é chamado para recuperar todas as rotas.
+     * Associado ao método GET em /
+     * @return Iterable com cada rota cadastrada
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public Iterable<Rota> recuperarRotas() {
+        return rotaService.recuperarRotas();
+    }
+
+    /**
      * Método controlador que é chamado para adicionar uma nova rota.
      * Associado ao método POST em /rotas
      * Não deve ser usado para modificar uma rota já existente

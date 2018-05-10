@@ -58,14 +58,13 @@ public class RotaVersao {
     public int getNumVersao() { return numVersao; }
     public void setNumVersao(int numVersao) { this.numVersao = numVersao; }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "SEQ_ROTA", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Rota getRota() { return rota; }
     public void setRota(Rota rota) { this.rota = rota; }
 
-    // TODO: Remover Cascade
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "COD_ROTA_VERSAO_SITUACAO", nullable = false)

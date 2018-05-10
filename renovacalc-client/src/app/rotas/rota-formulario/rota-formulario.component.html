@@ -1,9 +1,81 @@
-<div *ngIf="versao">
-    <div *ngFor="let sessao of versao.sessoes"> {{ sessao.descricao }} <br/>
-        <div  *ngFor="let a of sessao.atributos">  
-            <label> {{a.atributo.nome}}
-                <input type="text" value="{{a.valorPadrao}}" id="atributo-{{a.atributo.id}}"/><br/>
-            </label>
+<div class="main container" *ngIf="versao">
+    <hr/>
+    <h1>
+        <strong>Rota:</strong> {{ versao.rota.nome }}
+    </h1>
+    <div class="row">
+        <div class="col-sm-8">
+            <ngb-tabset>
+                <ng-container *ngFor="let sessao of versao.sessoes"> 
+                    <ngb-tab *ngIf="!sessao.resultado">
+                        <ng-template ngbTabTitle>{{sessao.descricao}}</ng-template>
+                        <ng-template ngbTabContent>
+
+                            <!-- Sessões filhas -->
+                            <div *ngFor="let filha of sessao.sessoesFilhas" class="subsessao">
+                                <h2>{{filha.descricao}}</h2>
+                                <ng-container *ngFor="let a of filha.atributos">
+                                    <div class="container">
+                                        <div class="form-group row">
+                                            <label for="atributo-{{a.atributo.id}}" class="col-sm-4 text-right">
+                                                {{ a.atributo.nome }}
+                                            </label>
+                                            <div class="col-sm-4 text-center">
+                                                <ng-container *ngIf="respostasDict.has(a.atributo.id)">
+                                                    <input type="text" placeholder="{{a.valorPadrao}}" 
+                                                                       [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                       id="atributo-{{a.atributo.id}}"/><br/>
+                                                </ng-container>
+                                            </div>
+                                            <div class="col-sm-4 text-left">
+                                                {{ a.atributo.unidadeMedida }} <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <hr/>
+                            </div>
+
+                            <!-- Atributos que pertencem diretamente à sessão -->
+                            <div class="subsessao">
+                                <ng-container *ngFor="let a of sessao.atributos">
+                                    <div class="container">
+                                        <div class="form-group row">
+                                            <label for="atributo-{{a.atributo.id}}" class="col-sm-4 text-right">
+                                                {{ a.atributo.nome }}
+                                            </label>
+                                            <div class="col-sm-4 text-center">
+                                                <ng-container *ngIf="respostasDict.has(a.atributo.id)">
+                                                    <input type="text" placeholder="{{a.valorPadrao}}" 
+                                                                       [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                       id="atributo-{{a.atributo.id}}"/><br/>
+                                                </ng-container>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                {{ a.atributo.unidadeMedida }} <br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                        </ng-template>
+                    </ngb-tab>
+                </ng-container>
+            </ngb-tabset>
+        </div>
+
+        <!-- Sessões de resultado -->
+        <div class="col-sm-4 resultados">
+            <h1>Resultado</h1>
+            <div *ngFor="let sessao of versao.sessoes">
+                <div *ngIf="sessao.resultado">
+                    <ng-container *ngFor="let a of sessao.atributos">
+                        <ng-container *ngIf="a.atributo.formula">
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
         </div>
     </div>
 </div>

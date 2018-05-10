@@ -6,7 +6,10 @@ export class RotaSessao {
         public id: number,
         public descricao: String,
         public ordem: number,
+        public resultado: boolean,
         public rotaVersao: RotaVersao,
+        public superior: RotaSessao,
+        public sessoesFilhas: RotaSessao[],
         public atributos: RotaSessaoAtributo[]
     ) { }
 }
