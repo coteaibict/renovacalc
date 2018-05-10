@@ -131,7 +131,7 @@ public class RotaService {
     }
 
     public RotaVersao recuperarVersaoAtualDeRota(long rotaID) {
-         return rotaVersaoDAO.versaoAtualPorRota(1);
+         return rotaVersaoDAO.versaoAtualPorRota(rotaID);
     }
 
 

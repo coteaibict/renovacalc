@@ -11,11 +11,13 @@ import { AppComponent } from './app.component';
 import { RotaService } from './rotas/rota.service';
 import { RotasComponent } from './rotas/rotas.component';
 import { RotaFormularioComponent } from './rotas/rota-formulario/rota-formulario.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 const appRoutes : Routes = [
     { path: 'rotas', component: RotasComponent },
     { path: 'rotas/:id', component: RotaFormularioComponent },
-    { path: '', redirectTo: '/rotas', pathMatch: 'full' }
+    { path: '', redirectTo: '/rotas', pathMatch: 'full' },
+    { path: '**', component: PaginaNaoEncontradaComponent },
 ];
 
 @NgModule({
@@ -23,6 +25,7 @@ const appRoutes : Routes = [
         AppComponent,
         RotaFormularioComponent,
         RotasComponent,
+        PaginaNaoEncontradaComponent,
     ],
     imports: [
         BrowserModule,

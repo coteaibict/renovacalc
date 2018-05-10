@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { ViewEncapsulation } from '@angular/core';
+
 import 'rxjs/add/operator/first';
 
 import { Rota } from '../rota.model'
@@ -28,7 +29,8 @@ export class RotaFormularioComponent implements OnInit {
     private respostasDict : Map<number, [RotaAtributo, string]> = new Map<number, [RotaAtributo, string]>();
 
     constructor(private rotaService: RotaService, 
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+                private router: Router) { }
 
 
     ngOnInit() {
@@ -37,7 +39,15 @@ export class RotaFormularioComponent implements OnInit {
 
     async fetchData() {
         let params = await this.route.params.first().toPromise();
-        this.versao = await this.rotaService.recuperarVersaoAtual(+params['id']).toPromise();
+        try {
+            this.versao = await this.rotaService.recuperarVersaoAtual(+params['id']).toPromise();
+        } catch (e) {
+            if (e instanceof HttpErrorResponse) {
+                if(e.status == 404) {
+                    this.router.navigate(['/notfound']);
+                }
+            }
+        }
         this.construirResposta();
     }
 

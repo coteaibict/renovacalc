@@ -25,6 +25,7 @@ import br.gov.anp.renovacalc.service.RotaService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +88,22 @@ public class RotaController {
         logger.trace("Saindo de adicionarRota()");
     }
 
+
+    /**
+     * Método controlador que é chamado para recuperar a rota em sua versão atual.
+     * Associado ao método GET em /rotas/:id
+     * Caso a rota não exista ou não possua versão associada, retorna o identificador
+     * "ID_NAO_ZERO" em uma resposta HTTP 404
+     * @throws RecursoNaoEncontradoException quando a rota não existe ou não possui versão associada
+     * @param rotaID o id da rota desejada
+     */
     @RequestMapping(value = "/{rotaID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public RotaVersao recuperarVersaoAtualDeRota(@PathVariable("rotaID") long rotaID) {
-        return rotaService.recuperarVersaoAtualDeRota(rotaID);
+    public RotaVersao recuperarVersaoAtualDeRota(@PathVariable("rotaID") long rotaID) throws RecursoNaoEncontradoException {
+        RotaVersao versao = rotaService.recuperarVersaoAtualDeRota(rotaID);
+        if (versao == null) {
+            throw new RecursoNaoEncontradoException("ROTA_NAO_ENCONTRADA");
+        }
+        return versao;
     }
 
     /**
@@ -184,25 +198,26 @@ public class RotaController {
     /**
      * Método tratador de exceção que captura uma exceção ArgumentoInvalidoException
      * e envia uma resposta HTTP 400
-     * @param e
-     * @param response
-     * @throws IOException
+     * @param e: Exceção que mensagem interna com código do motivo
      */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ ArgumentoInvalidoException.class })
-    void handleRequisicaoMalFormada(ArgumentoInvalidoException e, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    String handleRequisicaoMalFormada(ArgumentoInvalidoException e) {
+        return e.getMessage();
     }
+
 
     /**
      * Método tratador de exceções que captura uma exceção RecursoNaoEncontradoException
      * e retorna uma resposta HTTP 404
-     * @param e
-     * @param response
-     * @throws IOException
+     * @param e: Exceção que possui uma mensagem interna com código do motivo
      */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({ RecursoNaoEncontradoException.class })
-    void handleRecursoNaoEncontrado(RecursoNaoEncontradoException e, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.NOT_FOUND.value(), e.getMessage());
+    String handleRecursoNaoEncontrado(RecursoNaoEncontradoException e) {
+        return e.getMessage();
     }
 
 

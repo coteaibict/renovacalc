@@ -13,6 +13,7 @@ package IntegrationTest;
 
 import br.gov.anp.renovacalc.controller.RespostaController;
 import br.gov.anp.renovacalc.exception.ArgumentoInvalidoException;
+import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
 import br.gov.anp.renovacalc.models.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.sql.Timestamp;
+
+import javax.script.ScriptException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/testContext.xml" })
@@ -41,7 +44,7 @@ public class ControllerRespostaIT {
 
     @Test
     @Transactional
-    public void deveSalvarResposta() {
+    public void deveSalvarResposta() throws DependenciasCiclicasException, ScriptException {
         RotaVersao versaoParam = auxiliarCarregarRotaVersao();
 
         RotaUsina usinaParam = new RotaUsina();
@@ -95,7 +98,7 @@ public class ControllerRespostaIT {
 
     @Test(expected = ArgumentoInvalidoException.class)
     @Transactional
-    public void naoDeveSalvarRespostaComIDNaoNulo() throws ArgumentoInvalidoException {
+    public void naoDeveSalvarRespostaComIDNaoNulo() throws ArgumentoInvalidoException, ScriptException, DependenciasCiclicasException {
         RotaVersao versaoParam = auxiliarCarregarRotaVersao();
 
         RotaUsina usinaParam = new RotaUsina();

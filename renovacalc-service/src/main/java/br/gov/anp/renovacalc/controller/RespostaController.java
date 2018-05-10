@@ -76,24 +76,24 @@ public class RespostaController {
 
     /**
      * Método tratador de exceção lida com exceções de erro na fórmula
-     * @param e
-     * @param response
-     * @throws IOException
+     * @param e: Uma exceção do tipo DependenciasCiclicasException ou ScriptException
      */
-    @ExceptionHandler({ ArgumentoInvalidoException.class, ScriptException.class })
-    void handleErroAvaliacao(Exception e, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "ERRO_NA_FORMULA");
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({ DependenciasCiclicasException.class, ScriptException.class })
+    String handleErroAvaliacao(Exception e) {
+        return "ERRO_NA_FORMULA";
     }
 
     /**
      * Método tratador de exceção que captura uma exceção ArgumentoInvalidoException
      * e envia uma resposta HTTP 400
-     * @param e
-     * @param response
-     * @throws IOException
+     * @param e: Exceção que poussui uma mensagem interna com código do motivo
      */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ ArgumentoInvalidoException.class })
-    void handleRequisicaoMalFormada(ArgumentoInvalidoException e, HttpServletResponse response) throws IOException {
-        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    String handleRecursoNaoEncontrado(ArgumentoInvalidoException e) {
+        return e.getMessage();
     }
 }

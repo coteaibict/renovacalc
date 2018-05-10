@@ -68,6 +68,7 @@
         <!-- Sessões de resultado -->
         <div class="col-sm-4 resultados">
             <h1>Resultado</h1>
+            <hr/>
             <div *ngFor="let sessao of versao.sessoes">
                 <div *ngIf="sessao.resultado">
                     <ng-container *ngFor="let a of sessao.atributos">

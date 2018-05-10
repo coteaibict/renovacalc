@@ -33,6 +33,10 @@
     color: #7E7E7D;
 }
 
+.resultados > hr {
+    background: #7E7E7D;
+}
+
 /* Sessões raiz */
 .nav-link {
     color: #7E7E7D;
