@@ -21,10 +21,21 @@
                                                 {{ a.atributo.nome }}
                                             </label>
                                             <div class="col-sm-4 text-center">
-                                                <ng-container *ngIf="respostasDict.has(a.atributo.id)">
-                                                    <input type="text" placeholder="{{a.valorPadrao}}" 
-                                                                       [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
-                                                                       id="atributo-{{a.atributo.id}}"/><br/>
+                                                <ng-container *ngIf="respostasDict.has(a.atributo.id) && !a.atributo.formula">
+                                                    <!-- Lida com o tipo de input -->
+                                                    <ng-container [ngSwitch]="a.atributo.tipo.codigo">
+                                                        <ng-container *ngSwitchCase="1">
+                                                            <input type="number" placeholder="{{a.valorPadrao}}" 
+                                                                                 [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                                 id="atributo-{{a.atributo.id}}"
+                                                                                 required /><br/>
+                                                        </ng-container>
+                                                        <ng-container *ngSwitchCase="2">
+                                                            <select [(ngModel)]="respostasDict.get(a.atributo.id)[1]">
+                                                                <option *ngFor="let item of a.atributo.items" [value]="item.descricao"> {{item.descricao}} </option>
+                                                            </select>
+                                                        </ng-container>
+                                                    </ng-container>
                                                 </ng-container>
                                             </div>
                                             <div class="col-sm-4 text-left">
@@ -37,27 +48,28 @@
                             </div>
 
                             <!-- Atributos que pertencem diretamente à sessão -->
-                            <div class="subsessao">
-                                <ng-container *ngFor="let a of sessao.atributos">
-                                    <div class="container">
-                                        <div class="form-group row">
-                                            <label for="atributo-{{a.atributo.id}}" class="col-sm-4 text-right">
-                                                {{ a.atributo.nome }}
-                                            </label>
-                                            <div class="col-sm-4 text-center">
-                                                <ng-container *ngIf="respostasDict.has(a.atributo.id)">
-                                                    <input type="text" placeholder="{{a.valorPadrao}}" 
-                                                                       [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
-                                                                       id="atributo-{{a.atributo.id}}"/><br/>
-                                                </ng-container>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                {{ a.atributo.unidadeMedida }} <br/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </div>
+                            <!-- <div class="subsessao"> -->
+                            <!--     <ng-container *ngFor="let a of sessao.atributos"> -->
+                            <!--         <div class="container"> -->
+                            <!--             <div class="form-group row"> -->
+                            <!--                 <label for="atributo-{{a.atributo.id}}" class="col-sm-4 text-right"> -->
+                            <!--                     {{ a.atributo.nome }} -->
+                            <!--                 </label> -->
+                            <!--                 <div class="col-sm-4 text-center"> -->
+                            <!--                     <ng-container *ngIf="respostasDict.has(a.atributo.id)"> -->
+                            <!--                         <input type="text" placeholder="{{a.valorPadrao}}" --> 
+                            <!--                                            [(ngModel)]="respostasDict.get(a.atributo.id)[1]" -->
+                            <!--                                            id="atributo-{{a.atributo.id}}" -->
+                            <!--                                            required /><br/> -->
+                            <!--                     </ng-container> -->
+                            <!--                 </div> -->
+                            <!--                 <div class="col-sm-4"> -->
+                            <!--                     {{ a.atributo.unidadeMedida }} <br/> -->
+                            <!--                 </div> -->
+                            <!--             </div> -->
+                            <!--         </div> -->
+                            <!--     </ng-container> -->
+                            <!-- </div> -->
 
                         </ng-template>
                     </ngb-tab>

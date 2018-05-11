@@ -3,12 +3,26 @@
     padding-right: 15%;
 }
 
-.container-fluid > h1 {
+.container-fluid h1 {
     padding-bottom: 43px;
+    font-size: 40px;
 }
 
 div {
     color: #4C9FD8;
+}
+
+.btn {
+    margin-top: 3px;
+    margin-top: 3px;
+}
+
+.btn:disabled {
+    background-color: lightgray;
+}
+
+.btn-group-vertical {
+    width: 70%;
 }
 
 .btn-outline-primary:active {
@@ -21,12 +35,16 @@ div {
 .btn:hover {
     margin: none;
     color: inherit;
-    background-color: #FAFCF4;
 }
 
 .btn:focus {
     outline: none;
     box-shadow: none;
+}
+
+.selectBox {
+    width: 100%;
+    overflow: hidden;
 }
 
 .dropdown-item:hover {
@@ -42,9 +60,9 @@ div {
 }
 
 
-/* .d-inline-block { */
-/*     min-width: 100%; */
-/* } */
+.d-inline-block {
+    min-width: 100%;
+}
 
 /* button { */
 /*     /1* min-width: 50%; *1/ */

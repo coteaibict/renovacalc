@@ -69,10 +69,15 @@ public class RotaService {
         sessao1.getSessoesFilhas().add(sessaoFilha1);
 
         RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
-                "m", "ATR1", 0, 0, "", 0, false, tipo);
+                "m", "ATR1", 0, 2, "", 0, false, tipo);
 
-//        atributo.adicionarItem(new RotaAtributoItem("item1", atributo));
-        sessao1.adicionarAtributo(atributo,"0");
+        sessaoFilha1.adicionarAtributo(atributo,"0");
+
+        RotaAtributo atributoSelecionavel = new RotaAtributo("atributoSelecionavel", "blabla",
+                "", "ATR4", 0, 0, "", 0, false, tipo2);
+        atributoSelecionavel.adicionarItem(new RotaAtributoItem("somar", atributo));
+        atributoSelecionavel.adicionarItem(new RotaAtributoItem("multiplicar", atributo));
+        sessaoFilha1.adicionarAtributo(atributoSelecionavel,"somar");
 
         versao.adicionarSessao(sessao1);
 
@@ -84,8 +89,8 @@ public class RotaService {
         sessaoFilha2.setSuperior(sessao2);
         sessao2.getSessoesFilhas().add(sessaoFilha2);
 
-        sessao2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
-                "m", "ATR2", 10, 0, "", 0, false, tipo), "0");
+        sessaoFilha2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
+                "m", "ATR2", 10, 2, "", 0, false, tipo), "0");
 
         versao.adicionarSessao(sessao2);
 
@@ -95,7 +100,7 @@ public class RotaService {
         RotaSessao sessaoResposta = new RotaSessao(versao, "sessaoResposta", 1, true);
 
         sessaoResposta.adicionarAtributo(new RotaAtributo("resultado", "resultado final",
-                "m", "RES1", 10, 0, "ATR1 + ATR2", 1, true, tipo), "0");
+                "m", "RES1", 10, 2, "ATR4 == 'somar' ? ATR1 + ATR2 : ATR1 * ATR2", 1, true, tipo), "0");
 
         versao.adicionarSessao(sessaoResposta);
 

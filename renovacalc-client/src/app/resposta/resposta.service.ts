@@ -40,7 +40,7 @@ export class RespostaService {
 
         for (let sessaoPai of versao.sessoes) {
             for (let sessaoFilha of sessaoPai.sessoesFilhas) {
-                for (let atributoResposta of sessaoPai.atributos) {
+                for (let atributoResposta of sessaoFilha.atributos) {
                     let atributo = atributoResposta.atributo;
                     respostasDict.set(atributo.id, [atributo, ""]);
                 }

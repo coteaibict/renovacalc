@@ -50,6 +50,7 @@ export class RotaFormularioComponent implements OnInit {
             }
         }
         this.respostasDict = await this.respostaService.inicializarRespostasDict(this.versao);
+            console.log(this.respostasDict);
     }
 
     async calcularResposta() {
@@ -69,6 +70,5 @@ export class RotaFormularioComponent implements OnInit {
             }
         }
     }
-
 
 }
