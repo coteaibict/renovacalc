@@ -84,6 +84,7 @@ public class CalculoService {
             RotaAtributoResposta atributoResposta = new RotaAtributoResposta();
             atributoResposta.setAtributo(atual);
             atributoResposta.setValor(resultado.toString());
+            atributoResposta.setObservacaoNaoConformidade("");
             resposta.adicionarRespostaAtributo(atributoResposta);
         }
 

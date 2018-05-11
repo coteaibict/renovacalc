@@ -176,6 +176,7 @@ public class RotaResposta {
     public void setRespostas(Set<RotaAtributoResposta> respostas) { this.respostas = respostas; }
 
     // Equals/Hashcode
+    // TODO: Mudar quando o produtor puder logar, adicionar ID da usina
 
     @Override
     public boolean equals(Object o) {
@@ -194,7 +195,6 @@ public class RotaResposta {
                 .equals(getTelefoneContato(), that.getTelefoneContato()) && Objects
                 .equals(getEmailContato(), that.getEmailContato()) && Objects
                 .equals(getDataEnvio(), that.getDataEnvio()) &&
-                ((RotaResposta) o).getUsina().getId() == that.getUsina().getId() &&
                 ((RotaResposta) o).getVersao().getId() == that.getVersao().getId();
     }
 
@@ -202,6 +202,6 @@ public class RotaResposta {
     public int hashCode() {
         return Objects.hash(getId(), getNomeUsina(), getEndereco(), getEnderecoNumero(), getEnderecoComplemento(),
                 getEnderecoBairro(), getEnderecoCEP(), getNomeContato(), getTelefoneContato(), getEmailContato(),
-                isAtivo(), getDataEnvio(), getUsina().getId(), getVersao().getId());
+                isAtivo(), getDataEnvio(), getVersao().getId());
     }
 }

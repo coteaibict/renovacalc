@@ -18,13 +18,13 @@ export class RotaService {
 
     constructor(private http: HttpClient) { }
 
-    recuperarRotas() : Observable<Rota[]> {
-        return this.http.get<Rota[]>(this.rotasUrl);
+    async recuperarRotas() : Promise<Rota[]> {
+        return this.http.get<Rota[]>(this.rotasUrl).toPromise();
     }
 
 
-    recuperarVersaoAtual(rotaID : number) : Observable<RotaVersao> {
-        return this.http.get<RotaVersao>(this.rotasUrl + "/" + rotaID);
+    async recuperarVersaoAtual(rotaID : number) : Promise<RotaVersao> {
+        return this.http.get<RotaVersao>(this.rotasUrl + "/" + rotaID).toPromise();
     }
 
 

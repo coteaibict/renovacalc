@@ -101,12 +101,23 @@ public class RotaSessaoAtributo {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("sessaoId")
     public RotaSessao getSessao() { return this.sessao; }
-    public void setSessao(RotaSessao sessao) { this.sessao = sessao; }
+    public void setSessao(RotaSessao sessao) {
+        this.sessao = sessao;
+        if (sessao != null) {
+            this.id.setSessaoId(sessao.getId());
+        }
+    }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @Fetch(FetchMode.JOIN)
     @MapsId("atributoId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     public RotaAtributo getAtributo() { return this.atributo; }
-    public void setAtributo(RotaAtributo atributo) { this.atributo = atributo; }
+    public void setAtributo(RotaAtributo atributo) {
+        this.atributo = atributo;
+        if (atributo != null) {
+            this.id.setAtributoId(atributo.getId());
+        }
+
+    }
 }

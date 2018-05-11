@@ -11,8 +11,10 @@ import { Rota } from '../rota.model'
 import { RotaVersao } from '../rota-versao.model'
 import { RotaSessao } from '../rota-sessao.model';
 import { RotaService } from '../rota.service'
+import { RespostaService } from '../../resposta/resposta.service'
 import { RotaResposta } from '../../resposta/rota-resposta.model'
 import { RotaAtributo } from '../rota-atributo.model';
+import { RotaAtributoResposta } from '../../resposta/rota-atributo-resposta.model';
 
 @Component({
     selector: 'app-rota-formulario',
@@ -24,47 +26,49 @@ export class RotaFormularioComponent implements OnInit {
 
     private versao: RotaVersao;
 
-    private resposta: RotaResposta;
+    private respostasDict: Map<number, [RotaAtributo, string]>;
 
-    private respostasDict : Map<number, [RotaAtributo, string]> = new Map<number, [RotaAtributo, string]>();
-
-    constructor(private rotaService: RotaService, 
+    constructor(private rotaService: RotaService,
+                private respostaService: RespostaService,
                 private route: ActivatedRoute,
                 private router: Router) { }
 
 
     ngOnInit() {
-        this.fetchData();
+        this.recuperarVersao();
     }
 
-    async fetchData() {
+    async recuperarVersao() {
         let params = await this.route.params.first().toPromise();
         try {
-            this.versao = await this.rotaService.recuperarVersaoAtual(+params['id']).toPromise();
+            this.versao = await this.rotaService.recuperarVersaoAtual(+params['id']);
         } catch (e) {
             if (e instanceof HttpErrorResponse) {
-                if(e.status == 404) {
+                if (e.status == 404) {
                     this.router.navigate(['/notfound']);
                 }
             }
         }
-        this.construirResposta();
+        this.respostasDict = await this.respostaService.inicializarRespostasDict(this.versao);
     }
 
-    construirResposta() {
-        for (let sessaoPai of this.versao.sessoes) {
-            for(let sessaoFilha of sessaoPai.sessoesFilhas) {
-                for(let atributoResposta of sessaoPai.atributos) {
-                    let atributo = atributoResposta.atributo;
-                    this.respostasDict.set(atributo.id, [atributo, ""]);
+    async calcularResposta() {
+        let resposta = this.respostaService.reconstruirResposta(this.respostasDict, this.versao);
+        try {
+            resposta = await this.respostaService.calcularResposta(resposta);
+            this.respostasDict = this.respostaService.reconstruirRespostasDict(resposta);
+        } catch (e) {
+            if (e instanceof HttpErrorResponse) {
+                if (e.status == 404) {
+                    this.router.navigate(['/notfound']);
+                } else {
+                    // Erro interno
+                    console.log("erro");
+                    this.router.navigate(['/notfound']);
                 }
-            }
-
-            for(let atributoResposta of sessaoPai.atributos) {
-                let atributo = atributoResposta.atributo;
-                this.respostasDict.set(atributo.id, [atributo, ""]);
             }
         }
     }
+
 
 }

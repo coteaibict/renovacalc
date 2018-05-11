@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -55,27 +54,53 @@ public class RotaService {
 
         RotaVersao versao = new RotaVersao(rota, situacao, 1);
 
-        RotaSessao sessao1 = new RotaSessao(versao, "sessao2", 2, false);
-        RotaSessao sessao2 = new RotaSessao(versao, "sessao1", 1, false);
-        RotaSessao sessaoFilha = new RotaSessao(versao, "filha", 1, false);
-        sessaoFilha.setSuperior(sessao1);
-        sessao1.getSessoesFilhas().add(sessaoFilha);
 
         AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
         em.persist(tipo);
         AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
         em.persist(tipo2);
 
-        RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
-                "", "ATR1", 0, 0, "", 0, false, tipo2);
+        // Sessao 1
 
-        atributo.adicionarItem(new RotaAtributoItem("item1", atributo));
-        sessao1.adicionarAtributo(atributo,"item1");
+        RotaSessao sessao1 = new RotaSessao(versao, "sessao1", 1, false);
+        RotaSessao sessaoFilha1 = new RotaSessao(versao, "filha1", 1, false);
+
+        sessaoFilha1.setSuperior(sessao1);
+        sessao1.getSessoesFilhas().add(sessaoFilha1);
+
+        RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
+                "m", "ATR1", 0, 0, "", 0, false, tipo);
+
+//        atributo.adicionarItem(new RotaAtributoItem("item1", atributo));
+        sessao1.adicionarAtributo(atributo,"0");
+
+        versao.adicionarSessao(sessao1);
+
+        // Sessao 2
+
+        RotaSessao sessao2 = new RotaSessao(versao, "sessao2", 2, false);
+        RotaSessao sessaoFilha2 = new RotaSessao(versao, "filha2", 1, false);
+
+        sessaoFilha2.setSuperior(sessao2);
+        sessao2.getSessoesFilhas().add(sessaoFilha2);
 
         sessao2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
-                "m", "ATR2", 10, 0, "1+1", 0, false, tipo), "0");
-        versao.adicionarSessao(sessao1);
+                "m", "ATR2", 10, 0, "", 0, false, tipo), "0");
+
         versao.adicionarSessao(sessao2);
+
+        // Sessao Resposta
+
+
+        RotaSessao sessaoResposta = new RotaSessao(versao, "sessaoResposta", 1, true);
+
+        sessaoResposta.adicionarAtributo(new RotaAtributo("resultado", "resultado final",
+                "m", "RES1", 10, 0, "ATR1 + ATR2", 1, true, tipo), "0");
+
+        versao.adicionarSessao(sessaoResposta);
+
+        // Salvando
+
         rotaVersaoDAO.save(versao);
     }
 

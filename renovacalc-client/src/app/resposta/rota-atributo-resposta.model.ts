@@ -1,15 +1,15 @@
 import { RotaResposta } from './rota-resposta.model';
 import { RotaAtributo } from '../rotas/rota-atributo.model';
 
-type RespostaAtributoID = { respostaID : number, atributoId : number }
+type RespostaAtributoID = { respostaID : number, atributoID : number }
 
 export class RotaAtributoResposta {
 
     constructor(
         public id : RespostaAtributoID,
-        public valor : String,
+        public valor : string,
         public avaliacaoANP : boolean,
-        public observacaoNaoConformidade : String,
+        public observacaoNaoConformidade : string,
         public resposta : RotaResposta,
         public atributo : RotaAtributo
     ) { }

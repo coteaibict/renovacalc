@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 
 import { RotaService } from './rotas/rota.service';
+import { RespostaService } from './resposta/resposta.service';
 import { RotasComponent } from './rotas/rotas.component';
 import { RotaFormularioComponent } from './rotas/rota-formulario/rota-formulario.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
@@ -34,7 +35,7 @@ const appRoutes : Routes = [
         NgbModule.forRoot(),
         FormsModule
     ],
-    providers: [RotaService],
+    providers: [RotaService, RespostaService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

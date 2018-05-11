@@ -56,7 +56,7 @@ public class AtributoService {
     }
 
     public Set<RotaAtributo> recuperarCalculadosPorVersao(long versaoID) {
-        return recuperarCalculadosPorVersao(versaoID);
+        return atributoDAO.recuperarCalculadosPorVersao(versaoID);
     }
 
     // Getters/Setters

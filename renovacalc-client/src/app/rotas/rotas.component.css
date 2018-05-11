@@ -11,6 +11,37 @@ div {
     color: #4C9FD8;
 }
 
+.btn-outline-primary:active {
+    margin: none;
+    color: inherit;
+    border-bottom: none;
+    background-color: #FAFCF4;
+}
+
+.btn:hover {
+    margin: none;
+    color: inherit;
+    background-color: #FAFCF4;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.dropdown-item:hover {
+    background: lightblue;
+}
+
+.dropdown-item-group {
+    width: 100%;
+}
+
+.dropdown-item {
+    min-width: inherit;
+}
+
+
 /* .d-inline-block { */
 /*     min-width: 100%; */
 /* } */

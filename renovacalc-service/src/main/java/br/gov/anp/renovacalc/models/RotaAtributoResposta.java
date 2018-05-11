@@ -59,7 +59,12 @@ public class RotaAtributoResposta {
 
     @EmbeddedId
     public RespostaAtributoKey getId() { return id; }
-    public void setId(RespostaAtributoKey id) { this.id = id; }
+    public void setId(RespostaAtributoKey id) {
+        this.id = id;
+        if (id == null) {
+            this.id = new RespostaAtributoKey();
+        }
+    }
 
     @Column(name = "DSC_RESPOSTA")
     public String getValor() { return valor; }
@@ -77,12 +82,22 @@ public class RotaAtributoResposta {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("respostaId")
     public RotaResposta getResposta() { return resposta; }
-    public void setResposta(RotaResposta resposta) { this.resposta = resposta; }
+    public void setResposta(RotaResposta resposta) {
+        this.resposta = resposta;
+        if (resposta != null) {
+            this.id.setRespostaId(resposta.getId());
+        }
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @MapsId("atributoId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     public RotaAtributo getAtributo() { return atributo; }
-    public void setAtributo(RotaAtributo atributo) { this.atributo = atributo; }
+    public void setAtributo(RotaAtributo atributo) {
+        this.atributo = atributo;
+        if (atributo != null) {
+            this.id.setAtributoId(atributo.getId());
+        }
+    }
 }

@@ -16,8 +16,9 @@ export class RotasComponent implements OnInit {
     constructor(private rotaService: RotaService) { }
 
     ngOnInit() {
-        this.rotaService.recuperarRotas().subscribe(rotas => this.rotas = rotas);
-        // this.rotas = [ {id: 1, nome: "Etanol"}, {id: 2, nome: "Biodísel" }]
+        this.rotaService.recuperarRotas().then(rotas => this.rotas = rotas);
+
+         // this.rotas = [ {id: 1, nome: "Etanol"}, {id: 2, nome: "Biodísel" }]
         this.selecionada = { id: 0, nome: "Diretório de rotas de produção de biocombustíveis"}
     }
 

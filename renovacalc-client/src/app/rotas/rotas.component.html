@@ -10,8 +10,8 @@
 <div class="container-fluid text-center padding-v2 b2">
     <div class="d-inline-block">
         <div ngbDropdown class="btn-group-vertical">
-            <button class="btn btn-outline-primary b1" id="dropDownRotas" ngbDropdownToggle>{{ selecionada.nome }}</button>
-            <div ngbDropdownMenu aria-labelledby="dropDownRotas">
+            <button class="btn btn-outline-primary b1" id="dropDownRotas" ngbDropdownToggle><strong>{{ selecionada.nome }}</strong></button>
+            <div class="dropdown-item-group" ngbDropdownMenu aria-labelledby="dropDownRotas">
                 <button class="dropdown-item" (click)="this.selecionada = item" *ngFor="let item of rotas"> {{ item.nome }}</button>
             </div>
         </div>

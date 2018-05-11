@@ -11,13 +11,13 @@
 
 import br.gov.anp.renovacalc.dao.RotaAtributoDAO;
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
-import br.gov.anp.renovacalc.models.AtributoTipoDado;
-import br.gov.anp.renovacalc.models.RotaAtributo;
+import br.gov.anp.renovacalc.models.*;
 import br.gov.anp.renovacalc.service.AtributoService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +25,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.*;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/testContext.xml" })
@@ -150,6 +152,42 @@ public class ServiceAtributoTest {
 
         atributoService.ordernarPorDependencias(atributosCalculados);
 
+    }
+
+    @Test
+    public void deveRecuperarCalculadosPorVersao() {
+        AtributoTipoDado tipoAtributo = new AtributoTipoDado();
+        tipoAtributo.setCodigo(1);
+        tipoAtributo.setDescricao("numerico");
+
+
+        // Definindo atributos
+        // A formula final fica: ATR1 = (ATR4 + ATR5) + (ATR4 * ATR5)
+
+        RotaAtributo atributoParamCalc1 = new RotaAtributo();
+        atributoParamCalc1.setTipo(tipoAtributo);
+        atributoParamCalc1.setTag("ATR1");
+        atributoParamCalc1.setFormula("ATR2 + ATR3");
+
+        RotaAtributo atributoParamCalc2 = new RotaAtributo();
+        atributoParamCalc2.setTipo(tipoAtributo);
+        atributoParamCalc2.setTag("ATR2");
+        atributoParamCalc2.setFormula("ATR4 + ATR5");
+
+        RotaAtributo atributoParamCalc3 = new RotaAtributo();
+        atributoParamCalc3.setTipo(tipoAtributo);
+        atributoParamCalc3.setTag("ATR3");
+        atributoParamCalc3.setFormula("ATR4 * ATR5");
+
+        Set<RotaAtributo> esperado = new HashSet<>();
+        esperado.add(atributoParamCalc1);
+        esperado.add(atributoParamCalc2);
+        esperado.add(atributoParamCalc3);
+
+        when(atributoDAO.recuperarCalculadosPorVersao(Matchers.anyLong())).thenReturn(esperado);
+
+        Set<RotaAtributo> retornado = atributoService.recuperarCalculadosPorVersao(0);
+        Assert.assertEquals(esperado, retornado);
     }
 
 }

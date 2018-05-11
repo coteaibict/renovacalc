@@ -8,3 +8,7 @@
     font-size: 12px;
     background-color: #D5E9FA;
 }
+
+.navbar a:hover {
+    text-decoration: none;
+}

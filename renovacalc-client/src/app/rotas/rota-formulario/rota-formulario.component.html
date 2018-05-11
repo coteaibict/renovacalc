@@ -71,12 +71,15 @@
             <hr/>
             <div *ngFor="let sessao of versao.sessoes">
                 <div *ngIf="sessao.resultado">
+                    <h2>{{ sessao.descricao }}</h2>
                     <ng-container *ngFor="let a of sessao.atributos">
                         <ng-container *ngIf="a.atributo.formula">
+                            {{a.atributo.nome}}: {{respostasDict.get(a.atributo.id)[1] | number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }}
                         </ng-container>
                     </ng-container>
                 </div>
             </div>
         </div>
+        <button class="btn btn-primary" (click)="calcularResposta()">Simular</button>
     </div>
 </div>

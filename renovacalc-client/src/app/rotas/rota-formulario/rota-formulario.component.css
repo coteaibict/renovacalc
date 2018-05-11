@@ -33,6 +33,11 @@
     color: #7E7E7D;
 }
 
+.resultados > h1 {
+    font-size: 14px;
+    font-weight: 700;
+}
+
 .resultados > hr {
     background: #7E7E7D;
 }
