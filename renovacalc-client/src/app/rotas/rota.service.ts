@@ -5,10 +5,6 @@ import { RotaVersao } from './rota-versao.model'
 import { Rota } from './rota.model'
 import { RotaSessao } from './rota-sessao.model'
 import { RotaAtributo } from './rota-atributo.model'
-import { RotaSessaoAtributo } from './rota-sessao-atributo.model'
-import { Observable } from 'rxjs/Observable'
-import { of } from 'rxjs/observable/of';
-import { tap, map } from 'rxjs/operators';
 
 @Injectable()
 export class RotaService {
@@ -18,13 +14,53 @@ export class RotaService {
 
     constructor(private http: HttpClient) { }
 
+        /**
+         * Método assíncrono que faz a chamada ao servidor para recuperar a lista de Rotas
+         * cadastradas.
+         * @returns Promise que irá prover a lista de Rotas ao ser resolvida
+         *
+         */
     async recuperarRotas() : Promise<Rota[]> {
         return this.http.get<Rota[]>(this.rotasUrl).toPromise();
     }
 
 
+        /**
+         * Método assíncrono que faz a chamada ao servidor para recuperar o objeto RotaVersao
+         * correspondente à Rota de id rotaID, em sua versão mais atual.
+         * @param rotaID: ID da rota a ser buscada
+         * @returns Promise que irá prover o objeto RotaVersao ao ser resolvida
+         *
+         */
     async recuperarVersaoAtual(rotaID : number) : Promise<RotaVersao> {
         return this.http.get<RotaVersao>(this.rotasUrl + "/" + rotaID).toPromise();
+    }
+
+        /**
+         * Método que ordena as sessões e atributos da rota pelo campo "ordem" destes.
+         * Não retorna nada, ordenação in-place
+         * @param RotaVersao com as sessões e atributos com o campo "ordem" preenchido
+         */
+    ordenarRota(versao : RotaVersao) {
+        versao.sessoes.sort((sessao1, sessao2) => sessao1.ordem - sessao2.ordem);
+        for(let sessao of versao.sessoes) {
+            this.ordenarSessao(sessao);
+        }
+    }
+
+        /**
+         * Método privado auxiliar para ordenar cada sessão. Percorre sessões aninhadas.
+         * Ordena os atributos e a lista de sessões filhas.
+         * Não retorna nada, ordenação in-place.
+         */
+    private ordenarSessao(sessao : RotaSessao) {
+        sessao.sessoesFilhas.sort((sessao1, sessao2) => sessao1.ordem - sessao2.ordem);
+
+        for(let filha of sessao.sessoesFilhas) {
+            this.ordenarSessao(filha);
+        }
+
+        sessao.atributos.sort((atributo1, atributo2) => atributo1.ordem - atributo2.ordem);
     }
 
 

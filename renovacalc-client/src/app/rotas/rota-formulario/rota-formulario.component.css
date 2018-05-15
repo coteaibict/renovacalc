@@ -1,3 +1,50 @@
+/* .tooltip { */
+/*     position: relative; */
+/*     display: inline-block; */
+/*     border-bottom: 1px dotted black; /1* If you want dots under the hoverable text *1/ */
+/* } */
+
+/* Tooltip text */
+/* .tooltip .tooltiptext { */
+/*     visibility: hidden; */
+/*     width: 120px; */
+/*     background-color: #555; */
+/*     color: #fff; */
+/*     text-align: center; */
+/*     padding: 5px 0; */
+/*     border-radius: 6px; */
+
+/*     /1* Position the tooltip text *1/ */
+/*     position: absolute; */
+/*     z-index: 1; */
+/*     bottom: 125%; */
+/*     left: 50%; */
+/*     margin-left: -60px; */
+
+/*     /1* Fade in tooltip *1/ */
+/*     opacity: 0; */
+/*     transition: opacity 0.3s; */
+/* } */
+
+/* /1* Tooltip arrow *1/ */
+/* .tooltip .tooltiptext::after { */
+/*     content: ""; */
+/*     position: absolute; */
+/*     top: 100%; */
+/*     left: 50%; */
+/*     margin-left: -5px; */
+/*     border-width: 5px; */
+/*     border-style: solid; */
+/*     border-color: #555 transparent transparent transparent; */
+/* } */
+
+/* /1* Show the tooltip text when you mouse over the tooltip container *1/ */
+/* .tooltip:hover .tooltiptext { */
+/*     visibility: visible; */
+/*     opacity: 1; */
+/* } */
+
+
 .main .container {
     padding-left: 12%;
     padding-right: 12%;
@@ -43,6 +90,29 @@
     background: #7E7E7D;
 }
 
+.atributo {
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: lightgray;
+    border-style: solid;
+    width: 100%;
+    text-align: center;
+    background-color: #FFFFFF;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    color: #4A9AD4;
+}
+
+.error-required {
+    border-color: red !important;
+}
+
+/* .ng-pristine.required { */
+/*     border-color: red; */
+/* } */
+
 /* Sessões raiz */
 .nav-link {
     color: #7E7E7D;
@@ -67,7 +137,6 @@
     background-color: inherit;
 }
 
-
 h1 {
     font-size: 20px;
 }
@@ -77,17 +146,6 @@ h2 {
     font-weight: 500;
     font-size: 16px;
     padding-left: 5px;
-}
-
-input {
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 6px;
-    border-width: 1px;
-    border-color: lightgray;
-    border-style: solid;
-    width: 100%;
-    text-align: center;
 }
 
 hr {

@@ -18,7 +18,7 @@ export class RotaSessaoAtributo {
     ) {
         this.id = { sessaoId : 0, atributoId : 0};
         this.id.sessaoId = sessao != null ? sessao.id : 0 ;
-        this.id.atributoId = atributo.id;
+        this.id.atributoId = atributo != null ? atributo.id : 0;
     }
 
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
 import { ViewEncapsulation } from '@angular/core';
 
 import 'rxjs/add/operator/first';
@@ -26,6 +25,8 @@ export class RotaFormularioComponent implements OnInit {
 
     private versao: RotaVersao;
 
+    private simulado: boolean = false;
+
     private respostasDict: Map<number, [RotaAtributo, string]>;
 
     constructor(private rotaService: RotaService,
@@ -42,6 +43,7 @@ export class RotaFormularioComponent implements OnInit {
         let params = await this.route.params.first().toPromise();
         try {
             this.versao = await this.rotaService.recuperarVersaoAtual(+params['id']);
+            this.rotaService.ordenarRota(this.versao);
         } catch (e) {
             if (e instanceof HttpErrorResponse) {
                 if (e.status == 404) {
@@ -50,10 +52,11 @@ export class RotaFormularioComponent implements OnInit {
             }
         }
         this.respostasDict = await this.respostaService.inicializarRespostasDict(this.versao);
-            console.log(this.respostasDict);
+        console.log(this.versao);
     }
 
     async calcularResposta() {
+        this.simulado = true;
         let resposta = this.respostaService.reconstruirResposta(this.respostasDict, this.versao);
         try {
             resposta = await this.respostaService.calcularResposta(resposta);
@@ -63,9 +66,8 @@ export class RotaFormularioComponent implements OnInit {
                 if (e.status == 404) {
                     this.router.navigate(['/notfound']);
                 } else {
-                    // Erro interno
-                    console.log("erro");
-                    this.router.navigate(['/notfound']);
+                    // Erro interno no servidor
+                    this.router.navigate(['/erro']);
                 }
             }
         }
