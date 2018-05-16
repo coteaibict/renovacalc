@@ -48,16 +48,17 @@ public class RotaService {
     private Logger logger = Logger.getLogger(RotaService.class);
 
     public void setup() {
+        logger.trace("teste setup");
         Rota rota = salvar(new Rota("etanol"));
 
-        RotaVersaoSituacao situacao = situacaoDAO.save(new RotaVersaoSituacao(1, "atual"));
+        RotaVersaoSituacao situacao = situacaoDAO.save(new RotaVersaoSituacao('1', "atual"));
 
         RotaVersao versao = new RotaVersao(rota, situacao, 1);
 
 
-        AtributoTipoDado tipo = new AtributoTipoDado(1, "numerico");
+        AtributoTipoDado tipo = new AtributoTipoDado('1', "numerico");
         em.persist(tipo);
-        AtributoTipoDado tipo2 = new AtributoTipoDado(2, "selecionavel");
+        AtributoTipoDado tipo2 = new AtributoTipoDado('2', "selecao");
         em.persist(tipo2);
 
         // Sessao 1

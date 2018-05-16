@@ -21,10 +21,11 @@ import java.util.Objects;
  * Classe que representa uma Usina, conforme o modelo de dados
  */
 @Entity
-@Table(name = "ROTA_USINA")
+@Table(name = "TRNB_ROTA_USINA")
 public class RotaUsina {
 
     private long id;
+
     private String cnpj;
 
     private Rota rota;
@@ -39,11 +40,11 @@ public class RotaUsina {
     @Id
     @Column(name = "SEQ_ROTA_USINA")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceUsina")
-    @SequenceGenerator(name = "sequenceUsina", sequenceName = "SICO_USINA", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceUsina", sequenceName = "SRNB_ROTA_USINA", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
-    @Column(name = "NUM_CNPJ_USINA")
+    @Column(name = "NUM_CNPJ_USINA", length = 14, columnDefinition = "CHAR")
     public String getCnpj() { return cnpj; }
     public void setCnpj(String cnpj) { this.cnpj = cnpj; }
 

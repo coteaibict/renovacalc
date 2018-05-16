@@ -18,7 +18,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ROTA")
+@Table(name = "TRNB_ROTA")
 public class Rota {
 
     private long id;
@@ -34,7 +34,7 @@ public class Rota {
     @Id
     @Column(name = "SEQ_ROTA")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceRota")
-    @SequenceGenerator(name = "sequenceRota", sequenceName = "SICO_ROTA", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceRota", sequenceName = "SRNB_ROTA", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

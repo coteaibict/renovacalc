@@ -72,13 +72,13 @@ public class ServiceRotaTest {
     }
 
     @Test
-    public void deveSalvarVersaoDeRota() throws RecursoNaoEncontradoException {
+    public void deveSalvarVersaoDeRota() {
         Rota rotaParam = new Rota();
         rotaParam.setNome("etanol");
         rotaParam.setId(1);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo(1);
+        situacaoParam.setCodigo('1');
         situacaoParam.setDescricao("atual");
 
         RotaVersao rotaVersaoExpected = new RotaVersao();
@@ -116,7 +116,7 @@ public class ServiceRotaTest {
         rota.setId(1);
 
         RotaVersaoSituacao situacao = new RotaVersaoSituacao();
-        situacao.setCodigo(1);
+        situacao.setCodigo('1');
         situacao.setDescricao("atual");
 
         List<RotaVersao> versaoListExpected = new ArrayList<>();

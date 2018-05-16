@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROTA_VERSAO")
+@Table(name = "TRNB_ROTA_VERSAO")
 public class RotaVersao {
 
     private long id;
@@ -50,7 +50,7 @@ public class RotaVersao {
     @Id
     @Column(name = "SEQ_ROTA_VERSAO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceVersao")
-    @SequenceGenerator(name = "sequenceVersao", sequenceName = "SICO_VERSAO", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceVersao", sequenceName = "SRNB_ROTA_VERSAO", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
@@ -96,7 +96,7 @@ public class RotaVersao {
         RotaVersao versao = (RotaVersao) o;
         return  getNumVersao() == versao.getNumVersao() &&
                 getRota().getId() == versao.getRota().getId() &&
-                getSituacao().getCodigo() == versao.getSituacao().getCodigo();
+                getSituacao().getCodigo().equals(versao.getSituacao().getCodigo());
     }
 
     @Override

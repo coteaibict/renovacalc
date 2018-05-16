@@ -56,7 +56,7 @@ public class ServiceRespostaTest {
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
         situacaoParam.setDescricao("atual");
-        situacaoParam.setCodigo(1);
+        situacaoParam.setCodigo('1');
 
         RotaVersao versaoParam = new RotaVersao();
         versaoParam.setRota(rotaParam);
@@ -116,7 +116,7 @@ public class ServiceRespostaTest {
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
         situacaoParam.setDescricao("atual");
-        situacaoParam.setCodigo(1);
+        situacaoParam.setCodigo('1');
 
         RotaVersao versaoParam = new RotaVersao();
         versaoParam.setRota(rotaParam);
@@ -175,7 +175,7 @@ public class ServiceRespostaTest {
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
         situacaoParam.setDescricao("atual");
-        situacaoParam.setCodigo(1);
+        situacaoParam.setCodigo('1');
 
         RotaVersao versaoParam = new RotaVersao();
         versaoParam.setRota(rotaParam);
@@ -189,7 +189,7 @@ public class ServiceRespostaTest {
         sessaoParam.setRotaVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo(1);
+        tipoAtributo.setCodigo('1');
         tipoAtributo.setDescricao("numerico");
 
         // Definindo atributos

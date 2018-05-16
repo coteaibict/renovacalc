@@ -16,6 +16,7 @@ package br.gov.anp.renovacalc.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,7 +24,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROTA_SESSAO")
+@Table(name = "TRNB_ROTA_SESSAO")
 public class RotaSessao {
     private long id;
 
@@ -31,16 +32,19 @@ public class RotaSessao {
 
     private int ordem;
 
+    private int nivel;
+
     /**
      * Indica se esta sessao possui apenas atributos-resultado
      */
-    private boolean resultado;
+    private Boolean resultado;
 
     private RotaVersao rotaVersao;
 
     private Set<RotaSessaoAtributo> atributos = new HashSet<RotaSessaoAtributo>();
 
     private RotaSessao superior;
+
 
     private Set<RotaSessao> sessoesFilhas = new HashSet<>();
 
@@ -57,7 +61,7 @@ public class RotaSessao {
     @Id
     @Column(name = "SEQ_ROTA_SESSAO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceSessao")
-    @SequenceGenerator(name = "sequenceSessao", sequenceName = "SICO_SESSAO", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceSessao", sequenceName = "SRNB_ROTA_SESSAO", allocationSize = 2)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
@@ -69,9 +73,14 @@ public class RotaSessao {
     public int getOrdem() { return ordem; }
     public void setOrdem(int ordem) { this.ordem = ordem; }
 
-    @Column(name = "IND_RESULTADO")
-    public boolean isResultado() { return resultado; }
-    public void setResultado(boolean resultado) { this.resultado = resultado; }
+    @Column(name = "NUM_NIVEL")
+    public int getNivel() { return nivel; }
+    public void setNivel(int nivel) { this.nivel = nivel; }
+
+    @Column(name = "IND_RESULTADO", columnDefinition = "CHAR(1)")
+    @Type(type = "yes_no")
+    public Boolean isResultado() { return resultado; }
+    public void setResultado(Boolean resultado) { this.resultado = resultado; }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)

@@ -30,11 +30,9 @@ public class SessaoAtributoKey implements Serializable {
     public SessaoAtributoKey() {
     }
 
-    @Column(name = "SEQ_ROTA_SESSAO")
     public long getSessaoId() { return sessaoId; }
     public void setSessaoId(long sessaoId) { this.sessaoId = sessaoId; }
 
-    @Column(name = "SEQ_ROTA_ATRIBUTO")
     public long getAtributoId() { return atributoId; }
     public void setAtributoId(long atributoId) { this.atributoId = atributoId; }
 

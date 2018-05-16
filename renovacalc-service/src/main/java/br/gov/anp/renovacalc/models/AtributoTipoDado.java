@@ -17,27 +17,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ATRIBUTO_TIPO_DADO")
+@Table(name = "TRNB_ATRIBUTO_TIPO_DADO")
 public class AtributoTipoDado {
 
-    private long codigo;
+    private Character codigo;
 
     private String descricao;
 
     public AtributoTipoDado() {
     }
 
-    public AtributoTipoDado(long codigo, String descricao) {
+    public AtributoTipoDado(char codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
     @Id
     @Column(name = "COD_TIPO_DADO")
-    public long getCodigo() { return codigo; }
-    public void setCodigo(long codigo) { this.codigo = codigo; }
+    public Character getCodigo() { return codigo; }
+    public void setCodigo(Character codigo) { this.codigo = codigo; }
 
-    @Column(name = "DSC_TIPO_DADO")
+    @Column(name = "DSC_TIPO_DADO", length = 10)
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
 }

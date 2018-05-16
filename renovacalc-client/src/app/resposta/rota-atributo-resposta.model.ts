@@ -8,7 +8,7 @@ export class RotaAtributoResposta {
     constructor(
         public id : RespostaAtributoID,
         public valor : string,
-        public avaliacaoANP : boolean,
+        public avaliacaoANP : string,
         public observacaoNaoConformidade : string,
         public resposta : RotaResposta,
         public atributo : RotaAtributo

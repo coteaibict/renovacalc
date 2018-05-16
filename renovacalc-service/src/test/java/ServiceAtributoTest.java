@@ -51,7 +51,7 @@ public class ServiceAtributoTest {
     public void deveOrdenarPorDependencias() {
 
         AtributoTipoDado tipo = new AtributoTipoDado();
-        tipo.setCodigo(1);
+        tipo.setCodigo('1');
         tipo.setDescricao("numerico");
 
         RotaAtributo atr1 = new RotaAtributo();
@@ -127,7 +127,7 @@ public class ServiceAtributoTest {
     @Test(expected = DependenciasCiclicasException.class)
     public void deveLancarExcecaoDeDependenciaCiclicaAoOrdenar() throws DependenciasCiclicasException {
         AtributoTipoDado tipo = new AtributoTipoDado();
-        tipo.setCodigo(1);
+        tipo.setCodigo('1');
         tipo.setDescricao("numerico");
 
         RotaAtributo atr1 = new RotaAtributo();
@@ -157,7 +157,7 @@ public class ServiceAtributoTest {
     @Test
     public void deveRecuperarCalculadosPorVersao() {
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo(1);
+        tipoAtributo.setCodigo('1');
         tipoAtributo.setDescricao("numerico");
 
 

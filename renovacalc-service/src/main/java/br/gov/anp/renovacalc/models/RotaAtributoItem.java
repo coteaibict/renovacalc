@@ -18,7 +18,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROTA_ATRIBUTO_ITEM")
+@Table(name = "TRNB_ROTA_ATRIBUTO_ITEM")
 public class RotaAtributoItem {
     private long id;
 
@@ -38,7 +38,7 @@ public class RotaAtributoItem {
     @Id
     @Column(name = "SEQ_ROTA_ATRIBUTO_ITEM")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceAtributoItem")
-    @SequenceGenerator(name = "sequenceAtributoItem", sequenceName = "SICO_ATRIBUTO_ITEM", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceAtributoItem", sequenceName = "SRNB_ROTA_ATRIBUTO_ITEM", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 

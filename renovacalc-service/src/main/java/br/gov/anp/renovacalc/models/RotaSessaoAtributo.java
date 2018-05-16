@@ -25,7 +25,7 @@ import javax.persistence.Table;
  * Classe que faz a relação ManyToMany entre RotaSessao e RotaAtributo.
  */
 @Entity
-@Table(name = "ROTA_SESSAO_ATRIBUTO")
+@Table(name = "TRNB_ROTA_SESSAO_ATRIBUTO")
 public class RotaSessaoAtributo {
 
     private SessaoAtributoKey id;
@@ -78,28 +78,30 @@ public class RotaSessaoAtributo {
     public int getOrdem() { return ordem; }
     public void setOrdem(int ordem) { this.ordem = ordem; }
 
-    @Column(name = "IND_OBRIGATORIO")
-    @Type(type="true_false")
+    @Column(name = "IND_OBRIGATORIO", columnDefinition = "CHAR(1)")
+    @Type(type="yes_no")
     public boolean isObrigatorio() { return obrigatorio; }
     public void setObrigatorio(boolean obrigatorio) { this.obrigatorio = obrigatorio; }
 
-    @Column(name = "IND_VISIVEL")
+    @Column(name = "IND_VISIVEL", columnDefinition = "CHAR(1)")
+    @Type(type="yes_no")
     public boolean isVisivel() { return visivel; }
     public void setVisivel(boolean visivel) { this.visivel = visivel; }
 
-    @Column(name = "IND_EDITAVEL")
-    @Type(type="true_false")
+    @Column(name = "IND_EDITAVEL", columnDefinition = "CHAR(1)")
+    @Type(type="yes_no")
     public boolean isEditavel() { return editavel; }
     public void setEditavel(boolean editavel) { this.editavel = editavel; }
 
-    @Column(name = "IND_AVALIADO")
-    @Type(type="true_false")
+    @Column(name = "IND_AVALIADO", columnDefinition = "CHAR(1)")
+    @Type(type="yes_no")
     public boolean isAvaliado() { return avaliado; }
     public void setAvaliado(boolean avaliado) { this.avaliado = avaliado; }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("sessaoId")
+    @JoinColumn(name = "SEQ_ROTA_SESSAO")
     public RotaSessao getSessao() { return this.sessao; }
     public void setSessao(RotaSessao sessao) {
         this.sessao = sessao;
@@ -111,6 +113,7 @@ public class RotaSessaoAtributo {
     @ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @Fetch(FetchMode.JOIN)
     @MapsId("atributoId")
+    @JoinColumn(name = "SEQ_ROTA_ATRIBUTO")
     @OnDelete(action = OnDeleteAction.CASCADE)
     public RotaAtributo getAtributo() { return this.atributo; }
     public void setAtributo(RotaAtributo atributo) {

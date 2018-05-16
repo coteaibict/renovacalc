@@ -20,16 +20,16 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ROTA_VERSAO_SITUACAO")
+@Table(name = "TRNB_ROTA_VERSAO_SITUACAO")
 public class RotaVersaoSituacao {
 
-    private long codigo;
+    private Character codigo;
 
     private String descricao;
 
     public RotaVersaoSituacao() { }
 
-    public RotaVersaoSituacao(long codigo, String desc) {
+    public RotaVersaoSituacao(char codigo, String desc) {
         this.codigo = codigo;
         this.descricao = desc;
     }
@@ -39,14 +39,14 @@ public class RotaVersaoSituacao {
 
     @Id
     @Column(name = "COD_ROTA_VERSAO_SITUACAO")
-    public long getCodigo() {
+    public Character getCodigo() {
         return codigo;
     }
-    public void setCodigo(long codigo) {
+    public void setCodigo(Character codigo) {
         this.codigo = codigo;
     }
 
-    @Column(name = "DESC_ROTA_VERSAO_SITUACAO")
+    @Column(name = "DSC_ROTA_VERSAO_SITUACAO")
     public String getDescricao() {
         return descricao;
     }

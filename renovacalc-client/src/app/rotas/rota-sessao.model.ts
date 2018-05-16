@@ -6,6 +6,7 @@ export class RotaSessao {
         public id: number,
         public descricao: String,
         public ordem: number,
+        public nivel: number,
         public resultado: boolean,
         public rotaVersao: RotaVersao,
         public superior: RotaSessao,

@@ -13,11 +13,11 @@ package br.gov.anp.renovacalc.models;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,7 +27,7 @@ import java.util.Set;
  * Os valores de cada item da simulacao estao na classe RotaAtributoResposta.
  */
 @Entity
-@Table(name = "ROTA_RESPOSTA")
+@Table(name = "TRNB_ROTA_RESPOSTA")
 public class RotaResposta {
 
     private long id;
@@ -52,7 +52,7 @@ public class RotaResposta {
 
     private boolean ativo;
 
-    private boolean avaliacaoANP;
+    private char avaliacaoANP;
 
     private String observacaoNaoConformidade;
 
@@ -101,7 +101,7 @@ public class RotaResposta {
     @Id
     @Column(name = "SEQ_ROTA_RESPOSTA")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceResposta")
-    @SequenceGenerator(name = "sequenceResposta", sequenceName = "SICO_RESPOSTA", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceResposta", sequenceName = "SRNB_ROTA_RESPOSTA", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
@@ -141,15 +141,16 @@ public class RotaResposta {
     public String getEmailContato() { return emailContato; }
     public void setEmailContato(String emailContato) { this.emailContato = emailContato; }
 
-    @Column(name = "IND_ATIVO")
+    @Column(name = "IND_ATIVO", columnDefinition = "CHAR(1)")
+    @Type(type = "yes_no")
     public boolean isAtivo() { return ativo; }
     public void setAtivo(boolean ativo) { this.ativo = ativo; }
 
-    @Column(name = "IND_AVALIACAO_ANP")
-    public boolean isAvaliacaoANP() { return avaliacaoANP; }
-    public void setAvaliacaoANP(boolean avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
+    @Column(name = "IND_AVALIACAO_ANP", columnDefinition = "CHAR(1)")
+    public char getAvaliacaoANP() { return avaliacaoANP; }
+    public void setAvaliacaoANP(char avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
 
-    @Column(name = "DSC_OBSERVACAO_NAO_CONFORMIDADE")
+    @Column(name = "DSC_OBSERVAO_NAO_CONFORMIDADE")
     public String getObservacaoNaoConformidade() { return observacaoNaoConformidade; }
     public void setObservacaoNaoConformidade(String observacaoNaoConformidade) { this.observacaoNaoConformidade = observacaoNaoConformidade; }
 
@@ -164,7 +165,6 @@ public class RotaResposta {
     public RotaUsina getUsina() { return usina; }
     public void setUsina(RotaUsina usina) { this.usina = usina; }
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "SEQ_ROTA_VERSAO", nullable = false)

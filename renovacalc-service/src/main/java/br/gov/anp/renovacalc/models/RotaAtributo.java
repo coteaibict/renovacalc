@@ -11,18 +11,18 @@
 
 package br.gov.anp.renovacalc.models;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "ROTA_ATRIBUTO")
+@Table(name = "TRNB_ROTA_ATRIBUTO")
 public class RotaAtributo {
 
     private long id;
@@ -75,7 +75,7 @@ public class RotaAtributo {
     @Id
     @Column(name = "SEQ_ROTA_ATRIBUTO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceAtributo")
-    @SequenceGenerator(name = "sequenceAtributo", sequenceName = "SICO_ATRIBUTO", allocationSize = 1)
+    @SequenceGenerator(name = "sequenceAtributo", sequenceName = "SRNB_ROTA_ATRIBUTO", allocationSize = 1)
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
@@ -111,7 +111,8 @@ public class RotaAtributo {
     public int getPeso() { return peso; }
     public void setPeso(int peso) { this.peso = peso; }
 
-    @Column(name = "IND_PRINCIPAL")
+    @Column(name = "IND_PRINCIPAL", columnDefinition = "CHAR(1)")
+    @Type(type = "yes_no")
     public boolean isPrincipal() { return principal; }
     public void setPrincipal(boolean principal) { this.principal = principal; }
 
@@ -149,7 +150,7 @@ public class RotaAtributo {
                 .equals(getNome(), atributo.getNome()) && Objects.equals(getDescricao(), atributo.getDescricao())
                 && Objects.equals(getUnidadeMedida(), atributo.getUnidadeMedida()) && Objects
                 .equals(getTag(), atributo.getTag()) && Objects.equals(getFormula(), atributo.getFormula())
-                && getTipo().getCodigo() == atributo.getTipo().getCodigo();
+                && getTipo().getCodigo().equals(atributo.getTipo().getCodigo());
     }
 
     @Override

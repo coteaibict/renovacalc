@@ -74,7 +74,7 @@ public class ControllerRespostaIT {
 
         RotaAtributoResposta item = new RotaAtributoResposta();
         item.setValor("0");
-        item.setAvaliacaoANP(false);
+        item.setAvaliacaoANP('A');
         item.setObservacaoNaoConformidade("");
         item.setResposta(respostaParam);
         item.setAtributo(atributoParam);
@@ -132,7 +132,7 @@ public class ControllerRespostaIT {
 
         RotaAtributoResposta item = new RotaAtributoResposta();
         item.setValor("0");
-        item.setAvaliacaoANP(false);
+        item.setAvaliacaoANP('A');
         item.setObservacaoNaoConformidade("");
         item.setResposta(respostaParam);
         item.setAtributo(atributoParam);
@@ -175,7 +175,7 @@ public class ControllerRespostaIT {
 
         RotaAtributoResposta item = new RotaAtributoResposta();
         item.setValor("0");
-        item.setAvaliacaoANP(false);
+        item.setAvaliacaoANP('A');
         item.setObservacaoNaoConformidade("");
         item.setResposta(respostaParam);
         item.setAtributo(atributoParam);
@@ -197,7 +197,7 @@ public class ControllerRespostaIT {
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo(1);
+        situacaoParam.setCodigo('1');
         situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
@@ -215,7 +215,7 @@ public class ControllerRespostaIT {
 
 
         AtributoTipoDado tipoParam = new AtributoTipoDado();
-        tipoParam.setCodigo(2);
+        tipoParam.setCodigo('2');
         tipoParam.setDescricao("selectionavel");
         em.persist(tipoParam);
 

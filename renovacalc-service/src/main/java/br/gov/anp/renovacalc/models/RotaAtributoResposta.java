@@ -24,14 +24,14 @@ import javax.persistence.*;
  * Classe que faz a relação ManyToMany entre RotaResposta e RotaAtributo.
  */
 @Entity
-@Table(name = "ROTA_ATRIBUTO_RESPOSTA")
+@Table(name = "TRNB_ROTA_ATRIBUTO_RESPOSTA")
 public class RotaAtributoResposta {
 
     public RespostaAtributoKey id;
 
     public String valor;
 
-    public boolean avaliacaoANP;
+    public char avaliacaoANP;
 
     public String observacaoNaoConformidade;
 
@@ -45,7 +45,7 @@ public class RotaAtributoResposta {
         this.id = new RespostaAtributoKey();
     }
 
-    public RotaAtributoResposta(String valor, boolean avaliacaoANP,
+    public RotaAtributoResposta(String valor, char avaliacaoANP,
             String observacaoNaoConformidade, RotaResposta resposta, RotaAtributo atributo) {
         this.valor = valor;
         this.avaliacaoANP = avaliacaoANP;
@@ -70,17 +70,19 @@ public class RotaAtributoResposta {
     public String getValor() { return valor; }
     public void setValor(String valor) { this.valor = valor; }
 
-    @Column(name = "IND_AVALIACAO_ANP")
-    public boolean isAvaliacaoANP() { return avaliacaoANP; }
-    public void setAvaliacaoANP(boolean avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
+    @Column(name = "IND_AVALIACAO_ANP", columnDefinition = "CHAR(1)")
+    public char getAvaliacaoANP() { return avaliacaoANP; }
+    public void setAvaliacaoANP(char avaliacaoANP) { this.avaliacaoANP = avaliacaoANP; }
 
-    @Column(name = "DSC_OBS_NAO_CONFORMIDADE")
+    @Column(name = "DSC_OBSERVAO_NAO_CONFORMIDADE")
     public String getObservacaoNaoConformidade() { return observacaoNaoConformidade; }
     public void setObservacaoNaoConformidade(String observacaoNaoConformidade) { this.observacaoNaoConformidade = observacaoNaoConformidade; }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("respostaId")
+
+    @JoinColumn(name = "SEQ_ROTA_RESPOSTA")
     public RotaResposta getResposta() { return resposta; }
     public void setResposta(RotaResposta resposta) {
         this.resposta = resposta;
@@ -92,6 +94,7 @@ public class RotaAtributoResposta {
     @ManyToOne(fetch = FetchType.EAGER)
     @Fetch(FetchMode.JOIN)
     @MapsId("atributoId")
+    @JoinColumn(name = "SEQ_ROTA_ATRIBUTO")
     @OnDelete(action = OnDeleteAction.CASCADE)
     public RotaAtributo getAtributo() { return atributo; }
     public void setAtributo(RotaAtributo atributo) {

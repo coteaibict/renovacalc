@@ -20,6 +20,7 @@ import java.util.Objects;
  * Usada como chave composta de RotaAtributoResposta
  */
 public class RespostaAtributoKey implements Serializable {
+
     private long respostaId;
 
     private long atributoId;
@@ -27,11 +28,9 @@ public class RespostaAtributoKey implements Serializable {
     public RespostaAtributoKey() {
     }
 
-    @Column(name = "SEQ_ROTA_REPOSTA")
     public long getRespostaId() { return respostaId; }
     public void setRespostaId(long respostaId) { this.respostaId = respostaId; }
 
-    @Column(name = "SEQ_ROTA_ATRIBUTO")
     public long getAtributoId() { return atributoId; }
     public void setAtributoId(long atributoId) { this.atributoId = atributoId; }
 
