@@ -86,13 +86,13 @@ export class RespostaService {
         let respostasList = [];
 
         // Por enquanto não há produtor logado: todos os campos referentes a este são vazios
-        let resposta = new RotaResposta(0, "", "", "", "", "", "", "", "", "", true, false, "", new Date(Date.now()), versao, respostasList);
+        let resposta = new RotaResposta(0, "", "", "", "", "", "", "", "", "", true, "A", "", new Date(Date.now()), versao, respostasList);
 
         for (let [atributo, value] of Array.from(respostasDict.values())) {
             // Não adiciona os valores calculados na resposta
             if (atributo.formula == "" || atributo.formula == null ) {
                 // Resposta é colocado como null para evitar loop na serialização
-                respostasList.push(new RotaAtributoResposta({ respostaID: resposta.id, atributoID: atributo.id }, value, false, "", null, atributo));
+                respostasList.push(new RotaAtributoResposta({ respostaID: resposta.id, atributoID: atributo.id }, value, "A", "", null, atributo));
             }
         }
         return resposta;
