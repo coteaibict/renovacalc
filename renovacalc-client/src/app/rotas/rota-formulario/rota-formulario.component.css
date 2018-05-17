@@ -71,6 +71,7 @@
     background-color: #F4F8ED;
     padding-top: 10px;
     padding-left: 15px;
+    padding-bottom: 10px;
 }
 
 .resultados h1 {
@@ -98,6 +99,7 @@
     border-color: lightgray;
     border-style: solid;
     width: 100%;
+    max-width: 10em;
     text-align: center;
     background-color: #FFFFFF;
     padding-top: 2px;
@@ -106,12 +108,8 @@
 }
 
 .error-required {
-    border-color: red !important;
+    border-color: red;
 }
-
-/* .ng-pristine.required { */
-/*     border-color: red; */
-/* } */
 
 /* Sessões raiz */
 .nav-link {
@@ -121,6 +119,7 @@
 
 .nav-tabs {
     margin-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .nav-tabs .nav-link:hover {
@@ -135,6 +134,10 @@
     border-bottom: 5px solid #96AE30;
     color: #96AE30;
     background-color: inherit;
+}
+
+.light-gray-background {
+    background-color: lightgray;
 }
 
 h1 {

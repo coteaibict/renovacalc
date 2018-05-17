@@ -4,8 +4,24 @@
     <h1>
         <strong>Rota:</strong> {{ versao.rota.nome }}
     </h1>
+
+    <ng-template #validacaoModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title">Erro de validação do formulário</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>Preencha todos os campos obrigatórios!</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="c('Close click')">Fechar</button>
+        </div>
+    </ng-template>
+
     <div class="row">
-        <div class="col-sm-8">
+        <form #simulacaoForm="ngForm" class="col-sm-8">
             <ngb-tabset>
                 <ng-container *ngFor="let sessao of versao.sessoes"> 
                     <ngb-tab *ngIf="!sessao.resultado">
@@ -28,6 +44,7 @@
                                                         <ng-container *ngSwitchCase="1">
                                                             <input type="number" [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
                                                                                  id="atributo-{{a.atributo.id}}"
+                                                                                 name="{{a.atributo.tag}}"
                                                                                  #atributoInput="ngModel"
                                                                                  [ngClass]="(atributoInput.touched || simulado)
                                                                                              && atributoInput.invalid 
@@ -36,12 +53,15 @@
                                                                                  [required]="a.obrigatorio" /><br/>
                                                         </ng-container>
                                                         <ng-container *ngSwitchCase="2">
-                                                            <select class="atributo" 
+                                                            <select 
+                                                                 [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                 id="atributo-{{a.atributo.id}}"
+                                                                 name="{{a.atributo.tag}}"
                                                                  #atributoSelect="ngModel"
                                                                  [ngClass]="(atributoSelect.touched || simulado)
                                                                              && atributoSelect.invalid 
                                                                              && a.obrigatorio ? 'error-required' : ''"
-                                                                 [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                 class="atributo" 
                                                                  [required]="a.obrigatorio" >
                                                                 <option *ngFor="let item of a.atributo.items" [value]="item.descricao"> {{item.descricao}} </option>
                                                             </select>
@@ -62,7 +82,7 @@
                     </ngb-tab>
                 </ng-container>
             </ngb-tabset>
-        </div>
+        </form>
 
         <!-- Sessões de resultado -->
         <div class="col-sm-4 resultados">
@@ -73,12 +93,13 @@
                     <h2>{{ sessao.descricao }}</h2>
                     <ng-container *ngFor="let a of sessao.atributos">
                         <ng-container *ngIf="a.atributo.formula">
-                            {{a.atributo.nome}}: {{respostasDict.get(a.atributo.id)[1] + 0 | number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }}
+                            {{a.atributo.nome}}: {{respostasDict.get(a.atributo.id)[1] + 0 | 
+                                        number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }}
                         </ng-container>
                     </ng-container>
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" (click)="calcularResposta()">Simular</button>
+        <button class="btn btn-primary" (click)="calcularResposta(simulacaoForm)">Simular</button>
     </div>
 </div>
