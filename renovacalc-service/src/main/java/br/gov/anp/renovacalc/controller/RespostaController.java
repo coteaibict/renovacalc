@@ -50,7 +50,8 @@ public class RespostaController {
     }
 
     /**
-     * Método tratador de exceção lida com exceções de erro na fórmula
+     * Método tratador de exceção que lida com exceções de erro na fórmula
+     * e envia uma resposta HTTP 500
      * @param e: Uma exceção do tipo DependenciasCiclicasException ou ScriptException
      */
     @ResponseBody
