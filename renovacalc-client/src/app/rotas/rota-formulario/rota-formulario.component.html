@@ -38,7 +38,7 @@
                                                 {{ a.atributo.nome }}
                                             </label>
                                             <div class="col-sm-4 text-center">
-                                                <ng-container *ngIf="respostasDict.has(a.atributo.id) && !a.atributo.formula">
+                                                <ng-container *ngIf="respostasDict.has(a.atributo.id) && !a.atributo.formula && a.visivel">
                                                     <!-- Lida com o tipo de input -->
                                                     <ng-container [ngSwitch]="a.atributo.tipo.codigo">
                                                         <ng-container *ngSwitchCase="1">
@@ -92,7 +92,7 @@
                 <div *ngIf="sessao.resultado">
                     <h2>{{ sessao.descricao }}</h2>
                     <ng-container *ngFor="let a of sessao.atributos">
-                        <ng-container *ngIf="a.atributo.formula">
+                        <ng-container *ngIf="a.atributo.formula && a.visivel">
                             {{a.atributo.nome}}: {{respostasDict.get(a.atributo.id)[1] + 0 | 
                                         number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }}
                         </ng-container>

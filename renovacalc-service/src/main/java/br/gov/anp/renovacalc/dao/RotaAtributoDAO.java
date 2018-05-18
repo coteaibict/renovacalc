@@ -29,9 +29,20 @@ public interface RotaAtributoDAO extends CrudRepository<RotaAtributo, Long> {
      * @return
      */
     @Query("SELECT atributo FROM RotaSessaoAtributo sa "
-            + "INNER JOIN sa.sessao sessao "//ON sessao.id = sa.sessao.id "
-            + "INNER JOIN sa.atributo atributo " // ON sa.atributo.id = a.id "
+            + "INNER JOIN sa.sessao sessao "
+            + "INNER JOIN sa.atributo atributo "
             + "WHERE sa.sessao.rotaVersao.id = :id AND sa.atributo.formula IS NOT NULL")
     public Set<RotaAtributo> recuperarCalculadosPorVersao(@Param("id") long versaoID);
 
+    /**
+     * Método para retornar todos os atributos input obrigatórios
+     * determinada versão
+     * @param versaoID
+     * @return
+     */
+    @Query("SELECT atributo FROM RotaSessaoAtributo sa "
+            + "INNER JOIN sa.sessao sessao "
+            + "INNER JOIN sa.atributo atributo "
+            + "WHERE sa.sessao.rotaVersao.id = :id AND sa.atributo.formula IS NULL AND sa.obrigatorio IS TRUE")
+    public Set<RotaAtributo> recuperarInputObrigatorioPorVersao(@Param("id") long versaoID);
 }

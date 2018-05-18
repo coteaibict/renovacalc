@@ -13,6 +13,7 @@ package br.gov.anp.renovacalc.controller;
 
 import br.gov.anp.renovacalc.exception.ArgumentoInvalidoException;
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
+import br.gov.anp.renovacalc.exception.InputObrigatorioException;
 import br.gov.anp.renovacalc.models.RotaResposta;
 import br.gov.anp.renovacalc.service.CalculoService;
 import br.gov.anp.renovacalc.service.RespostaService;
@@ -41,36 +42,10 @@ public class RespostaController {
 
     private Logger logger = Logger.getLogger(RespostaController.class);
 
-    @RequestMapping(value = "/setup", method = RequestMethod.POST)
-    public void setup() {
-        respostaService.setup();
-    }
-
-    @RequestMapping(value = "/recuperar", method = RequestMethod.POST)
-    public RotaResposta recuperarRespostaAtivaPorUsina(@RequestParam("usinaID") long usinaID) {
-        return respostaService.recuperarRespostaAtivaPorUsinaID(usinaID);
-    }
-
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RotaResposta adicionarResposta(@RequestBody RotaResposta resposta) throws ArgumentoInvalidoException, DependenciasCiclicasException, ScriptException {
-        logger.trace("Entrando em adicionarResposta()");
-
-        if (resposta.getId() != 0) {
-            throw new ArgumentoInvalidoException("ID_NAO_ZERO");
-        }
-        RotaResposta calculada = calculoService.avaliarResposta(resposta);
-        calculada = respostaService.salvarResposta(calculada);
-
-        logger.info("Objeto RotaResposta de id " + calculada.getId() + " persistido");
-
-        logger.trace("Saindo de adicionarResposta()");
-
-        return calculada;
-    }
 
     @RequestMapping(value = "/simular", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RotaResposta calcularSimulacao(@RequestBody RotaResposta simulacao) throws DependenciasCiclicasException,
-            ScriptException {
+    public RotaResposta calcularSimulacao(@RequestBody RotaResposta simulacao)
+            throws DependenciasCiclicasException, ScriptException, InputObrigatorioException {
         return calculoService.avaliarResposta(simulacao);
     }
 
@@ -96,4 +71,17 @@ public class RespostaController {
     String handleRecursoNaoEncontrado(ArgumentoInvalidoException e) {
         return e.getMessage();
     }
-}
+
+    /**
+     * Método tratador de exceção que captura uma exceção InputObrigatorioException
+     * e envia uma resposta HTTP 400
+     * @param e: Exceção que indica que um input obrigatório não foi submetido
+     */
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ InputObrigatorioException.class })
+    String handleInputObrigatorio(InputObrigatorioException e) {
+        return "INPUT_OBRIGATORIO_FALTANTE";
+    }
+
+    }

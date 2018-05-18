@@ -55,8 +55,22 @@ public class AtributoService {
         return ordenados;
     }
 
+    /**
+     * Abstração de serviço que recupera todos os atributos calculados de uma determinada versão
+     * @param versaoID: ID da versão de interesse
+     * @return Set com cada atributo calculado
+     */
     public Set<RotaAtributo> recuperarCalculadosPorVersao(long versaoID) {
         return atributoDAO.recuperarCalculadosPorVersao(versaoID);
+    }
+
+    /**
+     * Abstração de serviço que recupera todos os atributos input obrigatórios de uma determinada versão
+     * @param versaoID: ID da versão de interesse
+     * @return Set com cada atributo do tipo input que é obrigatório
+     */
+    public Set<RotaAtributo> recuperarInputObrigatorioPorVersao(long versaoID) {
+        return atributoDAO.recuperarInputObrigatorioPorVersao(versaoID);
     }
 
     // Getters/Setters

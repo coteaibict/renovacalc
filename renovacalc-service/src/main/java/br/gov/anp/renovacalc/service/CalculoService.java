@@ -11,8 +11,8 @@
 
 package br.gov.anp.renovacalc.service;
 
-import br.gov.anp.renovacalc.dao.RotaAtributoDAO;
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
+import br.gov.anp.renovacalc.exception.InputObrigatorioException;
 import br.gov.anp.renovacalc.models.RotaAtributo;
 import br.gov.anp.renovacalc.models.RotaAtributoResposta;
 import br.gov.anp.renovacalc.models.RotaResposta;
@@ -65,16 +65,35 @@ public class CalculoService {
      * @throws DependenciasCiclicasException: Caso haja dependência cíclica entre as fórmulas
      * @throws ScriptException: Caso haja algum erro na avaliação das fórmulas
      */
-    public RotaResposta avaliarResposta(RotaResposta resposta) throws DependenciasCiclicasException, ScriptException {
-
-        // Carrega entradas em um contexto para ser passado para o script
-        Map<String, Object> ctx = criarContextoComInput(resposta);
+    public RotaResposta avaliarResposta(RotaResposta resposta)
+            throws DependenciasCiclicasException, ScriptException, InputObrigatorioException {
 
         // Carrega todos os atributos calculados da rota
         Set<RotaAtributo> calculados = atributoService.recuperarCalculadosPorVersao(resposta.
                                                                     getVersao().getId());
 
+        // Carrega todos os atributos input obrigatórios da rota e coloca as tags em um conjunto
+        Set<RotaAtributo> obrigatoriosSet = atributoService.recuperarInputObrigatorioPorVersao(resposta.
+                getVersao().getId());
+
+        Set<String> tagsObrigatoriosSet = new HashSet<>();
+
+        for (RotaAtributo atributo : obrigatoriosSet) {
+            tagsObrigatoriosSet.add(atributo.getTag());
+        }
+
+        // Ordena os atributos calculados por suas dependências através de suas fórmulas
         List<RotaAtributo> ordenados = atributoService.ordernarPorDependencias(calculados);
+
+        // Carrega entradas em um contexto para ser passado para o script
+        Map<String, Object> ctx = criarContextoComInput(resposta);
+
+        // Confere se todos os atributos obrigatórios foram submetidos
+        for (RotaAtributo atributo : obrigatoriosSet ) {
+            if (!ctx.containsKey(atributo.getTag()) || ctx.get(atributo.getTag()).equals("")) {
+                throw new InputObrigatorioException();
+            }
+        }
 
         for ( RotaAtributo atual : ordenados ) {
             Double resultado = avaliarFormula(atual.getFormula(), ctx);
