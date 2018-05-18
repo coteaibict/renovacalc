@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 
@@ -36,6 +37,7 @@ const appRoutes : Routes = [
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
         NgbModule.forRoot(),
+        AngularFontAwesomeModule,
         FormsModule
     ],
     providers: [RotaService, RespostaService],

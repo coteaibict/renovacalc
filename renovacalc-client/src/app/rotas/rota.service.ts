@@ -74,6 +74,7 @@ export class RotaService {
          * Método privado auxiliar para ordenar cada sessão. Percorre sessões aninhadas.
          * Ordena os atributos e a lista de sessões filhas.
          * Não retorna nada, ordenação in-place.
+         * @param sessao: A sessão a ser ordenada in-place.
          */
     private ordenarSessao(sessao : RotaSessao) {
         sessao.sessoesFilhas.sort((sessao1, sessao2) => sessao1.ordem - sessao2.ordem);

@@ -162,7 +162,9 @@ public class CalculoService {
             engine.put(pair.getKey(), pair.getValue());
         }
 
-        return (Double) engine.eval(expr);
+        String predefined = "function SE(_cond, _res1, _res2) { return (_cond ? _res1 : _res2) }; var se = SE;";
+
+        return (Double) engine.eval(predefined + expr);
 
     }
 }

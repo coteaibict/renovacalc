@@ -59,6 +59,11 @@ div {
     min-width: inherit;
 }
 
+.dropdown-toggle::after {
+    float : right;
+    margin-top: 0.5em;
+}
+
 
 .d-inline-block {
     min-width: 100%;
