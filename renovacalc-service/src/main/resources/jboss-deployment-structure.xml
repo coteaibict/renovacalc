@@ -1,6 +1,5 @@
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
-         <!--Exclusions allow you to prevent the server from automatically adding some dependencies-->
         <exclusions>
             <module name="org.apache.log4j"/>
         </exclusions>
