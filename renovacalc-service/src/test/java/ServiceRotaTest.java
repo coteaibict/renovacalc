@@ -78,7 +78,7 @@ public class ServiceRotaTest {
         rotaParam.setId(1);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
         situacaoParam.setDescricao("atual");
 
         RotaVersao rotaVersaoExpected = new RotaVersao();
@@ -116,7 +116,7 @@ public class ServiceRotaTest {
         rota.setId(1);
 
         RotaVersaoSituacao situacao = new RotaVersaoSituacao();
-        situacao.setCodigo('1');
+        situacao.setCodigo((short) 1);
         situacao.setDescricao("atual");
 
         List<RotaVersao> versaoListExpected = new ArrayList<>();

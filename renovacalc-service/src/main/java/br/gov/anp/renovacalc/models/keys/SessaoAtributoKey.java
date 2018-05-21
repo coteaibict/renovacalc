@@ -11,7 +11,6 @@
 
 package br.gov.anp.renovacalc.models.keys;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
@@ -23,8 +22,14 @@ import java.util.Objects;
 @Embeddable
 public class SessaoAtributoKey implements Serializable {
 
+    /**
+     * Chave primária da sessão
+     */
     private long sessaoId;
 
+    /**
+     * Chave primária do atributo
+     */
     private long atributoId;
 
     public SessaoAtributoKey() {

@@ -23,15 +23,23 @@ import javax.persistence.Table;
 
 /**
  * Classe que faz a relação ManyToMany entre RotaSessao e RotaAtributo.
+ * Possui dados específicos daquele atributo na sessão relacionada, como valor padrão,
+ * ordem, etc.
  */
 @Entity
 @Table(name = "TRNB_ROTA_SESSAO_ATRIBUTO")
 public class RotaSessaoAtributo {
 
+    /**
+     * Chave primária composta da tabela
+     */
     private SessaoAtributoKey id;
 
     private String valorPadrao;
 
+    /**
+     * Campo que indica a ordem que o atributo deve ser exibida, em relação aos outros
+     */
     private int ordem;
 
     private boolean obrigatorio;
@@ -40,6 +48,9 @@ public class RotaSessaoAtributo {
 
     private boolean editavel;
 
+    /**
+     * Indica se este campo precisa ser avaliado
+     */
     private boolean avaliado;
 
     private RotaSessao sessao;

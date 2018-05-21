@@ -16,6 +16,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * Interface para DAO com métodos de CRUD para a classe Rota.
+ * Implementado pelo Spring.
+ */
 public interface RotaRespostaDAO extends CrudRepository<RotaResposta, Long> {
 
     /**

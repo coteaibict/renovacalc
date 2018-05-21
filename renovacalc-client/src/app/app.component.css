@@ -12,3 +12,8 @@
 .navbar a:hover {
     text-decoration: none;
 }
+
+.navbar-brand img {
+    padding-left: 5px;
+    padding-right: 5px;
+}

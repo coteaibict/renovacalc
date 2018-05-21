@@ -11,8 +11,6 @@
  *
  */
 
-
-
 package br.gov.anp.renovacalc.controller;
 
 import br.gov.anp.renovacalc.exception.RecursoNaoEncontradoException;
@@ -28,11 +26,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Classe controladora que lida com as chamadas relacionadas a uma rota
+ * (salvar, recuperar, recuperar versão).
+ */
 @CrossOrigin("*")
 @ComponentScan("br.gov.anp.renovacalc")
 @RestController
 @RequestMapping("/api/rotas")
 public class RotaController {
+
+    /**
+     * Instância de RotaService, usada para recuperar e eventualmente persistir
+     * rotas e versões de rotas
+     */
     @Autowired
     private RotaService rotaService;
 
@@ -82,22 +89,6 @@ public class RotaController {
         logger.trace("Saindo de recuperarVersoes()");
 
         return versoes;
-    }
-
-    /**
-     * Método controlador para retornar todas as rotas cujo nome contém :nome
-     * Associado ao método GET em /rotas/search
-     * @param nome
-     * @return Lista de rotas cujo nome contém :nome
-     */
-    @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Rota> encontrarPorNome(@RequestParam(value = "nome", required = true) String nome) {
-        logger.trace("Entrando em encontrarPorNome()");
-
-        List<Rota> lp = rotaService.encontrarPorNome(nome);
-
-        logger.trace("Saindo de encontrarPorNome()");
-        return lp;
     }
 
     // Tratadores de exceções

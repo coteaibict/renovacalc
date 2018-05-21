@@ -17,6 +17,9 @@ package br.gov.anp.renovacalc.models;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Classe de modelo que representa uma rota
+ */
 @Entity
 @Table(name = "TRNB_ROTA")
 public class Rota {
@@ -38,7 +41,7 @@ public class Rota {
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
-    @Column(name = "NOM_ROTA")
+    @Column(name = "NOM_ROTA", length = 200)
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 

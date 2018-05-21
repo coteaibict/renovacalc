@@ -18,8 +18,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Interface que define o acesso de dados para RotaVersaoSituacao, incluindo CRUD básico
- * A classe concreta é implementada automaticamente pela framework Spring
+ * Interface para DAO com métodos de CRUD para a classe RotaVersaoSituacao.
+ * Implementado pelo Spring.
  */
 @Repository
 public interface RotaVersaoSituacaoDAO extends CrudRepository<RotaVersaoSituacao, Long> {

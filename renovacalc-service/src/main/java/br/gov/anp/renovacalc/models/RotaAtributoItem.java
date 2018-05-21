@@ -17,9 +17,13 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 
+/**
+ * Classe de modelo que representa um item de um atributo selecionável
+ */
 @Entity
 @Table(name = "TRNB_ROTA_ATRIBUTO_ITEM")
 public class RotaAtributoItem {
+
     private long id;
 
     private String descricao;

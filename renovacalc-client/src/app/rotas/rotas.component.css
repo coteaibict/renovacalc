@@ -12,6 +12,12 @@ div {
     color: #4C9FD8;
 }
 
+.descricao {
+    font-weight: 600;
+    font-style: italic;
+    padding-top: 30px;
+}
+
 .btn {
     margin-top: 3px;
     margin-top: 3px;
@@ -85,6 +91,12 @@ div {
     padding-bottom: 10px;
 }
 
+.bg-image-light {
+    background-image: url("/assets/images/background-light.png");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
 .b1 {
     background-color: #FAFCF4;
 }
@@ -93,7 +105,8 @@ div {
     background-color: #CADB84;
 }
 
-.b3 {
-    background-color: #E5E5E5;
+.bg-image-dark {
+    min-height: 100px;
+    background-image: url("/assets/images/background-dark.png");
 }
 

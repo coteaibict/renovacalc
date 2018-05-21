@@ -21,7 +21,7 @@
     </ng-template>
 
     <div class="row">
-        <form #simulacaoForm="ngForm" class="col-sm-8">
+        <form #simulacaoForm="ngForm" class="col-md-9">
             <ngb-tabset>
                 <ng-container *ngFor="let sessao of versao.sessoes"> 
                     <ngb-tab *ngIf="!sessao.resultado">
@@ -88,73 +88,58 @@
                     </ngb-tab>
                 </ng-container>
             </ngb-tabset>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
-            <div> aaaaaaa </div><br/>
         </form>
 
         <!-- Sessões de resultado -->
-        <div class="col-sm-4 resultados">
+        <div class="col-md-3 resultados">
             <h1 style="display: inline">Resultado</h1>
             <button class="btn btn-primary btn-sm" (click)="calcularResposta(simulacaoForm)">Atualizar</button>
             <hr/>
             <div *ngFor="let sessao of versao.sessoes">
                 <div *ngIf="sessao.resultado">
                     <h2>{{ sessao.descricao }}</h2>
-                    <ng-container *ngFor="let a of sessao.atributos">
-                        <ng-container *ngIf="a.atributo.formula && a.visivel">
-                            {{a.atributo.nome}}: {{respostasDict.get(a.atributo.id)[1] + 0 | 
-                                        number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }}
-                        </ng-container>
-                    </ng-container>
+                    <div class="container">
+                        <div class="row">
+                            <!-- Atributos importantes, destacados -->
+                            <div class="col-md-6">
+                                <ng-container *ngFor="let a of sessao.atributos">
+                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
+                                        <div class="resposta-box">
+                                            <div class="inner-resposta-box resposta-item">
+                                                <span class="titulo">{{a.atributo.nome}}<br/></span>
+                                                <span class="unidade">{{a.atributo.unidadeMedida}}<br/></span>
+                                                <span class="valor">{{respostasDict.get(a.atributo.id)[1] + 0 | number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }} </span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                            <!-- Atributos pouco importantes -->
+                            <div class="col-md-6 resposta-min">
+                                <ng-container *ngFor="let a of sessao.atributos">
+                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
+                                        <div class="resposta-item">
+                                            <p><span class="text-dark text-right">{{a.atributo.nome}}</span>
+                                            <span class="text-important text-right">{{respostasDict.get(a.atributo.id)[1] + 0 | 
+                                                number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }} </span></p>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="resposta-med">
+                                <ng-container *ngFor="let a of sessao.atributos">
+                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
+                                        <div class="row resposta-item">
+                                                <span class="col-md-9 vertical-center"><span class="titulo"></span>{{a.atributo.nome}}</span>
+                                            <span class="col-md-3 text-important value">{{respostasDict.get(a.atributo.id)[1] + 0 | 
+                                                number:'1.'+a.atributo.precisao+'-'+a.atributo.precisao }} </span>
+                                        </div>
+                                        <hr/>
+                                    </ng-container>
+                                </ng-container>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,7 +11,6 @@
 
 package br.gov.anp.renovacalc.models.keys;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,8 +20,14 @@ import java.util.Objects;
  */
 public class RespostaAtributoKey implements Serializable {
 
+    /**
+     * Chave primária da simulação
+     */
     private long respostaId;
 
+    /**
+     * Chave primária do atributo
+     */
     private long atributoId;
 
     public RespostaAtributoKey() {

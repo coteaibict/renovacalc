@@ -16,26 +16,29 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Classe de modelo que representa tipos de atributos (numérico, selecionado, textual)
+ */
 @Entity
 @Table(name = "TRNB_ATRIBUTO_TIPO_DADO")
 public class AtributoTipoDado {
 
-    private Character codigo;
+    private short codigo;
 
     private String descricao;
 
     public AtributoTipoDado() {
     }
 
-    public AtributoTipoDado(char codigo, String descricao) {
+    public AtributoTipoDado(short codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
     @Id
-    @Column(name = "COD_TIPO_DADO")
-    public Character getCodigo() { return codigo; }
-    public void setCodigo(Character codigo) { this.codigo = codigo; }
+    @Column(name = "COD_TIPO_DADO", columnDefinition = "CHAR(1)")
+    public short getCodigo() { return codigo; }
+    public void setCodigo(short codigo) { this.codigo = codigo; }
 
     @Column(name = "DSC_TIPO_DADO", length = 10)
     public String getDescricao() { return descricao; }

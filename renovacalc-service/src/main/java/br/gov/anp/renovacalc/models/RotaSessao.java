@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Classe de modelo que representa uma sessão do formulário
+ */
 @Entity
 @Table(name = "TRNB_ROTA_SESSAO")
 public class RotaSessao {
@@ -30,8 +33,14 @@ public class RotaSessao {
 
     private String descricao;
 
+    /**
+     * Campo que indica a ordem que a sessão deve ser exibida, em relação às outras
+     */
     private int ordem;
 
+    /**
+     * @deprecated Usar auto-relação de sessões
+     */
     private int nivel;
 
     /**
@@ -43,8 +52,10 @@ public class RotaSessao {
 
     private Set<RotaSessaoAtributo> atributos = new HashSet<RotaSessaoAtributo>();
 
+    /**
+     * Caso este objeto seja uma sub-sessão, indica a sessão-pai
+     */
     private RotaSessao superior;
-
 
     private Set<RotaSessao> sessoesFilhas = new HashSet<>();
 

@@ -11,6 +11,13 @@
 
 package br.gov.anp.renovacalc.exception;
 
+/**
+ * Exceção que indica que uma rota possui dependência cíclica entre seus atributos,
+ * através de suas fórmulas.
+ * Exemplo: ATR1 = ATR2 + 2
+ *          ATR2 = ATR1 * 2
+ * Neste caso, a exceção deve ser lançada.
+ */
 public class DependenciasCiclicasException extends Exception {
 
     public DependenciasCiclicasException() {

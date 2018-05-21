@@ -13,6 +13,10 @@
 
 package br.gov.anp.renovacalc.exception;
 
+/**
+ * Classe de exceção usada para indicar que o usuário tentou
+ * acessar um recurso inexistente.
+ */
 public class RecursoNaoEncontradoException extends Exception {
 
     public RecursoNaoEncontradoException() {

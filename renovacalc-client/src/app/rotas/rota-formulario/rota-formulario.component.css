@@ -45,7 +45,7 @@
 /* } */
 
 
-.main .container {
+.main > .container {
     padding-left: 12%;
     padding-right: 12%;
 }
@@ -77,9 +77,9 @@
     background-color: #F4F8ED;
     padding-top: 10px;
     padding-left: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative; /* Caso o navegador não suporte sticky */
     position: sticky;
-    position: -webkit-sticky;
     top: 30px;
     height: fit-content;
 }
@@ -95,15 +95,91 @@
     font-weight: 700;
     color: #4A9AD4;
     padding-left: 0px;
+    padding-bottom: 5px;
     display: block;
 }
 
 .resultados hr {
-    background: #7E7E7D;
+    background: #e5e5e5;
 }
 
 .resultados .btn {
     float: right;
+}
+
+.resposta-box {
+    border-style: solid;
+    border-color: #8ccfff;
+    border-radius: 5px;
+    border-width: 0.5px;
+}
+
+.inner-resposta-box {
+    padding: 3px;
+    text-align: center;
+    color: #4A9AD4;
+    line-height: 1;
+}
+
+.inner-resposta-box .titulo {
+    font-weight: 600;
+}
+
+.inner-resposta-box .unidade {
+    font-size: small;
+}
+
+.inner-resposta-box .valor {
+    font-weight: 600;
+    font-size: xx-large;
+}
+
+.resposta-med {
+    padding-top: 10px;
+    padding-bottom: 2px;
+    color: #4A9AD4;
+}
+
+.resposta-med [class*=col] {
+    padding: 3px;
+}
+
+.resposta-med .vertical-center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.resposta-med .titulo {
+    text-align: right;
+}
+
+.resposta-med .value {
+    font-size: x-large;
+    font-weight: 600;
+}
+
+.resposta-med hr {
+    width: 100%;
+    background: #e5e5e5;
+    margin: 0px;
+}
+
+.resposta-min {
+    font-size: small;
+    text-align: right;
+}
+
+.resposta-min .text-dark {
+    color: #3E3A3A;
+    font-weight: 700;
+    padding-right: 5px;
+}
+
+.resposta-min .text-important {
+    color: #4A9AD4;
+    font-weight: 700;
+    padding-right: 5px;
 }
 
 .atributo {
@@ -114,7 +190,7 @@
     border-color: lightgray;
     border-style: solid;
     width: 100%;
-    max-width: 10em;
+    max-width: 13em;
     text-align: center;
     background-color: #FFFFFF;
     padding-top: 2px;

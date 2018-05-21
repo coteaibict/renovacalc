@@ -25,8 +25,8 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
- * Interface que define o acesso de dados para Rota, incluindo CRUD básico
- * A classe concreta é implementada automaticamente pela framework Spring
+ * Interface para DAO com métodos de CRUD para a classe Rota.
+ * Implementado pelo Spring.
  */
 @Repository
 public interface RotaDAO extends CrudRepository<Rota, Long> {

@@ -13,6 +13,7 @@ package br.gov.anp.renovacalc.service;
 
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
 import br.gov.anp.renovacalc.exception.InputObrigatorioException;
+import br.gov.anp.renovacalc.exception.ValorInvalidoException;
 import br.gov.anp.renovacalc.models.RotaAtributo;
 import br.gov.anp.renovacalc.models.RotaAtributoResposta;
 import br.gov.anp.renovacalc.models.RotaResposta;
@@ -26,7 +27,7 @@ import javax.script.ScriptException;
 import java.util.*;
 
 /**
- * Classe responsável por avaliar uma submissão RotaResposta.
+ * Classe de serviço responsável por avaliar uma submissão RotaResposta.
  * Assume que as fórmulas avaliadas sempre retornam um valor numérico.
  */
 @Service
@@ -58,15 +59,20 @@ public class CalculoService {
     /**
      * Método que avalia todos os atributos calculados de uma simulação e
      * adiciona seus resultados como RotaAtributoResposta.
-     * Assume que todos os inputs obrigatórios já foram enviados pelo usuário.
      * Assume que as fórmulas avaliadas sempre retornam um valor numérico.
+     * Assume que não há nenhum valor para atributos calculados
+     * TODO: Fazer tratamento para remover valores de atributos calculados, caso existam
      * @param resposta: a simulação do usuário
      * @return a simulação com os valores calculados adicionados
      * @throws DependenciasCiclicasException: Caso haja dependência cíclica entre as fórmulas
-     * @throws ScriptException: Caso haja algum erro na avaliação das fórmulas
+     * @throws ScriptException: Caso haja algum erro inesperado na avaliação das fórmulas
+     * @throws InputObrigatorioException: Caso algum atributo de input obrigatório não possua
+     * uma valor submetido em :resposta
+     * @throws ValorInvalidoException quando o usuário envia um valor
+     * não numérico em um campo numérico
      */
     public RotaResposta avaliarResposta(RotaResposta resposta)
-            throws DependenciasCiclicasException, ScriptException, InputObrigatorioException {
+            throws DependenciasCiclicasException, ScriptException, InputObrigatorioException, ValorInvalidoException {
 
         // Carrega todos os atributos calculados da rota
         Set<RotaAtributo> calculados = atributoService.recuperarCalculadosPorVersao(resposta.
@@ -75,12 +81,6 @@ public class CalculoService {
         // Carrega todos os atributos input obrigatórios da rota e coloca as tags em um conjunto
         Set<RotaAtributo> obrigatoriosSet = atributoService.recuperarInputObrigatorioPorVersao(resposta.
                 getVersao().getId());
-
-        Set<String> tagsObrigatoriosSet = new HashSet<>();
-
-        for (RotaAtributo atributo : obrigatoriosSet) {
-            tagsObrigatoriosSet.add(atributo.getTag());
-        }
 
         // Ordena os atributos calculados por suas dependências através de suas fórmulas
         List<RotaAtributo> ordenados = atributoService.ordernarPorDependencias(calculados);
@@ -97,6 +97,7 @@ public class CalculoService {
 
         for ( RotaAtributo atual : ordenados ) {
             Double resultado = avaliarFormula(atual.getFormula(), ctx);
+            // Coloca o valor calculado do atributo atual no contexto
             ctx.put(atual.getTag(), resultado);
 
             // Adiciona na simulacao do usuario
@@ -125,19 +126,30 @@ public class CalculoService {
      * Coloca todos os valores dados como input pelo usuário
      * em um Map, para ser usado como contexto da avaliação das
      * fórmulas
+     * Assume que o código para atributo numérico é 1
+     * Não confere inputs faltantes. Isto é feito em outro local,
+     * com a lista de inputs obrigatórios
      * @param resposta: Simulação da qual serão extraídos os valores
      *                submetidos
      * @return Contexto contendo (tag_atributo, valorInput)
+     * @throws ValorInvalidoException quando o usuário envia um valor
+     * não numérico em um campo numérico
      */
-    private Map<String, Object> criarContextoComInput(RotaResposta resposta) {
+    private Map<String, Object> criarContextoComInput(RotaResposta resposta) throws ValorInvalidoException {
         Set<RotaAtributoResposta> entradas = respostaService.recuperarEntradas(resposta);
         Map<String, Object> ctx = new HashMap<>();
 
-        // Passa por cada entrada, adicionando no contexto. Faz o tratamento caso
-        // seja um valor numérico
+        /* Passa por cada entrada, adicionando no contexto. Faz o tratamento caso
+           o atributo seja do tipo numérico */
         for (RotaAtributoResposta atual : entradas) {
-            if (NumberUtils.isCreatable(atual.getValor())) {
-                ctx.put(atual.getAtributo().getTag(), NumberUtils.createDouble(atual.getValor()));
+            if(atual.getAtributo().getTipo().getCodigo() == 1
+                    && atual.getValor() != null      // Este método não confere inputs faltantes
+                    && !atual.getValor().isEmpty()) {
+                if (NumberUtils.isCreatable(atual.getValor())) {
+                    ctx.put(atual.getAtributo().getTag(), NumberUtils.createDouble(atual.getValor()));
+                } else {
+                    throw new ValorInvalidoException("VALOR_INVALIDO");
+                }
             } else {
                 ctx.put(atual.getAtributo().getTag(), atual.getValor());
             }
@@ -162,6 +174,7 @@ public class CalculoService {
             engine.put(pair.getKey(), pair.getValue());
         }
 
+        // Funções pré-definidas
         String predefined = "function SE(_cond, _res1, _res2) { return (_cond ? _res1 : _res2) }; var se = SE;";
 
         return (Double) engine.eval(predefined + expr);

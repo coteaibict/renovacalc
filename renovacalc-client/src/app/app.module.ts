@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
+import { registerLocaleData } from '@angular/common';
+import localeBr from '@angular/common/locales/br';
 
 import { AppComponent } from './app.component';
 
@@ -24,6 +27,8 @@ const appRoutes : Routes = [
     { path: '**', component: PaginaNaoEncontradaComponent },
 ];
 
+registerLocaleData(localeBr, 'pt')
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -40,7 +45,7 @@ const appRoutes : Routes = [
         AngularFontAwesomeModule,
         FormsModule
     ],
-    providers: [RotaService, RespostaService],
+    providers: [RotaService, RespostaService, { provide: LOCALE_ID, useValue: "pt" }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

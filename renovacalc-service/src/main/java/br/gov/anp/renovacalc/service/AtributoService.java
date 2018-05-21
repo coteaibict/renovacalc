@@ -21,6 +21,11 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe de serviço para tratar manipulação e acesso a atributos.
+ * Provê métodos para recuperar atributos, além de métodos para ordenar um
+ * conjunto de atributos através de suas dependências.
+ */
 @Service
 public class AtributoService {
 
@@ -85,35 +90,36 @@ public class AtributoService {
      * adicionando-os na lista. O percorrimento é feito através de uma busca por profundidade.
      * Um atributo só é adicionado na lista quando suas  dependências já forem adicionadas.
      * @param atual: RotaAtributo que está sendo visitado atualmente
-     * @param visitados: Map que indica se um atributo foi visitado ou não.
+     * @param terminouDeVisitar: Map que indica se um atributo foi visitado ou não.
+     *                 Caso não contenha a chave, a função não começou a passar pelo atributo.
      *                 Caso o valor de uma chave seja FALSE, a função ainda não
      *                 terminou de passar pelo atributo.
-     *                 Caso não contenha a chave, a função não começou a passar pelo atributo.
+     *                 Caso o valor seja TRUE, a função já terminou de visitar o atributo.
      * @param ordenados: A lista onde os atributos serão adicionados
      * @param dependencias: Map com as dependências já processadas dos atributos
      * @throws DependenciasCiclicasException: caso haja uma dependencia
      *                 ciclica entre os atributos
      */
-    private void visitarAtributoDuranteOrdenacao(RotaAtributo atual, Map<String, Boolean> visitados, List<RotaAtributo> ordenados, Map<RotaAtributo, Set<RotaAtributo>> dependencias)
+    private void visitarAtributoDuranteOrdenacao(RotaAtributo atual, Map<String, Boolean> terminouDeVisitar, List<RotaAtributo> ordenados, Map<RotaAtributo, Set<RotaAtributo>> dependencias)
             throws DependenciasCiclicasException {
 
-        if(visitados.containsKey(atual.getTag()) && visitados.get(atual.getTag()) == Boolean.TRUE) {
+        if(terminouDeVisitar.containsKey(atual.getTag()) && terminouDeVisitar.get(atual.getTag()) == Boolean.TRUE) {
             return;
         }
 
-        if(visitados.containsKey(atual.getTag()) && visitados.get(atual.getTag()) == Boolean.FALSE) {
+        if(terminouDeVisitar.containsKey(atual.getTag()) && terminouDeVisitar.get(atual.getTag()) == Boolean.FALSE) {
             throw new DependenciasCiclicasException("FORMULA_CICLICA");
         }
 
-        visitados.put(atual.getTag(), Boolean.FALSE);
+        terminouDeVisitar.put(atual.getTag(), Boolean.FALSE);
 
         // Visita os filhos do atributo atual
         for ( RotaAtributo filho : dependencias.get(atual) ) {
-            visitarAtributoDuranteOrdenacao(filho, visitados, ordenados, dependencias);
+            visitarAtributoDuranteOrdenacao(filho, terminouDeVisitar, ordenados, dependencias);
         }
 
 
-        visitados.put(atual.getTag(), Boolean.TRUE);
+        terminouDeVisitar.put(atual.getTag(), Boolean.TRUE);
         ordenados.add(atual);
     }
 

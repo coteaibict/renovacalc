@@ -19,17 +19,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * Classe de modelo que representa uma situação que a determinada versão pode se encontrar
+ */
 @Entity
 @Table(name = "TRNB_ROTA_VERSAO_SITUACAO")
 public class RotaVersaoSituacao {
 
-    private Character codigo;
+    private short codigo;
 
     private String descricao;
 
     public RotaVersaoSituacao() { }
 
-    public RotaVersaoSituacao(char codigo, String desc) {
+    public RotaVersaoSituacao(short codigo, String desc) {
         this.codigo = codigo;
         this.descricao = desc;
     }
@@ -38,11 +41,11 @@ public class RotaVersaoSituacao {
     // Getters/Setters
 
     @Id
-    @Column(name = "COD_ROTA_VERSAO_SITUACAO")
-    public Character getCodigo() {
+    @Column(name = "COD_ROTA_VERSAO_SITUACAO", columnDefinition = "CHAR(1)")
+    public short getCodigo() {
         return codigo;
     }
-    public void setCodigo(Character codigo) {
+    public void setCodigo(short codigo) {
         this.codigo = codigo;
     }
 

@@ -19,6 +19,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
+/**
+ * Interface para DAO com métodos de CRUD para a classe RotaAtributo.
+ * Implementado pelo Spring.
+ */
 @Repository
 public interface RotaAtributoDAO extends CrudRepository<RotaAtributo, Long> {
 
@@ -26,7 +30,7 @@ public interface RotaAtributoDAO extends CrudRepository<RotaAtributo, Long> {
      * Método para retornar todos os atributos calculados de uma
      * determinada versão
      * @param versaoID
-     * @return
+     * @return Conjunto com todos os atributos obrigatórios da versão
      */
     @Query("SELECT atributo FROM RotaSessaoAtributo sa "
             + "INNER JOIN sa.sessao sessao "
@@ -38,7 +42,7 @@ public interface RotaAtributoDAO extends CrudRepository<RotaAtributo, Long> {
      * Método para retornar todos os atributos input obrigatórios
      * determinada versão
      * @param versaoID
-     * @return
+     * @return Conjunto com todos os atributos input da versão
      */
     @Query("SELECT atributo FROM RotaSessaoAtributo sa "
             + "INNER JOIN sa.sessao sessao "

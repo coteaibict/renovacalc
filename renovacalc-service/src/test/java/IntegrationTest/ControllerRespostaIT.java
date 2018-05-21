@@ -12,9 +12,9 @@
 package IntegrationTest;
 
 import br.gov.anp.renovacalc.controller.RespostaController;
-import br.gov.anp.renovacalc.exception.ArgumentoInvalidoException;
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
 import br.gov.anp.renovacalc.exception.InputObrigatorioException;
+import br.gov.anp.renovacalc.exception.ValorInvalidoException;
 import br.gov.anp.renovacalc.models.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,12 +26,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.script.ScriptException;
+import java.sql.Timestamp;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/testContext.xml" })
@@ -55,7 +51,7 @@ public class ControllerRespostaIT {
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
         situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
@@ -72,7 +68,7 @@ public class ControllerRespostaIT {
         sessaoParam.setResultado(false);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
         em.persist(tipoAtributo);
 
@@ -204,6 +200,8 @@ public class ControllerRespostaIT {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
         } catch (InputObrigatorioException e) {
             Assert.fail("Exceção de InputObrigatório não esperada!");
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
         Assert.assertEquals(respostaExpected, retornado);
@@ -220,7 +218,7 @@ public class ControllerRespostaIT {
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
         situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
@@ -237,7 +235,7 @@ public class ControllerRespostaIT {
         sessaoParam.setResultado(false);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
         em.persist(tipoAtributo);
 
@@ -305,6 +303,8 @@ public class ControllerRespostaIT {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (InputObrigatorioException e) {
             Assert.fail("Exceção de InputObrigatório não esperada!");
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
     }
@@ -319,7 +319,7 @@ public class ControllerRespostaIT {
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
         situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
@@ -336,7 +336,7 @@ public class ControllerRespostaIT {
         sessaoParam.setResultado(false);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
         em.persist(tipoAtributo);
 
@@ -418,6 +418,8 @@ public class ControllerRespostaIT {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (DependenciasCiclicasException e) {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
     }
@@ -432,7 +434,7 @@ public class ControllerRespostaIT {
         em.persist(rotaParam);
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
         situacaoParam.setDescricao("atual");
         em.persist(situacaoParam);
 
@@ -449,7 +451,7 @@ public class ControllerRespostaIT {
         sessaoParam.setResultado(false);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
         em.persist(tipoAtributo);
 
@@ -532,6 +534,8 @@ public class ControllerRespostaIT {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (DependenciasCiclicasException e) {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
     }

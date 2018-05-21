@@ -11,6 +11,7 @@
 
 import br.gov.anp.renovacalc.exception.DependenciasCiclicasException;
 import br.gov.anp.renovacalc.exception.InputObrigatorioException;
+import br.gov.anp.renovacalc.exception.ValorInvalidoException;
 import br.gov.anp.renovacalc.models.*;
 import br.gov.anp.renovacalc.service.AtributoService;
 import br.gov.anp.renovacalc.service.CalculoService;
@@ -86,7 +87,7 @@ public class ServiceCalculoTest {
         respostaParam.setVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
         RotaAtributo atributoParamInput4 = new RotaAtributo();
@@ -216,6 +217,8 @@ public class ServiceCalculoTest {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
         } catch (InputObrigatorioException e) {
             Assert.fail("Exceção de InputObrigatório não esperada!");
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
         Assert.assertEquals(respostaExpected, retornado);
@@ -250,7 +253,7 @@ public class ServiceCalculoTest {
         respostaParam.setVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
         RotaAtributo atributoParamInput3 = new RotaAtributo();
@@ -295,6 +298,8 @@ public class ServiceCalculoTest {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (InputObrigatorioException e) {
             Assert.fail("Excecao de InputObrigatorio não esperada!");
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Excecao de ValorInvalido não esperada!");
         }
 
     }
@@ -327,7 +332,7 @@ public class ServiceCalculoTest {
         respostaParam.setVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
         RotaAtributo atributoParamInput4 = new RotaAtributo();
@@ -407,6 +412,8 @@ public class ServiceCalculoTest {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (DependenciasCiclicasException e) {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
     }
@@ -439,7 +446,7 @@ public class ServiceCalculoTest {
         respostaParam.setVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
         RotaAtributo atributoParamInput4 = new RotaAtributo();
@@ -524,6 +531,8 @@ public class ServiceCalculoTest {
             Assert.fail("Erro na avaliação do script: " + e);
         } catch (DependenciasCiclicasException e) {
             Assert.fail("Exceção de dependência cíclica não esperada: " + e);
+        } catch (ValorInvalidoException e) {
+            Assert.fail("Exceção de valor inválido não esperada: " + e);
         }
 
     }
@@ -537,7 +546,7 @@ public class ServiceCalculoTest {
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
         situacaoParam.setDescricao("atual");
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
 
         RotaVersao versaoParam = new RotaVersao();
         versaoParam.setRota(rotaParam);
@@ -551,7 +560,7 @@ public class ServiceCalculoTest {
         sessaoParam.setRotaVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
 
@@ -598,7 +607,7 @@ public class ServiceCalculoTest {
 
         RotaVersaoSituacao situacaoParam = new RotaVersaoSituacao();
         situacaoParam.setDescricao("atual");
-        situacaoParam.setCodigo('1');
+        situacaoParam.setCodigo((short) 1);
 
         RotaVersao versaoParam = new RotaVersao();
         versaoParam.setRota(rotaParam);
@@ -612,7 +621,7 @@ public class ServiceCalculoTest {
         sessaoParam.setRotaVersao(versaoParam);
 
         AtributoTipoDado tipoAtributo = new AtributoTipoDado();
-        tipoAtributo.setCodigo('1');
+        tipoAtributo.setCodigo((short) 1);
         tipoAtributo.setDescricao("numerico");
 
 

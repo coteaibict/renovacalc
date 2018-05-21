@@ -23,6 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * Classe de serviço para tratar o acesso a rotas.
+ * Provê métodos para recuperar e salvar rotas e versões associadas.
+ */
 @Service
 @Transactional
 public class RotaService {
@@ -42,76 +46,8 @@ public class RotaService {
     @Autowired
     private RotaAtributoDAO atributoDAO;
 
-    @Autowired
-    private EntityManager em;
-
     private Logger logger = Logger.getLogger(RotaService.class);
 
-    public void setup() {
-        logger.trace("teste setup");
-        Rota rota = salvar(new Rota("etanol"));
-
-        RotaVersaoSituacao situacao = situacaoDAO.save(new RotaVersaoSituacao('1', "atual"));
-
-        RotaVersao versao = new RotaVersao(rota, situacao, 1);
-
-
-        AtributoTipoDado tipo = new AtributoTipoDado('1', "numerico");
-        em.persist(tipo);
-        AtributoTipoDado tipo2 = new AtributoTipoDado('2', "selecao");
-        em.persist(tipo2);
-
-        // Sessao 1
-
-        RotaSessao sessao1 = new RotaSessao(versao, "sessao1", 1, false);
-        RotaSessao sessaoFilha1 = new RotaSessao(versao, "filha1", 1, false);
-
-        sessaoFilha1.setSuperior(sessao1);
-        sessao1.getSessoesFilhas().add(sessaoFilha1);
-
-        RotaAtributo atributo = new RotaAtributo("atributo1", "blabla",
-                "m", "ATR1", 0, 2, "", 0, false, tipo);
-
-        sessaoFilha1.adicionarAtributo(atributo,"0");
-
-        RotaAtributo atributoSelecionavel = new RotaAtributo("atributoSelecionavel", "blabla",
-                "", "ATR4", 0, 0, "", 0, false, tipo2);
-        atributoSelecionavel.adicionarItem(new RotaAtributoItem("somar", atributo));
-        atributoSelecionavel.adicionarItem(new RotaAtributoItem("multiplicar", atributo));
-        sessaoFilha1.adicionarAtributo(atributoSelecionavel,"somar");
-
-        versao.adicionarSessao(sessao1);
-
-        // Sessao 2
-
-        RotaSessao sessao2 = new RotaSessao(versao, "sessao2", 2, false);
-        RotaSessao sessaoFilha2 = new RotaSessao(versao, "filha2", 1, false);
-
-        sessaoFilha2.setSuperior(sessao2);
-        sessao2.getSessoesFilhas().add(sessaoFilha2);
-
-        sessaoFilha2.adicionarAtributo(new RotaAtributo("atributo2", "blablabla",
-                "m", "ATR2", 10, 2, "", 0, false, tipo), "0");
-
-        versao.adicionarSessao(sessao2);
-
-        // Sessao Resposta
-
-
-        RotaSessao sessaoResposta = new RotaSessao(versao, "sessaoResposta", 1, true);
-
-        sessaoResposta.adicionarAtributo(new RotaAtributo("resultado", "resultado final",
-                "m", "RES1", 10, 2, "ATR4 == 'somar' ? ATR1 + ATR2 : ATR1 * ATR2", 1, true, tipo), "0");
-
-        versao.adicionarSessao(sessaoResposta);
-
-        // Salvando
-
-        rotaVersaoDAO.save(versao);
-    }
-
-    public void tst() {
-    }
 
     /**
      * Abstração de serviço para salvar uma rota

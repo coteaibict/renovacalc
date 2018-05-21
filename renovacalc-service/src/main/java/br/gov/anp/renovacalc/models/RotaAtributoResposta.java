@@ -21,12 +21,16 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 /**
- * Classe que faz a relação ManyToMany entre RotaResposta e RotaAtributo.
+ * Classe que faz a relação ManyToMany entre RotaResposta e RotaAtributo,
+ * possuindo também o valor da submissão e a resposta das avaliações
  */
 @Entity
 @Table(name = "TRNB_ROTA_ATRIBUTO_RESPOSTA")
 public class RotaAtributoResposta {
 
+    /**
+     * Chave primária composta da tabela
+     */
     public RespostaAtributoKey id;
 
     public String valor;

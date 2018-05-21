@@ -21,6 +21,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Classe de modelo que representa um atributo
+ */
 @Entity
 @Table(name = "TRNB_ROTA_ATRIBUTO")
 public class RotaAtributo {
@@ -33,6 +36,9 @@ public class RotaAtributo {
 
     private String unidadeMedida;
 
+    /**
+     * TAG usada para referenciar o atributo nas fórmulas
+     */
     private String tag;
 
     private int tamanho;
@@ -49,6 +55,7 @@ public class RotaAtributo {
 
     /**
      * Campo utilizado para informar se este é um atributo-resposta principal
+     * Utilizado para atributos calculados
      */
     private boolean principal;
 
@@ -150,7 +157,7 @@ public class RotaAtributo {
                 .equals(getNome(), atributo.getNome()) && Objects.equals(getDescricao(), atributo.getDescricao())
                 && Objects.equals(getUnidadeMedida(), atributo.getUnidadeMedida()) && Objects
                 .equals(getTag(), atributo.getTag()) && Objects.equals(getFormula(), atributo.getFormula())
-                && getTipo().getCodigo().equals(atributo.getTipo().getCodigo());
+                && getTipo().getCodigo() == atributo.getTipo().getCodigo();
     }
 
     @Override

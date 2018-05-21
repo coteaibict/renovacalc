@@ -1,17 +1,20 @@
 package br.gov.anp.renovacalc.models;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.*;
-
-import javax.persistence.*;
 import javax.persistence.CascadeType;
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Classe de modelo que representa uma versão de uma rota.
+ * É com este modelo, e não diretamente a Rota, que as sessões e atributos
+ * estão relacionados.
+ */
 @Entity
 @Table(name = "TRNB_ROTA_VERSAO")
 public class RotaVersao {
@@ -96,7 +99,7 @@ public class RotaVersao {
         RotaVersao versao = (RotaVersao) o;
         return  getNumVersao() == versao.getNumVersao() &&
                 getRota().getId() == versao.getRota().getId() &&
-                getSituacao().getCodigo().equals(versao.getSituacao().getCodigo());
+                getSituacao().getCodigo() == versao.getSituacao().getCodigo();
     }
 
     @Override

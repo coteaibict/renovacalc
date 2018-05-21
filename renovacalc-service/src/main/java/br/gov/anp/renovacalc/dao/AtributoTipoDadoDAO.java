@@ -14,5 +14,9 @@ package br.gov.anp.renovacalc.dao;
 import br.gov.anp.renovacalc.models.AtributoTipoDado;
 import org.springframework.data.repository.CrudRepository;
 
+/**
+ * Interface para DAO com métodos de CRUD para a classe AtributoTipoDado.
+ * Implementado pelo Spring.
+ */
 public interface AtributoTipoDadoDAO extends CrudRepository<AtributoTipoDado, Long> {
 }

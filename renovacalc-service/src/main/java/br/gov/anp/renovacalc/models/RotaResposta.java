@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Classe que simboliza a submissao de um produtor.
+ * Classe de modelo que simboliza a submissao de um produtor.
  * Possui todos os dados referente à usina correspondente ao envio.
  * Os valores de cada item da simulacao estao na classe RotaAtributoResposta.
  */
