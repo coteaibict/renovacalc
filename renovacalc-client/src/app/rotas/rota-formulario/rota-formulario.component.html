@@ -58,6 +58,17 @@
                                                                        [required]="a.obrigatorio" /><br/>
                                                             </ng-container>
                                                             <ng-container *ngSwitchCase="2">
+                                                                <input type="text" [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
+                                                                       id="atributo-{{a.atributo.id}}"
+                                                                       name="{{a.atributo.tag}}"
+                                                                       #atributoInput="ngModel"
+                                                                       [ngClass]="(atributoInput.touched || simulado)
+                                                                       && atributoInput.invalid 
+                                                                       && a.obrigatorio ? 'error-required' : ''"
+                                                                       class="atributo"
+                                                                       [required]="a.obrigatorio" /><br/>
+                                                            </ng-container>
+                                                            <ng-container *ngSwitchCase="3">
                                                                 <select 
                                                                        [(ngModel)]="respostasDict.get(a.atributo.id)[1]"
                                                                        id="atributo-{{a.atributo.id}}"
@@ -103,7 +114,7 @@
                             <!-- Atributos importantes, destacados -->
                             <div class="col-md-6">
                                 <ng-container *ngFor="let a of sessao.atributos">
-                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
+                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 3">
                                         <div class="resposta-box">
                                             <div class="inner-resposta-box resposta-item">
                                                 <span class="titulo">{{a.atributo.nome}}<br/></span>
@@ -115,7 +126,7 @@
                                 </ng-container>
                             </div>
                             <!-- Atributos pouco importantes -->
-                            <div class="col-md-6 resposta-min">
+                            <div class="resposta-min col-md-6">
                                 <ng-container *ngFor="let a of sessao.atributos">
                                     <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
                                         <div class="resposta-item">
@@ -129,7 +140,7 @@
                         </div>
                         <div class="resposta-med">
                                 <ng-container *ngFor="let a of sessao.atributos">
-                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 1">
+                                    <ng-container *ngIf="a.atributo.formula && a.visivel && a.atributo.peso == 2">
                                         <div class="row resposta-item">
                                                 <span class="col-md-9 vertical-center"><span class="titulo"></span>{{a.atributo.nome}}</span>
                                             <span class="col-md-3 text-important value">{{respostasDict.get(a.atributo.id)[1] + 0 | 

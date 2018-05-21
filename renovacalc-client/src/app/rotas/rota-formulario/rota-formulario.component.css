@@ -145,6 +145,7 @@
 }
 
 .resposta-med .vertical-center {
+    text-align: right; /* Caso o navegador não suporte flex */
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -168,6 +169,8 @@
 .resposta-min {
     font-size: small;
     text-align: right;
+    padding-right: 0;
+    padding-left: 2px;
 }
 
 .resposta-min .text-dark {
@@ -180,6 +183,10 @@
     color: #4A9AD4;
     font-weight: 700;
     padding-right: 5px;
+}
+
+.resposta-min p {
+    margin-bottom: 0.2rem;
 }
 
 .atributo {
