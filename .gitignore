@@ -1,4 +1,6 @@
 .idea
 .settings
-renovacalc-service/target
-renovacalc-client/dist
+*.war
+anp-renovacalc-service/target
+anp-renovacalc-client/target
+anp-renovacalc-client/dist
