@@ -1,0 +1,30 @@
+<div>
+    <div class="container-fluid text-center padding-v1 b1 bg-image-light">
+        <img src="assets/images/renovacalc-logo1.png" heigth="250" alt="RenovaCalc"/>
+
+        <p class="descricao">
+        Ferramenta de cálculo de emissões de Gases de Efeito Estufa (GEE) de biocombustíveis,
+        de acordo com o referencial metodológico estabelecido pelo programa RenovaBio.
+        </p>
+    </div>
+
+    <div class="container-fluid text-center padding-v2 b2">
+        <div class="d-inline-block">
+            <div ngbDropdown class="btn-group-vertical">
+                <button class="btn btn-outline-primary text-left selectBox b1" id="dropDownRotas" ngbDropdownToggle>
+                    <strong>{{ selecionada.nome }}</strong>
+                </button>
+                <div class="dropdown-item-group" ngbDropdownMenu aria-labelledby="dropDownRotas">
+                    <button class="dropdown-item" (click)="this.selecionada = item" *ngFor="let item of rotas"> {{ item.nome }}</button>
+                </div>
+            </div>
+
+            <!-- Só mostrar o botão de simular caso a rota não seja o placeholder -->
+            <a [routerLink]="['/rotas', selecionada.id]" *ngIf="selecionada.id != 0" class="btn btn-primary">SIMULAR</a>
+            <button *ngIf="selecionada.id == 0" [disabled]="selecionada.id == 0" class="btn btn-primary">SIMULAR</button>
+        </div>
+    </div>
+
+    <div class="bg-image-dark">
+    </div>
+</div>

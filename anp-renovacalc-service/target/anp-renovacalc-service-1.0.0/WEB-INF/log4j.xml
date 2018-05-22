@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="Appender1" class="org.apache.log4j.FileAppender">
+        <param name="File" value="${jboss.server.log.dir}/renovaCalc.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{dd/MM/yyyy HH:mm:ss}] %5p (%F:%L) - %m%n"/>
+
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="ALL"/>
+        <appender-ref ref="Appender1"/>
+    </root>
+
+    <category name="org.hibernate.type">
+        <priority value="TRACE"/>
+    </category>
+
+</log4j:configuration>
